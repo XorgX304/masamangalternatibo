@@ -48,6 +48,7 @@
             this.chkVictExec = new System.Windows.Forms.CheckBox();
             this.imgFileIcon = new System.Windows.Forms.PictureBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.btn3rdParty = new System.Windows.Forms.Label();
             this.imgCharacter = new System.Windows.Forms.PictureBox();
             this.btnSelf = new System.Windows.Forms.Label();
             this.btnGitSauce = new System.Windows.Forms.Label();
@@ -79,7 +80,6 @@
             this.label1 = new System.Windows.Forms.Label();
             this.ofdPayload = new System.Windows.Forms.OpenFileDialog();
             this.ofdSpoof = new System.Windows.Forms.OpenFileDialog();
-            this.btn3rdParty = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox6.SuspendLayout();
@@ -314,6 +314,16 @@
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "About";
             // 
+            // btn3rdParty
+            // 
+            this.btn3rdParty.AutoSize = true;
+            this.btn3rdParty.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btn3rdParty.Location = new System.Drawing.Point(118, 169);
+            this.btn3rdParty.Name = "btn3rdParty";
+            this.btn3rdParty.Size = new System.Drawing.Size(94, 13);
+            this.btn3rdParty.TabIndex = 21;
+            this.btn3rdParty.Text = "[3rd Party Notice]";
+            // 
             // imgCharacter
             // 
             this.imgCharacter.Image = ((System.Drawing.Image)(resources.GetObject("imgCharacter.Image")));
@@ -371,7 +381,7 @@
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(188, 39);
             this.label6.TabIndex = 8;
-            this.label6.Text = "An alternative to the principles of a\r\nBad USB.\r\nPowered by Social Engineering";
+            this.label6.Text = "An alternative to the principles of a\r\nBad USB.\r\nPowered by Social Engineering\r\n";
             // 
             // label7
             // 
@@ -635,16 +645,6 @@
             // 
             this.ofdSpoof.Title = "Spoofed File";
             this.ofdSpoof.FileOk += new System.ComponentModel.CancelEventHandler(this.ofdSpoof_FileOk);
-            // 
-            // btn3rdParty
-            // 
-            this.btn3rdParty.AutoSize = true;
-            this.btn3rdParty.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btn3rdParty.Location = new System.Drawing.Point(118, 169);
-            this.btn3rdParty.Name = "btn3rdParty";
-            this.btn3rdParty.Size = new System.Drawing.Size(94, 13);
-            this.btn3rdParty.TabIndex = 21;
-            this.btn3rdParty.Text = "[3rd Party Notice]";
             // 
             // Form1
             // 
