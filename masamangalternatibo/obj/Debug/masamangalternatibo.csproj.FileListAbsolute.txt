@@ -1,0 +1,9 @@
+C:\Users\TRAGENALPHA\Desktop\Projects\masamangalternatibo\masamangalternatibo\bin\Debug\masamangalternatibo.exe.config
+C:\Users\TRAGENALPHA\Desktop\Projects\masamangalternatibo\masamangalternatibo\bin\Debug\masamangalternatibo.exe
+C:\Users\TRAGENALPHA\Desktop\Projects\masamangalternatibo\masamangalternatibo\bin\Debug\masamangalternatibo.pdb
+C:\Users\TRAGENALPHA\Desktop\Projects\masamangalternatibo\masamangalternatibo\obj\Debug\masamangalternatibo.csprojResolveAssemblyReference.cache
+C:\Users\TRAGENALPHA\Desktop\Projects\masamangalternatibo\masamangalternatibo\obj\Debug\masamangalternatibo.Form1.resources
+C:\Users\TRAGENALPHA\Desktop\Projects\masamangalternatibo\masamangalternatibo\obj\Debug\masamangalternatibo.Properties.Resources.resources
+C:\Users\TRAGENALPHA\Desktop\Projects\masamangalternatibo\masamangalternatibo\obj\Debug\masamangalternatibo.csproj.GenerateResource.Cache
+C:\Users\TRAGENALPHA\Desktop\Projects\masamangalternatibo\masamangalternatibo\obj\Debug\masamangalternatibo.exe
+C:\Users\TRAGENALPHA\Desktop\Projects\masamangalternatibo\masamangalternatibo\obj\Debug\masamangalternatibo.pdb
