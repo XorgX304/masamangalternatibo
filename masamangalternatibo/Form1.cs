@@ -10,8 +10,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 using System.Diagnostics;
+using System.Net;
 
-//System.Drawing.Icon.ExtractAssociatedIcon("");
 namespace masamangalternatibo {
 
     public partial class Form1 : Form {
@@ -19,38 +19,17 @@ namespace masamangalternatibo {
 
         string version = "1.0";
         bool payloadMode = true; // true = File payload // false = Shell Code payload
+        bool componentImageMagick = false;
         string lastPayloadContainer;
 
         private void Form1_Load(object sender, EventArgs e) {
             lblVersion.Text = "v" + version;
             loadDrives();
-            checkConverter();
+            checkComponents();
             dbgmsg("mA Ready! // Hover an item for more information!");
         }
 
-        #region "non main program feature functions"
-            #region "Generate Debug message"
-        private void dbgmsg(string a) {
-            lblDbg.Text = a;
-            dbgRtb.Text = a + "\n" + dbgRtb.Text;
-        }
-        #endregion
-
-            #region "Title Bar management"
-        //ghetto title bar management
-        private void titlebar_MouseMove(object sender, MouseEventArgs e) {
-          if (e.Button == MouseButtons.Left) {
-                this.Location = new Point((MousePosition.X - (titlebar.Size.Width / 2)), (MousePosition.Y - (titlebar.Size.Height / 2)));
-            }
-        }
-        private void label4_MouseMove(object sender, MouseEventArgs e) { titlebar_MouseMove(null, e); } private void label1_MouseMove(object sender, MouseEventArgs e) { titlebar_MouseMove(null, e); }
-
-        private void btnClose_Click(object sender, EventArgs e) {
-            this.Close();
-        }
-        #endregion
-
-        #endregion
+        
 
         private string trimext(string flname) {
             string[] aa = flname.Split('.');
@@ -61,11 +40,49 @@ namespace masamangalternatibo {
             return tmp;
         }
 
-        private void checkConverter() {
+        private void checkComponents() {
+            #region [Component: Image Magick]
             dbgmsg("Checking for Image Magick...");
             if (!(File.Exists("convert.exe"))) {
-                
+                if (MessageBox.Show("This component allows a feature that automatically extracts icons to bitmap then converts it to an acceptable quality icon. This is due to GDI+ unable to directly save an extracted icon with atleast redeeming quality.\n\nPressing No will make mA use the default executable icon; Alternatively you can add a custom icon.\n\nThis will download the file in the background.\n\nDL From: https://github.com/tragenalpha/masamangalternatibo/raw/master/ImageMagick/convert.exe", "Download component \"ImageMagick\" (13.8mb)", MessageBoxButtons.YesNo) == DialogResult.Yes) {
+                    dbgmsg("Downloading file...");
+                    using (WebClient wc = new WebClient()) {
+                        wc.DownloadFile("https://github.com/tragenalpha/masamangalternatibo/raw/master/ImageMagick/convert.exe", "convert.exe");
+                    }
+                    dbgmsg("Download complete!");
+                    componentImageMagick = true;
+                    MessageBox.Show("Download Complete!", "Download component \"ImageMagick\" (13.8mb)");
+                }
+                else {
+                    componentImageMagick = false;
+                    dbgmsg("No Image magick!");
+                }
             }
+            else {
+                dbgmsg("Image Magick Found!");
+                componentImageMagick = true;
+            }
+            dbgmsg("bool componentImageMagick value=" + componentImageMagick.ToString());
+            dbgmsg("Component check finished!");
+            #endregion
+        }
+
+        private void dbgmsg(string a) {
+            lblDbg.Text = a;
+            dbgRtb.Text = a + "\n" + dbgRtb.Text;
+        }
+
+        //ghetto title bar management
+        private void titlebar_MouseMove(object sender, MouseEventArgs e) {
+            if (e.Button == MouseButtons.Left) {
+                this.Location = new Point((MousePosition.X - (titlebar.Size.Width / 2)), (MousePosition.Y - (titlebar.Size.Height / 2)));
+            }
+        }
+        private void label4_MouseMove(object sender, MouseEventArgs e) { titlebar_MouseMove(null, e); }
+        private void label1_MouseMove(object sender, MouseEventArgs e) { titlebar_MouseMove(null, e); }
+
+        private void btnClose_Click(object sender, EventArgs e) {
+            this.Close();
         }
 
         private void loadDrives() {

