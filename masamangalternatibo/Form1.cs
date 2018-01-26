@@ -27,9 +27,12 @@ namespace masamangalternatibo {
             loadDrives();
             checkComponents();
             dbgmsg("mA Ready! // Hover an item for more information!");
+
+            this.Show();
+            using (about _form = new about()) { _form.ShowDialog(); }
         }
 
-        
+
 
         private string trimext(string flname) {
             string[] aa = flname.Split('.');
@@ -64,6 +67,8 @@ namespace masamangalternatibo {
             }
             dbgmsg("bool componentImageMagick value=" + componentImageMagick.ToString());
             dbgmsg("Component check finished!");
+            #endregion
+            #region [Component: AutoIt Compiler]
             #endregion
         }
 
@@ -128,10 +133,10 @@ namespace masamangalternatibo {
         }
 
         private void imgCharacter_Click(object sender, EventArgs e) {
-            #if isdbg
-                //General Debug section for code testing.
-                dbgmsg("rorf!");
-            #endif
+#if isdbg
+            //General Debug section for code testing.
+            dbgmsg("rorf!");
+#endif
         }
 
         private void btnSelf_Click(object sender, EventArgs e) {
@@ -170,6 +175,12 @@ namespace masamangalternatibo {
             dbgmsg("Saving as $tmp.bmp...");
             extractedicon.Save("$tmp.bmp");
             imgFileIcon.Image = extractedicon;
+        }
+
+        private void btn3rdParty_Click(object sender, EventArgs e) {
+            using (about _form = new about()) {
+                _form.ShowDialog();
+            }
         }
     }
 }

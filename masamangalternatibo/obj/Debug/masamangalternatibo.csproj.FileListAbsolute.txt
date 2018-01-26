@@ -7,3 +7,4 @@ C:\Users\TRAGENALPHA\Desktop\Projects\masamangalternatibo\masamangalternatibo\ob
 C:\Users\TRAGENALPHA\Desktop\Projects\masamangalternatibo\masamangalternatibo\obj\Debug\masamangalternatibo.csproj.GenerateResource.Cache
 C:\Users\TRAGENALPHA\Desktop\Projects\masamangalternatibo\masamangalternatibo\obj\Debug\masamangalternatibo.exe
 C:\Users\TRAGENALPHA\Desktop\Projects\masamangalternatibo\masamangalternatibo\obj\Debug\masamangalternatibo.pdb
+C:\Users\TRAGENALPHA\Desktop\Projects\masamangalternatibo\masamangalternatibo\obj\Debug\masamangalternatibo.about.resources

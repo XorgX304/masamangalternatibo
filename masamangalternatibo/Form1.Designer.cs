@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.panel1 = new System.Windows.Forms.Panel();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
@@ -47,15 +46,7 @@
             this.chkConsole = new System.Windows.Forms.CheckBox();
             this.chkVictimExec = new System.Windows.Forms.CheckBox();
             this.imgFileIcon = new System.Windows.Forms.PictureBox();
-            this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.btn3rdParty = new System.Windows.Forms.Label();
-            this.imgCharacter = new System.Windows.Forms.PictureBox();
-            this.btnSelf = new System.Windows.Forms.Label();
-            this.btnGitSauce = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
-            this.panel3 = new System.Windows.Forms.Panel();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.btnBuild = new System.Windows.Forms.Button();
             this.btn_RefreshDrives = new System.Windows.Forms.Button();
@@ -80,13 +71,12 @@
             this.label1 = new System.Windows.Forms.Label();
             this.ofdPayload = new System.Windows.Forms.OpenFileDialog();
             this.ofdSpoof = new System.Windows.Forms.OpenFileDialog();
+            this.label6 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox6.SuspendLayout();
             this.pnlFileOptGroup.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.imgFileIcon)).BeginInit();
-            this.groupBox4.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.imgCharacter)).BeginInit();
             this.groupBox3.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -100,8 +90,9 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
+            this.panel1.Controls.Add(this.label6);
+            this.panel1.Controls.Add(this.btn3rdParty);
             this.panel1.Controls.Add(this.groupBox2);
-            this.panel1.Controls.Add(this.groupBox4);
             this.panel1.Controls.Add(this.groupBox3);
             this.panel1.Controls.Add(this.groupBox1);
             this.panel1.Controls.Add(this.panel2);
@@ -296,102 +287,16 @@
             this.imgFileIcon.TabIndex = 10;
             this.imgFileIcon.TabStop = false;
             // 
-            // groupBox4
-            // 
-            this.groupBox4.Controls.Add(this.btn3rdParty);
-            this.groupBox4.Controls.Add(this.imgCharacter);
-            this.groupBox4.Controls.Add(this.btnSelf);
-            this.groupBox4.Controls.Add(this.btnGitSauce);
-            this.groupBox4.Controls.Add(this.label8);
-            this.groupBox4.Controls.Add(this.panel3);
-            this.groupBox4.Controls.Add(this.label6);
-            this.groupBox4.Controls.Add(this.label7);
-            this.groupBox4.ForeColor = System.Drawing.Color.White;
-            this.groupBox4.Location = new System.Drawing.Point(327, 6);
-            this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(221, 188);
-            this.groupBox4.TabIndex = 17;
-            this.groupBox4.TabStop = false;
-            this.groupBox4.Text = "About";
-            // 
             // btn3rdParty
             // 
             this.btn3rdParty.AutoSize = true;
             this.btn3rdParty.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btn3rdParty.Location = new System.Drawing.Point(167, 169);
+            this.btn3rdParty.Location = new System.Drawing.Point(507, 12);
             this.btn3rdParty.Name = "btn3rdParty";
             this.btn3rdParty.Size = new System.Drawing.Size(45, 13);
             this.btn3rdParty.TabIndex = 21;
             this.btn3rdParty.Text = "[About]";
-            // 
-            // imgCharacter
-            // 
-            this.imgCharacter.Image = ((System.Drawing.Image)(resources.GetObject("imgCharacter.Image")));
-            this.imgCharacter.Location = new System.Drawing.Point(165, 82);
-            this.imgCharacter.Name = "imgCharacter";
-            this.imgCharacter.Size = new System.Drawing.Size(30, 25);
-            this.imgCharacter.TabIndex = 20;
-            this.imgCharacter.TabStop = false;
-            this.imgCharacter.Click += new System.EventHandler(this.imgCharacter_Click);
-            // 
-            // btnSelf
-            // 
-            this.btnSelf.AutoSize = true;
-            this.btnSelf.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnSelf.Location = new System.Drawing.Point(8, 88);
-            this.btnSelf.Name = "btnSelf";
-            this.btnSelf.Size = new System.Drawing.Size(157, 13);
-            this.btnSelf.TabIndex = 19;
-            this.btnSelf.Text = "Developed by: TRAGENALPHA";
-            this.btnSelf.Click += new System.EventHandler(this.btnSelf_Click);
-            // 
-            // btnGitSauce
-            // 
-            this.btnGitSauce.AutoSize = true;
-            this.btnGitSauce.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnGitSauce.Location = new System.Drawing.Point(78, 169);
-            this.btnGitSauce.Name = "btnGitSauce";
-            this.btnGitSauce.Size = new System.Drawing.Size(83, 13);
-            this.btnGitSauce.TabIndex = 18;
-            this.btnGitSauce.Text = "[GitHub Sauce]";
-            this.btnGitSauce.Click += new System.EventHandler(this.btnGitSauce_Click);
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(7, 88);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(166, 78);
-            this.label8.TabIndex = 10;
-            this.label8.Text = "\r\n//beartrap Softwares\r\n\r\nSoftware is licensed under the\r\ndbad Public License\r\nht" +
-    "tps://www.dbad-license.org/";
-            // 
-            // panel3
-            // 
-            this.panel3.BackColor = System.Drawing.Color.White;
-            this.panel3.Location = new System.Drawing.Point(9, 79);
-            this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(203, 1);
-            this.panel3.TabIndex = 9;
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(22, 34);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(188, 39);
-            this.label6.TabIndex = 8;
-            this.label6.Text = "An alternative to the principles of a\r\nBad USB.\r\nPowered by Social Engineering\r\n";
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(6, 13);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(181, 21);
-            this.label7.TabIndex = 7;
-            this.label7.Text = "masamangAlternatibo";
+            this.btn3rdParty.Click += new System.EventHandler(this.btn3rdParty_Click);
             // 
             // groupBox3
             // 
@@ -574,21 +479,24 @@
             // groupBox5
             // 
             this.groupBox5.Controls.Add(this.dbgRtb);
-            this.groupBox5.Location = new System.Drawing.Point(327, 189);
+            this.groupBox5.Location = new System.Drawing.Point(327, 22);
             this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(221, 87);
+            this.groupBox5.Size = new System.Drawing.Size(221, 254);
             this.groupBox5.TabIndex = 20;
             this.groupBox5.TabStop = false;
             // 
             // dbgRtb
             // 
+            this.dbgRtb.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.dbgRtb.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
             this.dbgRtb.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dbgRtb.ForeColor = System.Drawing.Color.White;
-            this.dbgRtb.Location = new System.Drawing.Point(1, 8);
+            this.dbgRtb.Location = new System.Drawing.Point(1, 15);
             this.dbgRtb.Name = "dbgRtb";
             this.dbgRtb.ReadOnly = true;
-            this.dbgRtb.Size = new System.Drawing.Size(219, 75);
+            this.dbgRtb.Size = new System.Drawing.Size(219, 236);
             this.dbgRtb.TabIndex = 18;
             this.dbgRtb.Text = "";
             // 
@@ -646,6 +554,15 @@
             this.ofdSpoof.Title = "Spoofed File";
             this.ofdSpoof.FileOk += new System.ComponentModel.CancelEventHandler(this.ofdSpoof_FileOk);
             // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(330, 22);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(87, 13);
+            this.label6.TabIndex = 22;
+            this.label6.Text = "Debug Console";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -658,10 +575,12 @@
             this.ForeColor = System.Drawing.Color.White;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "Form1";
+            this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "masamangAlternatibo";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.groupBox6.ResumeLayout(false);
@@ -669,9 +588,6 @@
             this.pnlFileOptGroup.ResumeLayout(false);
             this.pnlFileOptGroup.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.imgFileIcon)).EndInit();
-            this.groupBox4.ResumeLayout(false);
-            this.groupBox4.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.imgCharacter)).EndInit();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
             this.groupBox1.ResumeLayout(false);
@@ -711,14 +627,6 @@
         private System.Windows.Forms.Label lblDbg;
         private System.Windows.Forms.CheckBox chkAdminFlag;
         private System.Windows.Forms.Button btnBuild;
-        private System.Windows.Forms.GroupBox groupBox4;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Panel panel3;
-        private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.Label btnSelf;
-        private System.Windows.Forms.Label btnGitSauce;
-        private System.Windows.Forms.PictureBox imgCharacter;
         private System.Windows.Forms.CheckBox chkWaitPayloadFinish;
         private System.Windows.Forms.RichTextBox dbgRtb;
         private System.Windows.Forms.OpenFileDialog ofdPayload;
@@ -738,6 +646,7 @@
         private System.Windows.Forms.RadioButton radNone;
         private System.Windows.Forms.OpenFileDialog ofdSpoof;
         private System.Windows.Forms.Label btn3rdParty;
+        private System.Windows.Forms.Label label6;
     }
 }
 
