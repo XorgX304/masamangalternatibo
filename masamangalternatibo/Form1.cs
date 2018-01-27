@@ -11,6 +11,7 @@ using System.Windows.Forms;
 using System.IO;
 using System.Diagnostics;
 using System.Net;
+//using System.Runtime.InteropServices;
 
 namespace masamangalternatibo {
 
@@ -20,19 +21,27 @@ namespace masamangalternatibo {
         string version = "1.0";
         bool payloadMode = true; // true = File payload // false = Shell Code payload
         bool componentImageMagick = false;
+        bool customicon = false;
         string lastPayloadContainer;
 
         private void Form1_Load(object sender, EventArgs e) {
             lblVersion.Text = "v" + version;
             loadDrives();
             checkComponents();
+            #if !(isdbg)
+            dbgmsg("Console input disabled!");
+            btnConsole.Hide();
+            tbConsole.Hide();
+             using (about _form = new about()) {
+                dbgmsg("Showing about form...");
+                _form.ShowDialog();
+            }
+            #endif
             dbgmsg("mA Ready! // Hover an item for more information!");
-
-            this.Show();
-            using (about _form = new about()) { _form.ShowDialog(); }
+            #if isdbg
+            dbgmsg("mA is running in debugging mode!");
+            #endif
         }
-
-
 
         private string trimext(string flname) {
             string[] aa = flname.Split('.');
@@ -44,6 +53,25 @@ namespace masamangalternatibo {
         }
 
         private void checkComponents() {
+            #region [Component: Compiler]
+            dbgmsg("Checking for compiler...");
+            if (!(File.Exists("compiler.exe"))) {
+                if (MessageBox.Show("An important component of mA is missing!\n\nThe AutoIt compiler (compiler.exe) was not found, you cannot use mA with out the compiler as it needs to compile scripts to standalone executables.\n\nPressing Yes will download the compiler from this link\nhttps://github.com/tragenalpha/masamangalternatibo/raw/master/Aut2Exe/compiler.exe\n\nThis will be downloaded in the background.", "Script compiler missing! // Download component \"compiler.exe\" (1.32mb)", MessageBoxButtons.YesNo) == DialogResult.Yes) {
+                    dbgmsg("Downloading file...");
+                    using (WebClient _wc = new WebClient()) {
+                        _wc.DownloadFile("https://github.com/tragenalpha/masamangalternatibo/raw/master/Aut2Exe/compiler.exe", "compiler.exe");
+                    }
+                    dbgmsg("Download complete!");
+                    MessageBox.Show("Download complete!", "Download component \"compiler.exe\" (1.32mb)");
+                }
+                else {
+                    dbgmsg("Application cannot function without compiler... Exiting!");
+                    using (about _form = new about()) { _form.Close(); }
+                    this.Close();
+                    return;
+                }
+            }
+            #endregion
             #region [Component: Image Magick]
             dbgmsg("Checking for Image Magick...");
             if (!(File.Exists("convert.exe"))) {
@@ -67,11 +95,9 @@ namespace masamangalternatibo {
             }
             dbgmsg("bool componentImageMagick value=" + componentImageMagick.ToString());
             dbgmsg("Component check finished!");
-            #endregion
-            #region [Component: AutoIt Compiler]
-            #endregion
         }
-
+            #endregion
+            
         private void dbgmsg(string a) {
             lblDbg.Text = a;
             dbgRtb.Text = a + "\n" + dbgRtb.Text;
@@ -132,13 +158,6 @@ namespace masamangalternatibo {
             loadDrives();
         }
 
-        private void imgCharacter_Click(object sender, EventArgs e) {
-#if isdbg
-            //General Debug section for code testing.
-            dbgmsg("rorf!");
-#endif
-        }
-
         private void btnSelf_Click(object sender, EventArgs e) {
             Process.Start("https://tragenalpha.github.io");
         }
@@ -170,17 +189,47 @@ namespace masamangalternatibo {
 
         private void ofdSpoof_FileOk(object sender, CancelEventArgs e) {
             tbSpoof.Text = ofdSpoof.SafeFileName;
-            dbgmsg("Extracting associated icon to bitmap...");
-            Image extractedicon = Icon.ExtractAssociatedIcon(ofdSpoof.FileName).ToBitmap();
-            dbgmsg("Saving as $tmp.bmp...");
-            extractedicon.Save("$tmp.bmp");
-            imgFileIcon.Image = extractedicon;
+            if (componentImageMagick) {
+                dbgmsg("Extracting associated icon to bitmap...");
+                Image extractedicon = Icon.ExtractAssociatedIcon(ofdSpoof.FileName).ToBitmap();
+                dbgmsg("Saving as $tmp.bmp...");
+                extractedicon.Save("$tmp.bmp");
+                imgFileIcon.Image = extractedicon;
+            }
         }
 
         private void btn3rdParty_Click(object sender, EventArgs e) {
             using (about _form = new about()) {
                 _form.ShowDialog();
             }
+        }
+
+        private void chkArguments_CheckedChanged(object sender, EventArgs e) {
+            if (chkArguments.Checked) {
+                tbArguments.Enabled = true;
+            }
+            else {
+                tbArguments.Enabled = false;
+            }
+        }
+
+        private void chkConsole_CheckedChanged(object sender, EventArgs e) {
+            if (chkConsole.Checked) {
+                chkStreamConsole.Enabled = true;
+                btnCommand.Enabled = true;
+            }
+            else {
+                chkStreamConsole.Enabled = false;
+                btnCommand.Enabled = false;
+            }
+        }
+
+        private void btnClearImage_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e) {
+            imgFileIcon.Image = null;
+        }
+
+        private void btnBrowseImage_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e) {
+            ofdIcon.ShowDialog();
         }
     }
 }

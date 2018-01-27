@@ -1,13 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Net;
 using System.Diagnostics;
 
 namespace masamangalternatibo {
@@ -46,6 +38,10 @@ namespace masamangalternatibo {
 
         private void linkLabel7_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e) {
             Process.Start("https://www.autoitscript.com/autoit3/docs/license.htm");
+        }
+
+        private void about_Load(object sender, EventArgs e) {
+
         }
     }
 }
