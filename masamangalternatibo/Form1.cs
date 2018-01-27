@@ -225,11 +225,19 @@ namespace masamangalternatibo {
         }
 
         private void btnClearImage_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e) {
+            dbgmsg("Clearing image box...");
             imgFileIcon.Image = null;
         }
 
         private void btnBrowseImage_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e) {
             ofdIcon.ShowDialog();
+        }
+
+        private void ofdIcon_FileOk(object sender, CancelEventArgs e) {
+            dbgmsg("Copying as temporary file...");
+            File.Copy(ofdIcon.FileName, "$tmp.ico");
+            dbgmsg("Loading image...");
+            imgFileIcon.ImageLocation = "$tmp.ico";
         }
     }
 }

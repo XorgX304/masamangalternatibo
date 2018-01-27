@@ -620,6 +620,7 @@
             // ofdIcon
             // 
             this.ofdIcon.Filter = "Icon Files (*.ico)|*.ico";
+            this.ofdIcon.FileOk += new System.ComponentModel.CancelEventHandler(this.ofdIcon_FileOk);
             // 
             // panel3
             // 
