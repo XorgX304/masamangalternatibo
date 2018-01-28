@@ -683,6 +683,7 @@
             this.btnExtract.Text = "[>]";
             this.tooltip.SetToolTip(this.btnExtract, "Extract the icon of the current spoofed file");
             this.btnExtract.VisitedLinkColor = System.Drawing.Color.White;
+            this.btnExtract.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.btnExtract_LinkClicked);
             // 
             // Form1
             // 

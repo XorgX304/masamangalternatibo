@@ -21,7 +21,6 @@ namespace masamangalternatibo {
         string version = "1.0";
         bool payloadMode = true; // true = File payload // false = Shell Code payload
         bool componentImageMagick = false;
-        bool customicon = false;
         string lastPayloadContainer;
 
         private void Form1_Load(object sender, EventArgs e) {
@@ -41,6 +40,22 @@ namespace masamangalternatibo {
             #if isdbg
             dbgmsg("mA is running in debugging mode!");
             #endif
+        }
+
+        private void extractSpoof(bool fromButton = false) {
+            //fromButton supresses error if it wasn't the users' intention to extract an icon
+            if (componentImageMagick && ofdSpoof.FileName != "") {
+                dbgmsg("Extracting associated icon to bitmap...");
+                Image extractedicon = Icon.ExtractAssociatedIcon(ofdSpoof.FileName).ToBitmap();
+                dbgmsg("Saving as $tmp.bmp...");
+                extractedicon.Save("$tmp.bmp");
+                imgFileIcon.Image = extractedicon;
+            }
+            else {
+                if (fromButton) {
+                    MessageBox.Show("ImageMagick component does not exist or no spoof file imported", "Error");
+                }
+            }
         }
 
         private string trimext(string flname) {
@@ -189,13 +204,7 @@ namespace masamangalternatibo {
 
         private void ofdSpoof_FileOk(object sender, CancelEventArgs e) {
             tbSpoof.Text = ofdSpoof.SafeFileName;
-            if (componentImageMagick) {
-                dbgmsg("Extracting associated icon to bitmap...");
-                Image extractedicon = Icon.ExtractAssociatedIcon(ofdSpoof.FileName).ToBitmap();
-                dbgmsg("Saving as $tmp.bmp...");
-                extractedicon.Save("$tmp.bmp");
-                imgFileIcon.Image = extractedicon;
-            }
+            extractSpoof(false);
         }
 
         private void btn3rdParty_Click(object sender, EventArgs e) {
@@ -238,6 +247,10 @@ namespace masamangalternatibo {
             File.Copy(ofdIcon.FileName, "$tmp.ico");
             dbgmsg("Loading image...");
             imgFileIcon.ImageLocation = "$tmp.ico";
+        }
+
+        private void btnExtract_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e) {
+            extractSpoof(true);
         }
     }
 }
