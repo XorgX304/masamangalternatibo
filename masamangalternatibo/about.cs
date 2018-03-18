@@ -12,12 +12,12 @@ namespace masamangalternatibo {
 
         private void linkLabel4_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e) {
             if (MessageBox.Show("Open link: https://www.imagemagick.org/script/license.php", "Open link?", MessageBoxButtons.YesNo) == DialogResult.Yes) {
-                Process.Start("https://www.imagemagick.org/script/license.php");
+                Process.Start("https://creativecommons.org/licenses/by-sa/3.0/");
             }
         }
 
         private void linkLabel5_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e) {
-            Process.Start("https://www.imagemagick.org/");
+            Process.Start("https://www.codeproject.com/Articles/16178/IconLib-Icons-Unfolded-MultiIcon-and-Windows-Vista");
         }
 
         private void linkLabel3_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e) {
