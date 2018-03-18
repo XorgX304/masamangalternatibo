@@ -41,12 +41,12 @@ namespace masamangalternatibo {
             #endif
         }
 
-        private void extractSpoof(bool fromButton = false) {
+        private void extractIcon(bool fromButton = false, string iconfile = "") {
             //fromButton supresses error if it wasn't the users' intention to extract an icon
-            if (ofdSpoof.FileName != "") {
+            if (iconfile != "") {
                 dbgmsg("Extracting associated icon to bitmap...");
                 MultiIcon conico = new MultiIcon();
-                conico.Add("iconinstance").CreateFrom(Icon.ExtractAssociatedIcon(ofdSpoof.FileName).ToBitmap(), IconOutputFormat.WinXP);
+                conico.Add("iconinstance").CreateFrom(Icon.ExtractAssociatedIcon(iconfile).ToBitmap(), IconOutputFormat.WinXP);
                 conico.SelectedIndex = 0;
                 conico.Save(Application.StartupPath + "\\$temp.ico", MultiIconFormat.ICO);
                 imgFileIcon.ImageLocation = "$tmp.ico";
@@ -227,7 +227,7 @@ namespace masamangalternatibo {
 
         private void ofdSpoof_FileOk(object sender, CancelEventArgs e) {
             tbSpoof.Text = ofdSpoof.SafeFileName;
-            extractSpoof(false);
+            extractIcon(false, ofdSpoof.SafeFileName);
         }
 
         private void btn3rdParty_Click(object sender, EventArgs e) {
@@ -273,7 +273,7 @@ namespace masamangalternatibo {
         }
 
         private void btnExtract_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e) {
-            extractSpoof(true);
+            extractIcon(true, ofdSpoof.FileName);
         }
     }
 }
