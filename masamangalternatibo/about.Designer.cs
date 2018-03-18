@@ -254,8 +254,8 @@
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(380, 120);
             this.label3.TabIndex = 23;
-            this.label3.Text = "Developed by: TRAGENALPHA\r\n//beartrap Softwares\r\n\r\nThis software is licensed unde" +
-    "r the dbad Public License\r\n\r\nGithub Sauce: ";
+            this.label3.Text = "Developed by: TRAGENALPHA\r\n//beartrap Softwares//tragenalpha@protonmail.com\r\n\r\nTh" +
+    "is software is licensed under the dbad Public License\r\n\r\nGithub Sauce: ";
             // 
             // label6
             // 
