@@ -22,15 +22,13 @@ namespace masamangalternatibo {
         bool payloadMode = true; // true = File payload // false = Shell Code payload
         bool componentImageMagick = false;
         string lastPayloadContainer;
+        int overflowCount = 20;
 
         private void Form1_Load(object sender, EventArgs e) {
             lblVersion.Text = "v" + version;
             loadDrives();
             checkComponents();
             #if !(isdbg)
-            dbgmsg("Console input disabled!");
-            btnConsole.Hide();
-            tbConsole.Hide();
              using (about _form = new about()) {
                 dbgmsg("Showing about form...");
                 _form.ShowDialog();
@@ -55,6 +53,9 @@ namespace masamangalternatibo {
                 if (fromButton) {
                     MessageBox.Show("ImageMagick component does not exist or no spoof file imported", "Error");
                 }
+                else {
+                    dbgmsg("Error from un-intended extraction suppressed!");
+                }
             }
         }
 
@@ -66,6 +67,46 @@ namespace masamangalternatibo {
             }
             return tmp;
         }
+
+        #region [Console Commands]
+        private void btnConsole_Click(object sender, EventArgs e) {
+            string[] con = tbConsole.Text.Split(' ');
+            switch ((con[0]).ToLower()) {
+                case "owo":
+                    dbgmsg("OwO ~ what's this?");
+                    break;
+
+                case "setdrive":
+                    drpDrives.Items.Add(con[1]);
+                    drpDrives.SelectedIndex = drpDrives.Items.Count - 1;
+                    dbgmsg("Override command -- Drive selection set and added -- " + con[1]);
+                    break;
+
+                case "exit":
+                    Application.Exit();
+                    break;
+
+                case "setoverflowcount":
+                    overflowCount = Convert.ToInt32(con[1]);
+                    dbgmsg("Overflow loop count changed to " + con[1]);
+                    break;
+
+                case "setimagelocation":
+                    imgFileIcon.ImageLocation = con[1];
+                    dbgmsg("Image location set : " + con[1]);
+                    break;
+
+                case "cls":
+                    dbgRtb.Text = "";
+                    break;
+
+                default:
+                    dbgmsg("Bad command! Available commands:\nsetdrive [driveletter]\nsetoverflowcount [integer]\nsetimagelocation [filepath]\ncls\nexit\n");
+                    break;
+            }
+            tbConsole.Text = "";
+        }
+        #endregion
 
         private void checkComponents() {
             #region [Component: Compiler]
@@ -83,6 +124,7 @@ namespace masamangalternatibo {
                     dbgmsg("Application cannot function without compiler... Exiting!");
                     using (about _form = new about()) { _form.Close(); }
                     Application.Exit();
+                    return;
                 }
             }
             #endregion
@@ -127,7 +169,6 @@ namespace masamangalternatibo {
         private void label1_MouseMove(object sender, MouseEventArgs e) { titlebar_MouseMove(null, e); }
 
         private void btnClose_Click(object sender, EventArgs e) {
-            dbgmsg("Exiting application with return code 0w0");
             Application.Exit();
         }
 
