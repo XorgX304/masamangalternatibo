@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.formpanel = new System.Windows.Forms.Panel();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.btnExtract = new System.Windows.Forms.LinkLabel();
@@ -459,27 +460,26 @@
             this.btnSwitchMode.Name = "btnSwitchMode";
             this.btnSwitchMode.Size = new System.Drawing.Size(25, 22);
             this.btnSwitchMode.TabIndex = 14;
-            this.btnSwitchMode.Text = "P";
-            this.tooltip.SetToolTip(this.btnSwitchMode, "Change the payload mode.\r\n\r\n[P] - Payload mode -- Use an executable as a payload." +
-        "\r\n[S] - Shell code payload -- Run a shell command as a payload.");
+            this.btnSwitchMode.Text = "F";
+            this.tooltip.SetToolTip(this.btnSwitchMode, resources.GetString("btnSwitchMode.ToolTip"));
             this.btnSwitchMode.UseVisualStyleBackColor = false;
             this.btnSwitchMode.Click += new System.EventHandler(this.btnSwitchMode_Click);
             // 
             // lblPayload
             // 
+            this.lblPayload.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblPayload.AutoSize = true;
             this.lblPayload.Location = new System.Drawing.Point(6, 18);
             this.lblPayload.Name = "lblPayload";
             this.lblPayload.Size = new System.Drawing.Size(71, 13);
             this.lblPayload.TabIndex = 0;
             this.lblPayload.Text = "Payload File:";
-            this.lblPayload.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            this.lblPayload.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // tbPayload
             // 
             this.tbPayload.Location = new System.Drawing.Point(82, 15);
             this.tbPayload.Name = "tbPayload";
-            this.tbPayload.ReadOnly = true;
             this.tbPayload.Size = new System.Drawing.Size(155, 22);
             this.tbPayload.TabIndex = 1;
             this.tooltip.SetToolTip(this.tbPayload, "Payload input.\r\nNote: Payloads are always executed with a hidden flag");
@@ -497,7 +497,6 @@
             // 
             this.tbSpoof.Location = new System.Drawing.Point(82, 43);
             this.tbSpoof.Name = "tbSpoof";
-            this.tbSpoof.ReadOnly = true;
             this.tbSpoof.Size = new System.Drawing.Size(186, 22);
             this.tbSpoof.TabIndex = 3;
             // 

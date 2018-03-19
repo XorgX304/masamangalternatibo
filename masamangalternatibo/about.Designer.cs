@@ -261,17 +261,17 @@
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(127, 52);
+            this.label6.Location = new System.Drawing.Point(149, 65);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(333, 42);
+            this.label6.Size = new System.Drawing.Size(325, 21);
             this.label6.TabIndex = 10;
-            this.label6.Text = "An alternative to the principles of a Bad USB.\r\nPowered by Social Engineering.";
+            this.label6.Text = "Flash Drive payload delivery generator tool.";
             // 
             // label7
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Segoe UI", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(102, 12);
+            this.label7.Location = new System.Drawing.Point(124, 25);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(324, 40);
             this.label7.TabIndex = 9;

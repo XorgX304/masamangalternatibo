@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("masamangalternatibo")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("masamangAlternatibo")]
+[assembly: AssemblyDescription("Flash Drive payload generation tool")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("beartrap")]
-[assembly: AssemblyProduct("masamangalternatibo")]
-[assembly: AssemblyCopyright("beartrap ©  2018")]
+[assembly: AssemblyProduct("masamangAlternatibo")]
+[assembly: AssemblyCopyright("© beartrap")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
