@@ -184,7 +184,7 @@ namespace masamangalternatibo {
         //Debug Message Function - Function to be utilized to output messages in the debug console
         private void dbgmsg(string a) {
             lblDbg.Text = a;
-            dbgRtb.Text = a + "\n" + dbgRtb.Text;
+            dbgRtb.AppendText("\n" + dbgRtb.Text);
         }
 
         //ghetto title bar management
