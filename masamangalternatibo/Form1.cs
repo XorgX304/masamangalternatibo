@@ -12,7 +12,6 @@ using System.Diagnostics;
 using System.Net;
 using System.Drawing.IconLib;
 using System.Threading;
-
 //using System.Runtime.InteropServices;
 
 namespace masamangalternatibo {
@@ -134,9 +133,9 @@ namespace masamangalternatibo {
 
         //Check Component Function - Checks the required external components of mA
         private void checkComponents() {
-            //Temporary download links // TODO: Get proper host
-            string dl1 = "http://s000.tinyupload.com/download.php?file_id=00939372756596617781&t=0093937275659661778155214"; //DL Link for the Compiler
-            string dl2 = "http://s000.tinyupload.com/download.php?file_id=55274642882580256800&t=5527464288258025680042888"; //DL Link for the Library
+            // TODO: Get proper host
+            string dl1 = ""; //DL Link for the Compiler
+            string dl2 = ""; //DL Link for the Library
             dbgmsg("Checking for compiler...");
             if (!(File.Exists("compiler.exe"))) {
                 if (MessageBox.Show("An important component of mA is missing!\n\nThe AutoIt compiler (compiler.exe) was not found, you cannot use mA with out the compiler as it needs to compile scripts to standalone executables.\n\nPressing Yes will download the compiler from this link\n" + dl1 + "\n\nThis will be downloaded in the background.", "Script compiler missing! // Download component \"compiler.exe\" (1.32mb)", MessageBoxButtons.YesNo) == DialogResult.Yes) {
@@ -181,10 +180,11 @@ namespace masamangalternatibo {
             }
         }
         
-        //Debug Message Function - Function to be utilized to output messages in the debug console
+        //Debug Message Function - Function to be utilized to output messages in the debug console prepend form
         private void dbgmsg(string a) {
             lblDbg.Text = a;
-            dbgRtb.AppendText("\n" + dbgRtb.Text);
+            //dbgRtb.AppendText(a + "\n");
+            dbgRtb.Text = a + "\n" + dbgRtb.Text;
         }
 
         //ghetto title bar management
