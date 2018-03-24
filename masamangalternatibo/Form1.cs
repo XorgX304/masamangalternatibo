@@ -1,4 +1,4 @@
-﻿//#define isdbg //NOTE: DO NOT FORGET TO UNDEFINE (comment out) THIS ON RELEASE.
+﻿#define isdbg //NOTE: DO NOT FORGET TO UNDEFINE (comment out) THIS ON RELEASE.
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -85,12 +85,12 @@ namespace masamangalternatibo {
                     dbgRtb.Text = "";
                     break;
 
-                case "dbgcd":
-
+                case "overflowdebugmsg":
+                    dbgmsg("The quick brown fox jumps over the lazy dog The quick brown fox jumps over the lazy dog The quick brown fox jumps over the lazy dog The quick brown fox jumps over the lazy dog");
                     break;
 
                 default:
-                    dbgmsg("Bad command! Available commands:\nsetdrive [driveletter]\nsetoverflowcount [integer]\nsetimagelocation [filepath]\nshowpayloadfile\ncls\nexit\n");
+                    dbgmsg("Bad command! Available commands:\nsetdrive [driveletter]\nsetoverflowcount [integer]\nsetimagelocation [filepath]\nshowpayloadfile\noverflowdebugmsg\ncls\nexit\n");
                     break;
             }
             tbConsole.Text = "";
@@ -228,10 +228,14 @@ namespace masamangalternatibo {
 
         //Debug Message Function - Function to be utilized to output messages in the debug console prepend form
         private void dbgmsg(string a) {
-            lblDbg.Text = a;
-            //dbgRtb.AppendText(a + "\n");
             dbgRtb.Text = a + "\n" + dbgRtb.Text;
-            if (a.Length >= 48) { dbgmsg(""); } //To prevent the debug label on overflowing beyond the tool strip container
+
+            if (a.Length >= 70) { //To prevent the debug label on overflowing beyond the tool strip container
+                lblDbg.Text = a.Remove(70, a.Length - 70) + "...";
+            }
+            else {
+                lblDbg.Text = a;
+            }
         }
 
         private void loadDrives() {
