@@ -26,6 +26,22 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(about));
             this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.linkLabel10 = new System.Windows.Forms.LinkLabel();
+            this.linkLabel11 = new System.Windows.Forms.LinkLabel();
+            this.label10 = new System.Windows.Forms.Label();
+            this.linkLabel8 = new System.Windows.Forms.LinkLabel();
+            this.linkLabel9 = new System.Windows.Forms.LinkLabel();
+            this.label9 = new System.Windows.Forms.Label();
+            this.linkLabel7 = new System.Windows.Forms.LinkLabel();
+            this.linkLabel6 = new System.Windows.Forms.LinkLabel();
+            this.label4 = new System.Windows.Forms.Label();
+            this.linkLabel5 = new System.Windows.Forms.LinkLabel();
+            this.linkLabel4 = new System.Windows.Forms.LinkLabel();
+            this.label2 = new System.Windows.Forms.Label();
+            this.panel4 = new System.Windows.Forms.Panel();
             this.linkLabel3 = new System.Windows.Forms.LinkLabel();
             this.linkLabel2 = new System.Windows.Forms.LinkLabel();
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
@@ -35,23 +51,10 @@
             this.label7 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.btnClose = new System.Windows.Forms.Label();
-            this.panel4 = new System.Windows.Forms.Panel();
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.linkLabel7 = new System.Windows.Forms.LinkLabel();
-            this.linkLabel6 = new System.Windows.Forms.LinkLabel();
-            this.label4 = new System.Windows.Forms.Label();
-            this.linkLabel5 = new System.Windows.Forms.LinkLabel();
-            this.linkLabel4 = new System.Windows.Forms.LinkLabel();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
-            this.linkLabel8 = new System.Windows.Forms.LinkLabel();
-            this.linkLabel9 = new System.Windows.Forms.LinkLabel();
-            this.label9 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
+            this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.imgCharacter)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
@@ -86,6 +89,219 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(764, 308);
             this.panel1.TabIndex = 3;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.Location = new System.Drawing.Point(281, 148);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(110, 13);
+            this.label8.TabIndex = 42;
+            this.label8.Text = "//[beartrap] Softwares";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Location = new System.Drawing.Point(461, 10);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(292, 30);
+            this.label5.TabIndex = 41;
+            this.label5.Text = "Licenses/Copyrights/Credits:";
+            // 
+            // panel2
+            // 
+            this.panel2.AutoScroll = true;
+            this.panel2.Controls.Add(this.linkLabel10);
+            this.panel2.Controls.Add(this.linkLabel11);
+            this.panel2.Controls.Add(this.label10);
+            this.panel2.Controls.Add(this.linkLabel8);
+            this.panel2.Controls.Add(this.linkLabel9);
+            this.panel2.Controls.Add(this.label9);
+            this.panel2.Controls.Add(this.linkLabel7);
+            this.panel2.Controls.Add(this.linkLabel6);
+            this.panel2.Controls.Add(this.label4);
+            this.panel2.Controls.Add(this.linkLabel5);
+            this.panel2.Controls.Add(this.linkLabel4);
+            this.panel2.Controls.Add(this.label2);
+            this.panel2.Location = new System.Drawing.Point(457, 43);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(307, 262);
+            this.panel2.TabIndex = 27;
+            // 
+            // linkLabel10
+            // 
+            this.linkLabel10.ActiveLinkColor = System.Drawing.Color.White;
+            this.linkLabel10.AutoSize = true;
+            this.linkLabel10.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.linkLabel10.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(2)))), ((int)(((byte)(187)))), ((int)(((byte)(255)))));
+            this.linkLabel10.Location = new System.Drawing.Point(65, 206);
+            this.linkLabel10.Name = "linkLabel10";
+            this.linkLabel10.Size = new System.Drawing.Size(133, 17);
+            this.linkLabel10.TabIndex = 45;
+            this.linkLabel10.TabStop = true;
+            this.linkLabel10.Tag = "";
+            this.linkLabel10.Text = "https://upx.github.io";
+            this.linkLabel10.VisitedLinkColor = System.Drawing.Color.White;
+            this.linkLabel10.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel10_LinkClicked);
+            // 
+            // linkLabel11
+            // 
+            this.linkLabel11.ActiveLinkColor = System.Drawing.Color.White;
+            this.linkLabel11.AutoSize = true;
+            this.linkLabel11.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.linkLabel11.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(2)))), ((int)(((byte)(187)))), ((int)(((byte)(255)))));
+            this.linkLabel11.Location = new System.Drawing.Point(0, 206);
+            this.linkLabel11.Name = "linkLabel11";
+            this.linkLabel11.Size = new System.Drawing.Size(59, 17);
+            this.linkLabel11.TabIndex = 44;
+            this.linkLabel11.TabStop = true;
+            this.linkLabel11.Text = "[License]";
+            this.linkLabel11.VisitedLinkColor = System.Drawing.Color.White;
+            this.linkLabel11.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel11_LinkClicked);
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label10.Location = new System.Drawing.Point(-1, 166);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(291, 40);
+            this.label10.TabIndex = 43;
+            this.label10.Tag = "";
+            this.label10.Text = "UPX - Markus Oberhumer, Laszlo Molnar,\r\nJohn Reiser";
+            // 
+            // linkLabel8
+            // 
+            this.linkLabel8.ActiveLinkColor = System.Drawing.Color.White;
+            this.linkLabel8.AutoSize = true;
+            this.linkLabel8.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.linkLabel8.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(2)))), ((int)(((byte)(187)))), ((int)(((byte)(255)))));
+            this.linkLabel8.Location = new System.Drawing.Point(65, 136);
+            this.linkLabel8.Name = "linkLabel8";
+            this.linkLabel8.Size = new System.Drawing.Size(219, 17);
+            this.linkLabel8.TabIndex = 42;
+            this.linkLabel8.TabStop = true;
+            this.linkLabel8.Tag = "";
+            this.linkLabel8.Text = "https://github.com/paomedia/sm...";
+            this.linkLabel8.VisitedLinkColor = System.Drawing.Color.White;
+            this.linkLabel8.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel8_LinkClicked);
+            // 
+            // linkLabel9
+            // 
+            this.linkLabel9.ActiveLinkColor = System.Drawing.Color.White;
+            this.linkLabel9.AutoSize = true;
+            this.linkLabel9.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.linkLabel9.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(2)))), ((int)(((byte)(187)))), ((int)(((byte)(255)))));
+            this.linkLabel9.Location = new System.Drawing.Point(0, 136);
+            this.linkLabel9.Name = "linkLabel9";
+            this.linkLabel9.Size = new System.Drawing.Size(59, 17);
+            this.linkLabel9.TabIndex = 41;
+            this.linkLabel9.TabStop = true;
+            this.linkLabel9.Text = "[License]";
+            this.linkLabel9.VisitedLinkColor = System.Drawing.Color.White;
+            this.linkLabel9.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel9_LinkClicked);
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label9.Location = new System.Drawing.Point(-1, 116);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(239, 20);
+            this.label9.TabIndex = 40;
+            this.label9.Tag = "";
+            this.label9.Text = "Small n Flat Icon Pack - paomedia";
+            // 
+            // linkLabel7
+            // 
+            this.linkLabel7.ActiveLinkColor = System.Drawing.Color.White;
+            this.linkLabel7.AutoSize = true;
+            this.linkLabel7.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.linkLabel7.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(2)))), ((int)(((byte)(187)))), ((int)(((byte)(255)))));
+            this.linkLabel7.Location = new System.Drawing.Point(65, 93);
+            this.linkLabel7.Name = "linkLabel7";
+            this.linkLabel7.Size = new System.Drawing.Size(183, 17);
+            this.linkLabel7.TabIndex = 39;
+            this.linkLabel7.TabStop = true;
+            this.linkLabel7.Tag = "";
+            this.linkLabel7.Text = "https://www.autoitscript.com";
+            this.linkLabel7.VisitedLinkColor = System.Drawing.Color.White;
+            this.linkLabel7.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel7_LinkClicked_1);
+            // 
+            // linkLabel6
+            // 
+            this.linkLabel6.ActiveLinkColor = System.Drawing.Color.White;
+            this.linkLabel6.AutoSize = true;
+            this.linkLabel6.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.linkLabel6.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(2)))), ((int)(((byte)(187)))), ((int)(((byte)(255)))));
+            this.linkLabel6.Location = new System.Drawing.Point(0, 93);
+            this.linkLabel6.Name = "linkLabel6";
+            this.linkLabel6.Size = new System.Drawing.Size(59, 17);
+            this.linkLabel6.TabIndex = 38;
+            this.linkLabel6.TabStop = true;
+            this.linkLabel6.Text = "[License]";
+            this.linkLabel6.VisitedLinkColor = System.Drawing.Color.White;
+            this.linkLabel6.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel6_LinkClicked_1);
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(-1, 50);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(271, 40);
+            this.label4.TabIndex = 37;
+            this.label4.Text = "Script Compiler -\r\nJonathan Bennett and the AutoIt Team";
+            // 
+            // linkLabel5
+            // 
+            this.linkLabel5.ActiveLinkColor = System.Drawing.Color.White;
+            this.linkLabel5.AutoSize = true;
+            this.linkLabel5.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.linkLabel5.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(2)))), ((int)(((byte)(187)))), ((int)(((byte)(255)))));
+            this.linkLabel5.Location = new System.Drawing.Point(65, 25);
+            this.linkLabel5.Name = "linkLabel5";
+            this.linkLabel5.Size = new System.Drawing.Size(218, 17);
+            this.linkLabel5.TabIndex = 36;
+            this.linkLabel5.TabStop = true;
+            this.linkLabel5.Text = "https://www.codeproject.com/Art...";
+            this.linkLabel5.VisitedLinkColor = System.Drawing.Color.White;
+            this.linkLabel5.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel5_LinkClicked_1);
+            // 
+            // linkLabel4
+            // 
+            this.linkLabel4.ActiveLinkColor = System.Drawing.Color.White;
+            this.linkLabel4.AutoSize = true;
+            this.linkLabel4.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.linkLabel4.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(2)))), ((int)(((byte)(187)))), ((int)(((byte)(255)))));
+            this.linkLabel4.Location = new System.Drawing.Point(0, 25);
+            this.linkLabel4.Name = "linkLabel4";
+            this.linkLabel4.Size = new System.Drawing.Size(59, 17);
+            this.linkLabel4.TabIndex = 35;
+            this.linkLabel4.TabStop = true;
+            this.linkLabel4.Text = "[License]";
+            this.linkLabel4.VisitedLinkColor = System.Drawing.Color.White;
+            this.linkLabel4.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel4_LinkClicked_1);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(-1, 5);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(193, 20);
+            this.label2.TabIndex = 34;
+            this.label2.Text = "IconLib Library - Castor Tiu";
+            // 
+            // panel4
+            // 
+            this.panel4.BackColor = System.Drawing.Color.White;
+            this.panel4.Location = new System.Drawing.Point(452, -11);
+            this.panel4.Name = "panel4";
+            this.panel4.Size = new System.Drawing.Size(3, 407);
+            this.panel4.TabIndex = 3;
             // 
             // linkLabel3
             // 
@@ -193,174 +409,6 @@
             this.btnClose.Text = "❌";
             this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
             // 
-            // panel4
-            // 
-            this.panel4.BackColor = System.Drawing.Color.White;
-            this.panel4.Location = new System.Drawing.Point(452, -11);
-            this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(3, 407);
-            this.panel4.TabIndex = 3;
-            // 
-            // panel2
-            // 
-            this.panel2.AutoScroll = true;
-            this.panel2.Controls.Add(this.linkLabel8);
-            this.panel2.Controls.Add(this.linkLabel9);
-            this.panel2.Controls.Add(this.label9);
-            this.panel2.Controls.Add(this.linkLabel7);
-            this.panel2.Controls.Add(this.linkLabel6);
-            this.panel2.Controls.Add(this.label4);
-            this.panel2.Controls.Add(this.linkLabel5);
-            this.panel2.Controls.Add(this.linkLabel4);
-            this.panel2.Controls.Add(this.label2);
-            this.panel2.Location = new System.Drawing.Point(457, 43);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(307, 262);
-            this.panel2.TabIndex = 27;
-            // 
-            // linkLabel7
-            // 
-            this.linkLabel7.ActiveLinkColor = System.Drawing.Color.White;
-            this.linkLabel7.AutoSize = true;
-            this.linkLabel7.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.linkLabel7.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(2)))), ((int)(((byte)(187)))), ((int)(((byte)(255)))));
-            this.linkLabel7.Location = new System.Drawing.Point(65, 93);
-            this.linkLabel7.Name = "linkLabel7";
-            this.linkLabel7.Size = new System.Drawing.Size(183, 17);
-            this.linkLabel7.TabIndex = 39;
-            this.linkLabel7.TabStop = true;
-            this.linkLabel7.Tag = "";
-            this.linkLabel7.Text = "https://www.autoitscript.com";
-            this.linkLabel7.VisitedLinkColor = System.Drawing.Color.White;
-            this.linkLabel7.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel7_LinkClicked_1);
-            // 
-            // linkLabel6
-            // 
-            this.linkLabel6.ActiveLinkColor = System.Drawing.Color.White;
-            this.linkLabel6.AutoSize = true;
-            this.linkLabel6.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.linkLabel6.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(2)))), ((int)(((byte)(187)))), ((int)(((byte)(255)))));
-            this.linkLabel6.Location = new System.Drawing.Point(0, 93);
-            this.linkLabel6.Name = "linkLabel6";
-            this.linkLabel6.Size = new System.Drawing.Size(59, 17);
-            this.linkLabel6.TabIndex = 38;
-            this.linkLabel6.TabStop = true;
-            this.linkLabel6.Text = "[License]";
-            this.linkLabel6.VisitedLinkColor = System.Drawing.Color.White;
-            this.linkLabel6.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel6_LinkClicked_1);
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(-1, 50);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(271, 40);
-            this.label4.TabIndex = 37;
-            this.label4.Text = "Script Compiler (compiler.exe) -\r\nJonathan Bennett and the AutoIt Team";
-            // 
-            // linkLabel5
-            // 
-            this.linkLabel5.ActiveLinkColor = System.Drawing.Color.White;
-            this.linkLabel5.AutoSize = true;
-            this.linkLabel5.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.linkLabel5.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(2)))), ((int)(((byte)(187)))), ((int)(((byte)(255)))));
-            this.linkLabel5.Location = new System.Drawing.Point(65, 25);
-            this.linkLabel5.Name = "linkLabel5";
-            this.linkLabel5.Size = new System.Drawing.Size(218, 17);
-            this.linkLabel5.TabIndex = 36;
-            this.linkLabel5.TabStop = true;
-            this.linkLabel5.Text = "https://www.codeproject.com/Art...";
-            this.linkLabel5.VisitedLinkColor = System.Drawing.Color.White;
-            this.linkLabel5.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel5_LinkClicked_1);
-            // 
-            // linkLabel4
-            // 
-            this.linkLabel4.ActiveLinkColor = System.Drawing.Color.White;
-            this.linkLabel4.AutoSize = true;
-            this.linkLabel4.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.linkLabel4.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(2)))), ((int)(((byte)(187)))), ((int)(((byte)(255)))));
-            this.linkLabel4.Location = new System.Drawing.Point(0, 25);
-            this.linkLabel4.Name = "linkLabel4";
-            this.linkLabel4.Size = new System.Drawing.Size(59, 17);
-            this.linkLabel4.TabIndex = 35;
-            this.linkLabel4.TabStop = true;
-            this.linkLabel4.Text = "[License]";
-            this.linkLabel4.VisitedLinkColor = System.Drawing.Color.White;
-            this.linkLabel4.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel4_LinkClicked_1);
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(-1, 5);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(277, 20);
-            this.label2.TabIndex = 34;
-            this.label2.Text = "IconLib Library (IconLib.dll) - Castor Tiu";
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(461, 10);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(292, 30);
-            this.label5.TabIndex = 41;
-            this.label5.Text = "Licenses/Copyrights/Credits:";
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(281, 148);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(110, 13);
-            this.label8.TabIndex = 42;
-            this.label8.Text = "//[beartrap] Softwares";
-            // 
-            // linkLabel8
-            // 
-            this.linkLabel8.ActiveLinkColor = System.Drawing.Color.White;
-            this.linkLabel8.AutoSize = true;
-            this.linkLabel8.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.linkLabel8.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(2)))), ((int)(((byte)(187)))), ((int)(((byte)(255)))));
-            this.linkLabel8.Location = new System.Drawing.Point(65, 136);
-            this.linkLabel8.Name = "linkLabel8";
-            this.linkLabel8.Size = new System.Drawing.Size(219, 17);
-            this.linkLabel8.TabIndex = 42;
-            this.linkLabel8.TabStop = true;
-            this.linkLabel8.Tag = "";
-            this.linkLabel8.Text = "https://github.com/paomedia/sm...";
-            this.linkLabel8.VisitedLinkColor = System.Drawing.Color.White;
-            this.linkLabel8.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel8_LinkClicked);
-            // 
-            // linkLabel9
-            // 
-            this.linkLabel9.ActiveLinkColor = System.Drawing.Color.White;
-            this.linkLabel9.AutoSize = true;
-            this.linkLabel9.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.linkLabel9.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(2)))), ((int)(((byte)(187)))), ((int)(((byte)(255)))));
-            this.linkLabel9.Location = new System.Drawing.Point(0, 136);
-            this.linkLabel9.Name = "linkLabel9";
-            this.linkLabel9.Size = new System.Drawing.Size(59, 17);
-            this.linkLabel9.TabIndex = 41;
-            this.linkLabel9.TabStop = true;
-            this.linkLabel9.Text = "[License]";
-            this.linkLabel9.VisitedLinkColor = System.Drawing.Color.White;
-            this.linkLabel9.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel9_LinkClicked);
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.Location = new System.Drawing.Point(-1, 116);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(234, 20);
-            this.label9.TabIndex = 40;
-            this.label9.Tag = "";
-            this.label9.Text = "small n flat Icon Pack - paomedia";
-            // 
             // about
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -382,10 +430,10 @@
             this.Load += new System.EventHandler(this.about_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.imgCharacter)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.imgCharacter)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -416,5 +464,8 @@
         private System.Windows.Forms.LinkLabel linkLabel8;
         private System.Windows.Forms.LinkLabel linkLabel9;
         private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.LinkLabel linkLabel10;
+        private System.Windows.Forms.LinkLabel linkLabel11;
+        private System.Windows.Forms.Label label10;
     }
 }

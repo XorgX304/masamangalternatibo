@@ -93,6 +93,16 @@ namespace masamangalternatibo.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap pencil16 {
+            get {
+                object obj = ResourceManager.GetObject("pencil16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap signright16 {
             get {
                 object obj = ResourceManager.GetObject("signright16", resourceCulture);

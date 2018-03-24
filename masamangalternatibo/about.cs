@@ -49,5 +49,13 @@ namespace masamangalternatibo {
         private void linkLabel5_LinkClicked_1(object sender, LinkLabelLinkClickedEventArgs e) {
             Process.Start("https://www.codeproject.com/Articles/16178/IconLib-Icons-Unfolded-MultiIcon-and-Windows-Vista");
         }
+
+        private void linkLabel10_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e) {
+            Process.Start("https://upx.github.io");
+        }
+
+        private void linkLabel11_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e) {
+            Process.Start("https://github.com/upx/upx/blob/master/LICENSE");
+        }
     }
 }

