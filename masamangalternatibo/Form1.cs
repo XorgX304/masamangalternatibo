@@ -231,6 +231,7 @@ namespace masamangalternatibo {
             lblDbg.Text = a;
             //dbgRtb.AppendText(a + "\n");
             dbgRtb.Text = a + "\n" + dbgRtb.Text;
+            if (a.Length >= 48) { dbgmsg(""); } //To prevent the debug label on overflowing beyond the tool strip container
         }
 
         private void loadDrives() {
