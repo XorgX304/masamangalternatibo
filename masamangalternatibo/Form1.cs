@@ -16,11 +16,11 @@ namespace masamangalternatibo {
     public partial class Form1 : Form {
         public Form1() { InitializeComponent(); }
 
-        string version = "0.0.0a";
+        string version = "0.1.0a";
         int payloadMode = 0; // 0 = File payload // 1 = Shell Code payload // 2 = Load DLL to rundll32
         string[] payloadData = new string[5]; // Stores the data from the textbox so the user can switch modes without losing the last settings
         string[] payloadFile = new string[2]; // Stores the data of ofdPayload.FileName incase the user switches modes // 0 = File Payload // 1 = DLL Payload
-        bool[] excomp = { false, false, false }; // Acts as a switch if the external components exist or not // 0 = Compiler // 1 = Icon Library // 2 = UPX
+        bool[] excomp = { false, false}; // Acts as a switch if the external components exist or not // 0 = Icon Library // 1 = UPX
         int overflowCount = 20;
         string apth = Application.StartupPath;
        
@@ -28,7 +28,7 @@ namespace masamangalternatibo {
             lblVersion.Text = "v" + version;
             dbgmsg("Starting from: " + apth);
 
-            excomp[0] = checkComponent(
+            checkComponent(
                 "Compiler",
                 "compiler.exe",
                 "1.32mb",
@@ -37,7 +37,7 @@ namespace masamangalternatibo {
                 true
             );
 
-            excomp[1] = checkComponent(
+            excomp[0] = checkComponent(
                 "Icon Library",
                 "IconLib.dll",
                 "56.5kb",
@@ -45,7 +45,7 @@ namespace masamangalternatibo {
                 "The IconLib (IconLib.dll) Library was not found, some functions that are used by this application relies on this library file such as handling Icon conversion."
             );
 
-            excomp[2] = checkComponent(
+            excomp[1] = checkComponent(
                 "Executable Compressor",
                 "upx.exe",
                 "356kb",
@@ -53,23 +53,28 @@ namespace masamangalternatibo {
                 "The UPX Compressor (upx.exe) was not found, This component is used to compress executable files to lessen their file size and is also utilized by the script compiler."
             );
 
+            checkComponent(
+                "Payload Template",
+                "payloadTemplate.txt",
+                "???",
+                "",
+                "The Payload Template is a text file that contains the payload script structure that is read by the program and is parsed to create your payload.",
+                true
+            );
+
             loadDrives();
 
             #if !(isdbg)
                 dbgmsg("Setting up...");
                 tbPayload.ReadOnly = true;
-                tbSpoof.ReadOnly = true;
-                using (about _form = new about()) {
-                    dbgmsg("Showing about form...");
-                    _form.ShowDialog();
-                }
             #endif
+
             dbgmsg("WARNING: Console Commands aren't filtered/check; They're executed directly and immidiately. Be cautious on executing commands.");
             dbgmsg("mA Ready! // Hover an item for more information!");
             #if isdbg
             dbgmsg("mA is running in debugging mode");
             #endif
-            dbgmsg("NOTICE: mA is currently in a test phase release, please be aware of instability.");
+            dbgmsg("NOTICE: This version of mA is currently in a test phase release, please be aware of instability.");
         }
 
         #region [Console Commands]
@@ -149,18 +154,24 @@ namespace masamangalternatibo {
             bool rbool = false;
             if (File.Exists(flname) != true) {
                 if (MessageBox.Show("An " + (importance ? "important" : "optional") + " component is missing!\n\n" + desc + "\n\nDownload File: \"" + flname + "\" (" + flsize + ")?\nDownload Link: " + dllink + "\n\nThis will be done in the background.", "Component Missing: " + name + " | \"" + flname + "\" (" + flsize + ")!", MessageBoxButtons.YesNo) == DialogResult.Yes) {
-                    try {
-                        using (WebClient _wc = new WebClient()) {
-                            _wc.DownloadFile(dllink, flname);
-                        }
-                        MessageBox.Show("Download Complete!");
-                        rbool = true;
-                    }
-                    catch {
+                    if (dllink == "") {
+                        MessageBox.Show("A download of this component is not available, please consider re-acquiring and/or re-unpack(ing) the application with a complete set of required files.", "Component Download Unavailable", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         rbool = false;
-                        MessageBox.Show("Component download failed!", "Download Fail!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        if (importance) {
-                            Application.Exit();
+                    }
+                    else {
+                        try {
+                            using (WebClient _wc = new WebClient()) {
+                                _wc.DownloadFile(dllink, flname);
+                            }
+                            MessageBox.Show("Download Complete!");
+                            rbool = true;
+                        }
+                        catch {
+                            rbool = false;
+                            MessageBox.Show("Component download failed!", "Download Fail!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            if (importance) {
+                                Application.Exit();
+                            }
                         }
                     }
                 }
@@ -187,7 +198,7 @@ namespace masamangalternatibo {
          *returns: nothing
         */
         private void extractIcon(bool fromButton = false, string iconfile = "") {
-            if (excomp[1] && iconfile != "") {
+            if (excomp[0] && iconfile != "") {
                 dbgmsg("Extracting associated icon to bitmap...");
                 (Icon.ExtractAssociatedIcon(iconfile).ToBitmap()).Save(apth + "\\_bmptmp.bmp");
                 MultiIcon conico = new MultiIcon();

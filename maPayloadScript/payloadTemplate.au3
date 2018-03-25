@@ -1,3 +1,4 @@
+;Payload Version: 0.1.0
 #NoTrayIcon
 {0} ;#RequireAdmin pre-processor place holder
 
