@@ -13,3 +13,5 @@ masamangalternatibo/bin/Debug/$temp.ico
 masamangalternatibo/bin/Debug/IconLib.dll
 masamangalternatibo/bin/Debug/masamangalternatibo.exe
 masamangalternatibo/bin/Debug/upx.exe
+masamangalternatibo/bin/Debug/payloadTemplate.txt
+Release/payloadTemplate.txt

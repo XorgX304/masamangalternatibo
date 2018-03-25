@@ -10,4 +10,5 @@ copy upx\upx.exe, Release\upx.exe
 copy Aut2Exe\License.txt, Release\_AutoIt_License.txt
 copy masamangalternatibo\bin\Debug\masamangalternatibo.exe, Release\mA.exe
 copy license.txt, Release\_mA_license.txt
+copy maPayloadScript\payloadTemplate.au3, Release\payloadTemplate.txt
 pause

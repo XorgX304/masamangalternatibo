@@ -3,4 +3,5 @@ echo Copying Files to masamangalternatibo\debug\bin
 copy IconLib\IconLib.dll, masamangalternatibo\bin\Debug\IconLib.dll
 copy Aut2Exe\compiler.exe, masamangalternatibo\bin\Debug\compiler.exe
 copy upx\upx.exe, masamangalternatibo\bin\Debug\upx.exe
+copy maPayloadScript\payloadTemplate.au3, masamangalternatibo\bin\Debug\payloadTemplate.txt
 pause

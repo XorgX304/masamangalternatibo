@@ -1,4 +1,5 @@
 ﻿#define isdbg //NOTE: DO NOT FORGET TO UNDEFINE THIS ON RELEASE.
+
 using System;
 using System.ComponentModel;
 using System.Drawing;
@@ -117,8 +118,13 @@ namespace masamangalternatibo {
                     dbgmsg("Testing checkComponent() Function");
                     dbgmsg("Test returned a value of: " + checkComponent(con[1], con[2], con[3], con[4], con[5]).ToString());
                     break;
+
+                case "teststrformat":
+                    dbgmsg("strformat:" + String.Format(con[1], con[2]));
+                    break;
+
                 default:
-                    dbgmsg("Bad command! Available commands:\nsetdrive [driveletter]\nsetoverflowcount [integer]\nsetimagelocation [filepath]\nshowpayloadfile\noverflowdebugmsg\ncheckcomp [name] [filename] [size] [link] [desc]\ncls\nexit\n");
+                    dbgmsg("Bad command! Available commands:\nsetdrive [driveletter]\nsetoverflowcount [integer]\nsetimagelocation [filepath]\nshowpayloadfile\noverflowdebugmsg\ncheckcomp [name] [filename] [size] [link] [desc]\nteststrformat [string] [data]\ncls\nexit\n");
                     break;
             }
             tbConsole.Text = "";
@@ -165,6 +171,7 @@ namespace masamangalternatibo {
             else {
                 rbool = true;
             }
+            dbgmsg("ComCheck:" + flname + ":" + rbool);
             return rbool;
         }
 
@@ -265,16 +272,31 @@ namespace masamangalternatibo {
          *returns: nothing
         */
         private void openminipad(bool writemode = false) {
-            minipad _minipad = new minipad();
-            _minipad.btnPassShell.Enabled = false;
-            _minipad.btnCompileScript.Enabled = false;
-            if (payloadMode == 2) { _minipad.btnPassShell.Enabled = true; }
-            if (writemode) { _minipad.btnCompileScript.Enabled = true; _minipad.btnPassShell.Enabled = false; }
-            _minipad.Show();
+            using (minipad _minipad = new minipad()) {
+                _minipad.btnPassShell.Enabled = false;
+                _minipad.btnCompileScript.Enabled = false;
+                if (payloadMode == 2) { _minipad.btnPassShell.Enabled = true; }
+                if (writemode) { _minipad.btnCompileScript.Enabled = true; _minipad.btnPassShell.Enabled = false; }
+                _minipad.ShowDialog();
+            }
         }
 
-        //TODO: Add checking if drive is available, exclude network folders, (option) use a flash drive library.
-        //Load Drives Function - Detects all the present drives in this computer by scanning directories.
+        /*
+         Generate Script Function - a function that generates the payload script with corresponding code from the options provided by the user.
+         ---------------------------------------------------------------------------------------------------------------------------------------
+         *returns: nothing
+        */
+        private void generateScript() {
+           
+        }
+
+        /*
+         Load Drives Function - Detects all the present drives in this computer by scanning directories.
+         --------------------------------------------------------------------------------------------------
+         *returns: nothing
+         * 
+         * TODO: Add checking if drive is available, exclude network folders, (option) use a flash drive library.
+        */
         private void loadDrives() {
             dbgmsg("Detecting drives...");
             drpDrives.Items.Clear();
@@ -287,6 +309,8 @@ namespace masamangalternatibo {
             dbgmsg("Finished!");
         }
 
+        //========================================================================================================================================
+ 
         private void btnSwitchMode_Click(object sender, EventArgs e) {
             payloadData[payloadMode] = tbPayload.Text; //Save the current payloadData to be displayed later
             payloadMode++;
