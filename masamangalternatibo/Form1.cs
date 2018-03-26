@@ -16,9 +16,9 @@ namespace masamangalternatibo {
     public partial class Form1 : Form {
         public Form1() { InitializeComponent(); }
 
-        string version = "0.1.0a";
+        string version = "0.6.0a";
         int payloadMode = 0; // 0 = File payload // 1 = Shell Code payload // 2 = Load DLL to rundll32
-        string[] payloadData = new string[5]; // Stores the data from the textbox so the user can switch modes without losing the last settings
+        string[] payloadData = new string[6]; //Stores the data from the textbox so the user can switch modes without losing the last settings Index 0-2: Stores the mode data // Index 3-4: Stores the arguments // Index 5: argument placeholder for shell mode (opposed for efficiency rather than doing heavy math and comparisons)
         string[] payloadFile = new string[2]; // Stores the data of ofdPayload.FileName incase the user switches modes // 0 = File Payload // 1 = DLL Payload
         bool[] excomp = { false, false}; // Acts as a switch if the external components exist or not // 0 = Icon Library // 1 = UPX
         int overflowCount = 20;
@@ -163,6 +163,9 @@ namespace masamangalternatibo {
                     if (dllink == "") {
                         MessageBox.Show("A download of this component is not available, please consider re-acquiring and/or re-unpack(ing) the application with a complete set of required files.", "Component Download Unavailable", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         rbool = false;
+                        if (importance) {
+                            Application.Exit();
+                        }
                     }
                     else {
                         try {
@@ -183,6 +186,9 @@ namespace masamangalternatibo {
                 }
                 else {
                     rbool = false;
+                    if (importance) {
+                        Application.Exit();
+                    }
                 }
             }
             else {
@@ -297,7 +303,7 @@ namespace masamangalternatibo {
                 _minipad.ShowDialog();
             }
         }
-
+       
         /*
         Validate Input Function - a function that validates the user input and checks if anything is missing or mistaken before generating the script.
         -----------------------------------------------------------------------------------------------------------------------------------------------
@@ -327,8 +333,8 @@ namespace masamangalternatibo {
             dbgmsg("Detecting drives...");
             drpDrives.Items.Clear();
             for (int i = 65; i <= 90; i++) {
-                if (Directory.Exists(((char)i).ToString() + ":\\") && i != 67) {
-                    drpDrives.Items.Add(((char)i).ToString() + ":\\");
+                if (Directory.Exists(((char)i) + ":\\") && i != 67) {
+                    drpDrives.Items.Add(((char)i)+ ":\\");
                 }
             }
             if (drpDrives.Items.Count != 0) { drpDrives.SelectedIndex = 0; }
@@ -339,8 +345,13 @@ namespace masamangalternatibo {
  
         private void btnSwitchMode_Click(object sender, EventArgs e) {
             payloadData[payloadMode] = tbPayload.Text; //Save the current payloadData to be displayed later
+
+            
+
             payloadMode++;
             if (payloadMode == 3) { payloadMode = 0; }
+            payloadData[payloadMode + 2] = tbArguments.Text;
+
             switch (payloadMode) {
                 case 0: //Payload File Mode
                     ofdPayload.FileName = payloadFile[payloadMode];
@@ -350,6 +361,7 @@ namespace masamangalternatibo {
                     lblPayload.Text = "Payload File:";
                     pnlFileOptGroup.Enabled = true;
                     ofdPayload.Filter = "All Files (*.*)|*.*";
+                    tbArguments.Text = payloadData[3];
                     break;
 
                 case 1: //Inject Library Mode
@@ -360,6 +372,9 @@ namespace masamangalternatibo {
                     lblPayload.Text = "DLL File:";
                     pnlFileOptGroup.Enabled = false;
                     ofdPayload.Filter = "DLL Files (*.dll)|*.dll";
+                    chkArguments.Checked = true;
+                    tbArguments.Text = payloadData[4];
+                    if (tbArguments.Text == "") { tbArguments.Text = "<entrypoint> <optional arguments>"; }
                     break;
 
                 case 2: //Shell Code Mode
@@ -368,6 +383,8 @@ namespace masamangalternatibo {
                     tbPayload.ReadOnly = false;
                     lblPayload.Text = "Shell Code:";
                     pnlFileOptGroup.Enabled = false;
+                    chkArguments.Checked = false;
+                    tbArguments.Text = "";
                     break;
             }
             tbPayload.Text = payloadData[payloadMode]; //Display the data of the currently selected payloadMode

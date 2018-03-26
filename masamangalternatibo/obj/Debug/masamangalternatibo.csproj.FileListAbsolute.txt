@@ -9,3 +9,4 @@ C:\Users\TRAGENALPHA\Desktop\Projects\masamangalternatibo\masamangalternatibo\ob
 C:\Users\TRAGENALPHA\Desktop\Projects\masamangalternatibo\masamangalternatibo\obj\Debug\masamangalternatibo.pdb
 C:\Users\TRAGENALPHA\Desktop\Projects\masamangalternatibo\masamangalternatibo\obj\Debug\masamangalternatibo.about.resources
 C:\Users\TRAGENALPHA\Desktop\Projects\masamangalternatibo\masamangalternatibo\obj\Debug\masamangalternatibo.minipad.resources
+C:\Users\TRAGENALPHA\Desktop\Projects\masamangalternatibo\masamangalternatibo\obj\Debug\masamangalternatibo.buildPayload.resources
