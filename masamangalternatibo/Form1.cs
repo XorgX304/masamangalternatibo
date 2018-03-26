@@ -67,6 +67,7 @@ namespace masamangalternatibo {
             #if !(isdbg)
                 dbgmsg("Setting up...");
                 tbPayload.ReadOnly = true;
+                tbSpoof.ReadOnly = true;
             #endif
 
             dbgmsg("WARNING: Console Commands aren't filtered/check; They're executed directly and immidiately. Be cautious on executing commands.");
@@ -128,8 +129,13 @@ namespace masamangalternatibo {
                     dbgmsg("strformat:" + String.Format(con[1], con[2]));
                     break;
 
+                case "formsetwidth":
+                    dbgmsg("Form width set to: " + con[1]);
+                    this.Width = Convert.ToInt32(con[1]);
+                    break;
+
                 default:
-                    dbgmsg("Bad command! Available commands:\nsetdrive [driveletter]\nsetoverflowcount [integer]\nsetimagelocation [filepath]\nshowpayloadfile\noverflowdebugmsg\ncheckcomp [name] [filename] [size] [link] [desc]\nteststrformat [string] [data]\ncls\nexit\n");
+                    dbgmsg("Bad command! Available commands:\nsetdrive [driveletter]\nsetoverflowcount [integer]\nsetimagelocation [filepath]\nshowpayloadfile\noverflowdebugmsg\ncheckcomp [name] [filename] [size] [link] [desc]\nteststrformat [string] [data]\nformsetwidth [integer]\ncls\nexit\n");
                     break;
             }
             tbConsole.Text = "";
@@ -190,7 +196,7 @@ namespace masamangalternatibo {
          Extract Icon Function - used to extract icons by utilizing the IconLib Library.
          ----------------------------------------------------------------------------------
          extractIcon(
-                Boolean Value,
+                From button Boolean Value,
                 File to extract the Icon from
          )
          ----------------------------------------------------------------------------------
@@ -211,7 +217,7 @@ namespace masamangalternatibo {
             }
             else {
                 if (fromButton) {
-                    MessageBox.Show("No spoof file imported or Icon Library functions can't be utilized", "Error");
+                    MessageBox.Show("No spoof file imported or Icon Library functions can't be utilized", "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 }
                 else {
                     dbgmsg("Error from un-intended extraction suppressed!");
@@ -290,6 +296,15 @@ namespace masamangalternatibo {
                 if (writemode) { _minipad.btnCompileScript.Enabled = true; _minipad.btnPassShell.Enabled = false; }
                 _minipad.ShowDialog();
             }
+        }
+
+        /*
+        Validate Input Function - a function that validates the user input and checks if anything is missing or mistaken before generating the script.
+        -----------------------------------------------------------------------------------------------------------------------------------------------
+        *returns: nothing
+       */
+        private void validateInput() {
+
         }
 
         /*

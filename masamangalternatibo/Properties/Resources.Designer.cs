@@ -83,6 +83,16 @@ namespace masamangalternatibo.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap flare002 {
+            get {
+                object obj = ResourceManager.GetObject("flare002", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap folder16 {
             get {
                 object obj = ResourceManager.GetObject("folder16", resourceCulture);
@@ -96,6 +106,16 @@ namespace masamangalternatibo.Properties {
         internal static System.Drawing.Bitmap heart16 {
             get {
                 object obj = ResourceManager.GetObject("heart16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap icon_ss {
+            get {
+                object obj = ResourceManager.GetObject("icon_ss", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
