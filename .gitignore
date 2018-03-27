@@ -15,3 +15,7 @@ masamangalternatibo/bin/Debug/masamangalternatibo.exe
 masamangalternatibo/bin/Debug/upx.exe
 masamangalternatibo/bin/Debug/payloadTemplate.txt
 Release/payloadTemplate.txt
+notes.txt
+masamangalternatibo/bin/Debug/$payloadtmp
+masamangalternatibo/bin/Debug/$spooftmp
+masamangalternatibo/bin/Debug/$tmp.ico
