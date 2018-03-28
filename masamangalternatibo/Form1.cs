@@ -359,9 +359,9 @@ namespace masamangalternatibo {
         }
 
         /*
-        Generate Script Function - a function that generates the payload script with corresponding code from the options provided by the user.
+        Start Build Function - a function that generates the payload script with corresponding code from the options provided by the user.
         ---------------------------------------------------------------------------------------------------------------------------------------
-         generateScript(
+         stratBuild(
                 Is in write mode (bool)
          )
         ---------------------------------------------------------------------------------------------------------------------------------------
@@ -491,14 +491,6 @@ namespace masamangalternatibo {
 
         private void btnRefreshDrives_Click(object sender, EventArgs e) {
             loadDrives();
-        }
-
-        private void btnSelf_Click(object sender, EventArgs e) {
-            Process.Start("https://tragenalpha.github.io");
-        }
-
-        private void btnGitSauce_Click(object sender, EventArgs e) {
-            Process.Start("https://github.com/tragenalpha/masamangalternatibo");
         }
 
         private void btnCommand_Click(object sender, EventArgs e) {
