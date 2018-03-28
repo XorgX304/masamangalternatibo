@@ -1,4 +1,4 @@
-<!-- READ ME v1.2 -->
+<!-- READ ME v1.3 -->
 # <span style="color:white;">masamangAlternatibo</span>
 <table><tr><td>
     <img src="graphics\icon_ss.png"/>
@@ -7,7 +7,7 @@
     <font size="5px"><b>masamangAlternatibo</b> </font>(<font color="red">alpha</font>)</font>
     <br><font style="margin-left:5%;margin-top:-5%;">Flash Drive Payload Generator Tool</font>
 </td></tr></table>
-
+<a href="https://github.com/tragenalpha/masamangalternatibo/releases">Releases</a>
 
 ---
 
@@ -43,6 +43,7 @@ mA (masamangAlternatibo) is a tool for generating and delivering payloads throug
 <li>Use a flash drive management library</li>
 <li>Create option to bind mA's Payload to only trigger in a specific flash drive/carrier</li>
 <li>Implement Flash drive malware circumvention to avoid directory/file errors</li>
+
 
 ## Author
 <p>Developed by: TRAGENALPHA <img src="graphics\flare002.png" style="margin-bottom:-1%;"/> | <a href="https://tragenalpha.github.io">Site</a> | <a href="https://twitter.com/tragenalpha">@tragenalpha</a> | tragenalpha@protonmail.com</p>

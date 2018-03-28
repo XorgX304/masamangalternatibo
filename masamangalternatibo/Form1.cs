@@ -88,10 +88,6 @@ namespace masamangalternatibo {
             string[] con = tbConsole.Text.Split(' ');
             switch ((con[0]).ToLower()) {
 
-                case "owo":
-                    dbgmsg("what's this?");
-                    break;
-
                 case "setdrive":
                     drpDrives.Items.Add(con[1]);
                     drpDrives.SelectedIndex = drpDrives.Items.Count - 1;
