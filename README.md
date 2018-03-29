@@ -1,11 +1,10 @@
-<!-- READ ME v1.4 -->
-# <span style="color:white;">masamangAlternatibo</span>
+<!-- READ ME v1.5 -->
+# masamangAlternatibo - <br>Flash Drive Payload Generator Tool
 <table><tr><td>
     <img src="graphics\icon_ss.png"/>
-</td>
-<td>
-    <font size="5px"><b>masamangAlternatibo</b> </font>(<font color="red">alpha</font>)</font>
-    <br><font style="margin-left:5%;margin-top:-5%;">Flash Drive Payload Generator Tool</font>
+</td><td>
+    <font size="5px"><b>masamangAlternatibo</b> </font>(<font color="red">0.8.0-alpha</font>)</font>
+    <br>mA Payload (<font color="red">0.6.0-alpha</font>)
 </td></tr></table>
 <a href="https://github.com/tragenalpha/masamangalternatibo/releases">Releases</a>
 
@@ -27,7 +26,7 @@ mA (masamangAlternatibo) is a tool for generating and delivering payloads throug
 </ul>
 
 <br><b>File Name Spoofing</b><ul>
-<li>Overflow - Places an excessive amount of invincible unicode characters between the fake file extension and the real one to push the real extension name off the file name</li>
+<li>Overflow - Places an excessive amount of invincible characters between the fake file extension and the real one to push the real extension name off the file name</li>
 <li>RtLO (Right to Left Override) - Utilizes the special RtLO character to reverse the fake file extension and the real one</li>
 </ul>
 
@@ -46,6 +45,17 @@ mA (masamangAlternatibo) is a tool for generating and delivering payloads throug
 <li>Use a flash drive management library.</li>
 <li>Create option to bind mA's Payload to only trigger in a specific flash drive/carrier.</li>
 <li>Implement Flash drive malware circumvention to avoid directory/file errors.</li>
+<li>Read return values for a fail safe system</li>
+<li>Workround sand boxes</li>
+<li>Hash some flash drive malware for the circumvention mode</li>
+<li>Update Checks</li>
+<li>Auto-Update Payload Template (GitHub Gist)</li>
+<li>Display Template Version</li>
+<li>Import Template Menu</li>
+</ul>
+
+<br><b>Current Tasks:</b><ul>
+<li>Finish the build process.</li>
 </ul>
 
 ## Author

