@@ -1,5 +1,5 @@
-<!-- READ ME v1.5 -->
-# masamangAlternatibo - <br>Flash Drive Payload Generator Tool
+<!-- READ ME v1.5.1 -->
+# masamangAlternatibo - Flash Drive Payload Generator Tool
 <table><tr><td>
     <img src="graphics\icon_ss.png"/>
 </td><td>
