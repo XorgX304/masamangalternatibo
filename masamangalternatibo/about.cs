@@ -1,13 +1,20 @@
 ﻿using System;
 using System.Windows.Forms;
 using System.Diagnostics;
+using System.Drawing;
 
 namespace masamangalternatibo {
     public partial class about : Form {
         public about() { InitializeComponent(); }
 
-        private void about_Load(object sender, EventArgs e) {
+        private void about_MouseMove(object sender, EventArgs e) {
+            if (MouseButtons == MouseButtons.Left) {
+                this.Location = new Point(MousePosition.X - 383, MousePosition.Y - 15);
+            }
+        }
 
+        private void label1_MouseMove(object sender, EventArgs e) {
+            about_MouseMove(null, e);
         }
 
         private void btnClose_Click(object sender, EventArgs e) {

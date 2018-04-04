@@ -65,6 +65,7 @@
             this.label1.Size = new System.Drawing.Size(57, 21);
             this.label1.TabIndex = 1;
             this.label1.Text = "About";
+            this.label1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.label1_MouseMove);
             // 
             // panel1
             // 
@@ -95,19 +96,19 @@
             this.label8.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label8.Location = new System.Drawing.Point(281, 148);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(110, 13);
+            this.label8.Size = new System.Drawing.Size(104, 13);
             this.label8.TabIndex = 42;
-            this.label8.Text = "//[beartrap] Softwares";
+            this.label8.Text = "//beartrap Softwares";
             // 
             // label5
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(461, 10);
+            this.label5.Location = new System.Drawing.Point(458, 10);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(87, 30);
+            this.label5.Size = new System.Drawing.Size(216, 30);
             this.label5.TabIndex = 41;
-            this.label5.Text = "Credits:";
+            this.label5.Text = "Credits and Licenses:";
             // 
             // panel2
             // 
@@ -426,7 +427,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "About";
             this.TopMost = true;
-            this.Load += new System.EventHandler(this.about_Load);
+            this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.about_MouseMove);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);

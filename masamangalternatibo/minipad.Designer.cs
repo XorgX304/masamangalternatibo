@@ -25,7 +25,6 @@
         private void InitializeComponent() {
             this.mprtb = new System.Windows.Forms.RichTextBox();
             this.btnCompileScript = new System.Windows.Forms.LinkLabel();
-            this.btnPassShell = new System.Windows.Forms.LinkLabel();
             this.SuspendLayout();
             // 
             // mprtb
@@ -55,19 +54,7 @@
             this.btnCompileScript.TabIndex = 1;
             this.btnCompileScript.TabStop = true;
             this.btnCompileScript.Text = "[Continue Build]";
-            // 
-            // btnPassShell
-            // 
-            this.btnPassShell.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnPassShell.AutoSize = true;
-            this.btnPassShell.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline;
-            this.btnPassShell.LinkColor = System.Drawing.Color.White;
-            this.btnPassShell.Location = new System.Drawing.Point(300, 270);
-            this.btnPassShell.Name = "btnPassShell";
-            this.btnPassShell.Size = new System.Drawing.Size(107, 13);
-            this.btnPassShell.TabIndex = 2;
-            this.btnPassShell.TabStop = true;
-            this.btnPassShell.Text = "[Pass to Shell Code]";
+            this.btnCompileScript.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.btnCompileScript_LinkClicked);
             // 
             // minipad
             // 
@@ -75,7 +62,6 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(45)))));
             this.ClientSize = new System.Drawing.Size(509, 289);
-            this.Controls.Add(this.btnPassShell);
             this.Controls.Add(this.btnCompileScript);
             this.Controls.Add(this.mprtb);
             this.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -90,7 +76,6 @@
         }
 
         #endregion
-        public System.Windows.Forms.LinkLabel btnPassShell;
         public System.Windows.Forms.RichTextBox mprtb;
         public System.Windows.Forms.LinkLabel btnCompileScript;
     }

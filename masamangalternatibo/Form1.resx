@@ -129,13 +129,6 @@
           - Arguments: &lt;entrypoint&gt; &lt;optional arguments&gt;
           - Executed as: RUNDLL32.EXE &lt;dllname&gt;,&lt;entrypoint&gt; &lt;optional arguments&gt;</value>
   </data>
-  <data name="btnSwitchMode.ToolTip" xml:space="preserve">
-    <value>Change the payload mode.
-
-[F] - Payload mode -- Use a file as a payload.
-[D] - Inject Library -- Use a DLL to inject through rundll32.exe
-[S] - Shell code payload -- Run a shell command as a payload.</value>
-  </data>
   <metadata name="ofdPayload.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>3, 4</value>
   </metadata>

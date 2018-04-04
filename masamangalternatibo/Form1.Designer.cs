@@ -492,7 +492,9 @@
             this.btnSwitchMode.Size = new System.Drawing.Size(25, 22);
             this.btnSwitchMode.TabIndex = 14;
             this.btnSwitchMode.Text = "F";
-            this.tooltip.SetToolTip(this.btnSwitchMode, resources.GetString("btnSwitchMode.ToolTip"));
+            this.tooltip.SetToolTip(this.btnSwitchMode, "Change the payload mode.\n\n[F] - Payload mode -- Use a file as a payload.\n[D] - In" +
+        "ject Library -- Use a DLL to inject through rundll32.exe\n[S] - Shell code payloa" +
+        "d -- Run a shell command as a payload.");
             this.btnSwitchMode.UseVisualStyleBackColor = false;
             this.btnSwitchMode.Click += new System.EventHandler(this.btnSwitchMode_Click);
             // 
@@ -755,6 +757,7 @@
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "masamangAlternatibo";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_Close);
             this.Load += new System.EventHandler(this.Form1_Load);
             this.formpanel.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
@@ -786,7 +789,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox tbSpoof;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox tbPayload;
         private System.Windows.Forms.Label lblPayload;
         private System.Windows.Forms.Button btnBrowsePayload;
         private System.Windows.Forms.Button btnBrowseSpoof;
@@ -795,7 +797,6 @@
         private System.Windows.Forms.Label lblVersion;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.CheckBox chkStreamConsole;
-        private System.Windows.Forms.PictureBox imgFileIcon;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.CheckBox chkTarExe;
@@ -806,7 +807,6 @@
         private System.Windows.Forms.RichTextBox dbgRtb;
         private System.Windows.Forms.OpenFileDialog ofdPayload;
         private System.Windows.Forms.Button btnSwitchMode;
-        private System.Windows.Forms.ComboBox drpDrives;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button btn_RefreshDrives;
         private System.Windows.Forms.CheckBox chkArguments;
@@ -815,9 +815,6 @@
         private System.Windows.Forms.Button btnCommand;
         private System.Windows.Forms.GroupBox groupBox5;
         private System.Windows.Forms.GroupBox groupBox6;
-        private System.Windows.Forms.RadioButton radRTLO;
-        private System.Windows.Forms.RadioButton radOverflow;
-        private System.Windows.Forms.RadioButton radNone;
         private System.Windows.Forms.OpenFileDialog ofdSpoof;
         private System.Windows.Forms.Label btn3rdParty;
         private System.Windows.Forms.TextBox tbConsole;
@@ -832,6 +829,12 @@
         private System.Windows.Forms.Label btnMiniPad;
         private System.Windows.Forms.CheckBox chkHidWin;
         private System.Windows.Forms.TextBox tbArguments;
+        public System.Windows.Forms.TextBox tbPayload;
+        public System.Windows.Forms.RadioButton radOverflow;
+        public System.Windows.Forms.RadioButton radRTLO;
+        public System.Windows.Forms.RadioButton radNone;
+        public System.Windows.Forms.PictureBox imgFileIcon;
+        public System.Windows.Forms.ComboBox drpDrives;
     }
 }
 

