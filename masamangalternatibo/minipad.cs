@@ -27,6 +27,7 @@ namespace masamangalternatibo {
                     _bp.script = mprtb.Text;
                     _bp.tbFlNm.Text = _tmp[0];
                     _bp.tbFkExt.Text = _tmp[1];
+                    _bp.isicon = _f1.isicon;
                     this.Close();
                     _bp.ShowDialog();
                 }

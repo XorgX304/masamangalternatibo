@@ -3,7 +3,7 @@
 <table><tr><td>
     <img src="graphics\icon_ss.png"/>
 </td><td>
-    <font size="5px"><b>masamangAlternatibo</b> </font>(<font color="red">0.9.0-alpha</font>)</font>
+    <font size="5px"><b>masamangAlternatibo</b> </font>(<font color="red">0.9.1-alpha</font>)</font>
     <br>mA Payload (<font color="red">0.7.0-alpha</font>)
 </td></tr></table>
 <a href="https://github.com/tragenalpha/masamangalternatibo/releases">Releases</a>

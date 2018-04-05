@@ -6,7 +6,6 @@ using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using System.IO;
-using System.Diagnostics;
 using System.Drawing.IconLib;
 using System.Net;
 //using System.Runtime.InteropServices;
@@ -20,6 +19,7 @@ namespace masamangalternatibo {
         string[] payloadData = new string[6]; //Stores the data from the textbox so the user can switch modes without losing the last settings Index 0-2: Stores the mode data // Index 3-4: Stores the arguments // Index 5: argument placeholder for shell mode (opposed for efficiency rather than doing heavy math and comparisons)
         string[] payloadFile = new string[2]; // Stores the data of ofdPayload.FileName incase the user switches modes // 0 = File Payload // 1 = DLL Payload
         public bool[] excomp = { false, false}; // Acts as a switch if the external components exist or not // 0 = Icon Library // 1 = UPX
+        public bool isicon = false; //Keeps track if there's a selected / designated icon
         public int overflowCount = 20;
         string apth = Application.StartupPath;
         globalClass _gc = new globalClass();
@@ -86,7 +86,7 @@ namespace masamangalternatibo {
         private void btnConsole_Click(object sender, EventArgs e) {
             string[] con = tbConsole.Text.Split(' ');
             switch ((con[0]).ToLower()) {
-
+                case "a": MessageBox.Show(imgFileIcon.Image == null ? "yes" : "no"); break;
                 case "setdrive":
                     drpDrives.Items.Add(con[1]);
                     drpDrives.SelectedIndex = drpDrives.Items.Count - 1;
@@ -238,6 +238,7 @@ namespace masamangalternatibo {
                 imgFileIcon.ImageLocation = "$tmp.ico";
                 File.Delete(apth + "\\$_bmptmp.bmp");
                 dbgmsg("Temporary bitmap file deleted.");
+                isicon = true;
             }
             else {
                 if (fromButton) {
@@ -443,13 +444,14 @@ namespace masamangalternatibo {
             else {
                 using (buildPayload _bp = new buildPayload()) {
                     if (radOverflow.Checked) { _bp.overflowCount = overflowCount; }
+
                     if (radNone.Checked) {
                         _bp.spoofMode = 0;
                     }
-                    if (radOverflow.Checked) {
+                    else if (radOverflow.Checked) {
                         _bp.spoofMode = 1;
                     }
-                    if (radRTLO.Checked) {
+                    else if (radRTLO.Checked) {
                         _bp.spoofMode = 2;
                     }
                     string[] _tmp = trimext(tbSpoof.Text);
@@ -457,6 +459,7 @@ namespace masamangalternatibo {
                     _bp.tbFkExt.Text = _tmp[1];
                     _bp.script = templateData;
                     _bp.drive = drpDrives.GetItemText(drpDrives.SelectedItem);
+                    _bp.isicon = isicon;
                     _bp.ShowDialog();
                 }
             }
@@ -611,6 +614,7 @@ namespace masamangalternatibo {
         private void btnClearImage_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e) {
             dbgmsg("Clearing image box...");
             imgFileIcon.Image = null;
+            isicon = false;
         }
 
         private void btnBrowseImage_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e) {
@@ -624,6 +628,7 @@ namespace masamangalternatibo {
             dbgmsg("Loading image...");
             imgFileIcon.ImageLocation = "$tmp.ico";
             dbgmsg("Imported:" + ofdIcon.FileName);
+            isicon = true;
         }
 
         private void btnExtract_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e) {
