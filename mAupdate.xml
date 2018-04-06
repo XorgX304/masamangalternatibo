@@ -1,0 +1,13 @@
+<xml>
+    <root>
+        <ma>
+            <version>0.10.0</version>
+            <link></link>
+        </ma>
+
+        <payload>
+            <version>0.8.0</version>
+            <link></link>
+        </payload>
+    </root>
+</xml>

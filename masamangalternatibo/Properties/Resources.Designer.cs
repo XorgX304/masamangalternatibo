@@ -63,6 +63,16 @@ namespace masamangalternatibo.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap boxin16 {
+            get {
+                object obj = ResourceManager.GetObject("boxin16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap build16 {
             get {
                 object obj = ResourceManager.GetObject("build16", resourceCulture);

