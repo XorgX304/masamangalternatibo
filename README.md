@@ -1,9 +1,9 @@
-<!-- READ ME v1.5.1 -->
+<!-- READ ME v1.6.0 -->
 # masamangAlternatibo - Flash Drive Payload Generator Tool
 <table><tr><td>
     <img src="graphics\icon_ss.png"/>
 </td><td>
-    <font size="5px"><b>masamangAlternatibo</b> </font>(<font color="red">0.10.0-alpha</font>)</font>
+    <font size="5px"><b>masamangAlternatibo</b> </font>(<font color="red">0.11.0-alpha</font>)</font>
     <br>mA Payload (<font color="red">0.8.0-alpha</font>)
 </td></tr></table>
 <a href="https://github.com/tragenalpha/masamangalternatibo/releases">Releases</a>
@@ -49,9 +49,6 @@ mA (masamangAlternatibo) is a tool for generating and delivering payloads throug
 - Pre-compress payload executable
 - Find a better way of extracting associated icons
 - Find a better way of obtaining driver serials
-
-
-<br><b>Current Tasks:</b>
 - Implement Script Checking and Validation (Au3Check.exe)
 - [✔] Create option to bind mA's Payload to only trigger in a specific flash drive/carrier. (Drive Serial Check)
 - Update Checks

@@ -412,16 +412,12 @@ namespace masamangalternatibo {
 
             if (payloadMode != 2) {
                 dbgmsg("Importing payload...");
-                if (File.Exists("$payloadtmp")) {
-                    File.Delete("$payloadtmp");
-                }
+                if (File.Exists("$payloadtmp")) File.Delete("$payloadtmp");
                 File.Copy(payloadFile[payloadMode], "$payloadtmp");
             }
 
             dbgmsg("Importing spoofed file...");
-            if (File.Exists("$spooftmp")) {
-                File.Delete("$spooftmp");
-            }
+            if (File.Exists("$spooftmp")) File.Delete("$spooftmp");
             File.Copy(ofdSpoof.FileName, "$spooftmp");
 
             dbgmsg("Writing sections...");
@@ -443,9 +439,7 @@ namespace masamangalternatibo {
 
             if (payloadMode == 2) {
                 dbgmsg("Creating Payload placeholder...");
-                if (File.Exists("$payloadtmp")) {
-                    File.Delete("$payloadtmp");
-                }
+                if (File.Exists("$payloadtmp")) File.Delete("$payloadtmp");
                 File.Create("$payloadtmp").Close();
             }
 
