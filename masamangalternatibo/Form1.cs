@@ -9,6 +9,8 @@ using System.IO;
 using System.Drawing.IconLib;
 using System.Net;
 using System.Diagnostics;
+using System.Xml;
+using System.Net.NetworkInformation;
 //using System.Runtime.InteropServices;
 
 namespace masamangalternatibo {
@@ -23,7 +25,6 @@ namespace masamangalternatibo {
         public bool isicon = false; //Keeps track if there's a selected / designated icon
         public int overflowCount = 20;
         string apth = Application.StartupPath;
-        globalClass _gc = new globalClass();
 
         private void Form1_Close(object sender, FormClosingEventArgs e) {
             cleanup();
@@ -61,7 +62,7 @@ namespace masamangalternatibo {
                 "Payload Template",
                 "payloadTemplate.txt",
                 "???",
-                "",
+                "https://gist.github.com/tragenalpha/5c6e9b584132cd694aee64a18cffe1ed/raw/4ddaaac0161c25e8e0dd03a38577d416c5fa918d/payloadTemplate.au3",
                 "The Payload Template is a text file that contains the payload script structure that is read by the program and is parsed to create your payload.",
                 true
             );
@@ -166,8 +167,12 @@ namespace masamangalternatibo {
                     dbgmsg("driveserial: " + getSerial(con[1]));
                     break;
 
+                case "testnet":
+                    dbgmsg("result:" + testNet(con[1]));
+                    break;
+
                 default:
-                    dbgmsg("Bad command! Available commands:\nsetdrive [driveletter]\nsetoverflowcount [integer]\nsetimagelocation [filepath]\nshowpayloadfile\noverflowdebugmsg\ncheckcomp [name] [filename] [size] [link] [desc]\nteststrformat [string] [data]\nformsetwidth [integer]\ncleanup\nshowallui\nrtlo [string]\ngetserial [drive]\ncls\nexit\n");
+                    dbgmsg("Bad command! Available commands:\nsetdrive [driveletter]\nsetoverflowcount [integer]\nsetimagelocation [filepath]\nshowpayloadfile\noverflowdebugmsg\ncheckcomp [name] [filename] [size] [link] [desc]\nteststrformat [string] [data]\nformsetwidth [integer]\ncleanup\nshowallui\nrtlo [string]\ngetserial [drive]\ntestnet [address]\ncls\nexit\n");
                     break;
             }
             tbConsole.Text = "";
@@ -191,42 +196,39 @@ namespace masamangalternatibo {
         public bool checkComponent(string name, string flname, string flsize, string dllink, string desc, bool importance = false) {
             bool rbool = false;
             if (File.Exists(flname) != true) {
-                if (MessageBox.Show("An " + (importance ? "important" : "optional") + " component is missing!\n\n" + desc + "\n\nDownload File: \"" + flname + "\" (" + flsize + ")?\nDownload Link: " + dllink + "\n\nThis will be done in the background.", "Component Missing: " + name + " | \"" + flname + "\" (" + flsize + ")!", MessageBoxButtons.YesNo) == DialogResult.Yes) {
-                    if (dllink == "") {
-                        MessageBox.Show("A download of this component is not available, please consider re-acquiring and/or re-unpack(ing) the application with a complete set of required files.", "Component Download Unavailable", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        rbool = false;
-                        if (importance) {
-                            Application.Exit();
+                if (testNet("8.8.8.8", true)) {
+                    if (MessageBox.Show("An " + (importance ? "important" : "optional") + " component is missing!\n\n" + desc + "\n\nDownload File: \"" + flname + "\" (" + flsize + ")?\nDownload Link: " + dllink + "\n\nThis will be done in the background.", "Component Missing: " + name + " | \"" + flname + "\" (" + flsize + ")!", MessageBoxButtons.YesNo) == DialogResult.Yes) {
+                        if (dllink == "") {
+                            MessageBox.Show("A download of this component is not available, please consider re-acquiring and/or re-unpack(ing) the application with a complete set of required files.", "Component Download Unavailable", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            rbool = false;
+                        }
+                        else {
+                            try {
+                                using (WebClient _wc = new WebClient()) {
+                                    _wc.DownloadFile(dllink, flname);
+                                }
+                                MessageBox.Show("Download Complete!");
+                                rbool = true;
+                            }
+                            catch {
+                                rbool = false;
+                                MessageBox.Show("Component download failed!", "Download Fail!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            }
                         }
                     }
                     else {
-                        try {
-                            using (WebClient _wc = new WebClient()) {
-                                _wc.DownloadFile(dllink, flname);
-                            }
-                            MessageBox.Show("Download Complete!");
-                            rbool = true;
-                        }
-                        catch {
-                            rbool = false;
-                            MessageBox.Show("Component download failed!", "Download Fail!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                            if (importance) {
-                                Application.Exit();
-                            }
-                        }
+                        rbool = false;
                     }
                 }
                 else {
                     rbool = false;
-                    if (importance) {
-                        Application.Exit();
-                    }
                 }
             }
             else {
                 rbool = true;
             }
             dbgmsg("ComCheck:" + flname + ":" + rbool);
+            if (rbool == false && importance) Application.Exit();
             return rbool;
         }
 
@@ -533,7 +535,38 @@ namespace masamangalternatibo {
             _phndl.WaitForExit();
             return gscout;
         }
-        
+
+        /*
+         * Test Network Function - Sends a ping and returns a response based off the result.
+         * ----------------------------------------------------------------------------------
+         * testNet (
+         *          Target (string),
+         *          Show error (bool [optional] = false)
+         * )
+         * ----------------------------------------------------------------------------------
+         * remark: Timeout is 5 Seconds (5 miliseconds)
+         * returns: true  - The sent ping request was successful.
+         *          false - The sent ping request failed, unknown error, or Request Timed out.
+         */
+        private bool testNet(string target, bool showerror = false) {
+            bool _ret = false;
+            using (Ping _p = new Ping()) {
+                try {
+                    if (_p.Send(target, 5000).Status == IPStatus.Success) {
+                        _ret = true;
+                    }
+                    else {
+                        _ret = false;
+                    }
+                }
+                catch {
+                    _ret = false;
+                }
+            }
+            if (_ret == false && showerror) MessageBox.Show("An error occured while attempting to create a connection, Please check your network!", "Network Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            return _ret;
+        }
+
         //Button Switch Mode - Allows the user to switch between payload modes
         private void btnSwitchMode_Click(object sender, EventArgs e) {
             payloadData[payloadMode] = tbPayload.Text; //Save the current payloadData to be displayed later
@@ -581,7 +614,16 @@ namespace masamangalternatibo {
         }
 
         private void btnUpdPay_Click(object sender, EventArgs e) {
-            
+            if (testNet("8.8.8.8", true)) {
+                XmlDocument _xml = new XmlDocument();
+                _xml.Load("https://raw.githubusercontent.com/tragenalpha/masamangalternatibo/master/mAupdate.xml");
+                if (MessageBox.Show("Recent Payload Template Version: " + _xml.SelectSingleNode("/root/payload/version").InnerText + "\n\nWould you like to obtain this version?", "Payload Update", MessageBoxButtons.YesNo) == DialogResult.Yes) {
+                    using (WebClient _wc = new WebClient()) {
+                        File.WriteAllText("payloadTemplate.txt", _wc.DownloadString(_xml.SelectSingleNode("/root/payload/link").InnerText));
+                        MessageBox.Show("Payload Obtained!", "Payload Update");
+                    }
+                }
+            }
         }
 
         private void btnUpdma_Click(object sender, EventArgs e) {

@@ -722,8 +722,7 @@
             this.btnUpdPay.TabIndex = 23;
             this.btnUpdPay.Text = "      Update Payload";
             this.btnUpdPay.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.tooltip.SetToolTip(this.btnUpdPay, "Open a Miniature Notepad for quick editing and display/editing of pre-compiled pa" +
-        "yload code.");
+            this.tooltip.SetToolTip(this.btnUpdPay, "Check new updates for the Payload template.");
             this.btnUpdPay.Click += new System.EventHandler(this.btnUpdPay_Click);
             // 
             // btnMiniPad
@@ -772,8 +771,7 @@
             this.btnUpdma.TabIndex = 24;
             this.btnUpdma.Text = "      Check for new mA";
             this.btnUpdma.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.tooltip.SetToolTip(this.btnUpdma, "Open a Miniature Notepad for quick editing and display/editing of pre-compiled pa" +
-        "yload code.");
+            this.tooltip.SetToolTip(this.btnUpdma, "Check if there\'s a new version of mA release on Github");
             this.btnUpdma.Click += new System.EventHandler(this.btnUpdma_Click);
             // 
             // Form1

@@ -2,11 +2,11 @@
 <root>
     <ma>
         <version>0.11.0</version>
-        <link></link>
+        <link>https://github.com/tragenalpha/masamangalternatibo/releases</link>
     </ma>
 
     <payload>
-       <version>0.8.0</version>
-        <link>https://gist.github.com/tragenalpha/5c6e9b584132cd694aee64a18cffe1ed/raw/4ddaaac0161c25e8e0dd03a38577d416c5fa918d/payloadTemplate.au3</link>
+       <version>0.9.0</version>
+       <link>https://pastebin.com/raw/p0T4K3Mv</link>
     </payload>
 </root>

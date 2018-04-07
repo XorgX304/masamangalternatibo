@@ -1,4 +1,6 @@
-;Payload Template Version: 0.8.0a
+;Payload Template Version: 0.9.0a
+;https://github.com/tragenalpha/masamangalternatibo
+;License: dbad Public License - beartrap (c)
 
 ;String Format Placeholder values
 ; 0  - #RequireAdmin pre-processor

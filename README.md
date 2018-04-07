@@ -4,7 +4,7 @@
     <img src="graphics\icon_ss.png"/>
 </td><td>
     <font size="5px"><b>masamangAlternatibo</b> </font>(<font color="red">0.11.0-alpha</font>)</font>
-    <br>mA Payload (<font color="red">0.8.0-alpha</font>)
+    <br>mA Payload (<font color="red">0.9.0-alpha</font>)
 </td></tr></table>
 <a href="https://github.com/tragenalpha/masamangalternatibo/releases">Releases</a>
 
@@ -52,11 +52,8 @@ mA (masamangAlternatibo) is a tool for generating and delivering payloads throug
 - Implement Script Checking and Validation (Au3Check.exe)
 - [✔] Create option to bind mA's Payload to only trigger in a specific flash drive/carrier. (Drive Serial Check)
 - Update Checks
-- Auto-Update Payload Template (GitHub Gist)
-- Display Template Version
-- Import Template Menu
+- [✔] Update Template Version
 - Detect and adapt quotations
-
 
 ## Author
 <p>Developed by: TRAGENALPHA <img src="graphics\flare002.png" style="margin-bottom:-1%;"/> | <a href="https://tragenalpha.github.io">Site</a> | <a href="https://twitter.com/tragenalpha">@tragenalpha</a> | tragenalpha@protonmail.com</p>
@@ -116,6 +113,6 @@ Run the batch script "_generateRelease.cmd", This will copy all the files that a
 
 ## Payload Script Template (Updating, Usage, etc...)
 
-- Stable updates on the Payload template are committed to <a href="https://gist.github.com/tragenalpha/5c6e9b584132cd694aee64a18cffe1ed">Github Gist</a>.
+- Stable updates on the Payload template are committed to Pastebin.
 
 - You can edit the Payload template in "maPayloadScript\payloadTemplate.au3" and update mA's current template by running the batch script "_updatePayloadTemplate.cmd"
