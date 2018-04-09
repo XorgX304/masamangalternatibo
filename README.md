@@ -1,4 +1,4 @@
-<!-- READ ME v1.6.1 -->
+<!-- READ ME v1.6.2 -->
 # masamangAlternatibo - Flash Drive Payload Generator Tool
 <table><tr><td>
     <img src="graphics\icon_ss.png"/>
@@ -42,10 +42,9 @@ mA (masamangAlternatibo) is a tool for generating and delivering payloads throug
 <br><b>Update Log:</b>
 - finished version check
 - finished payload syntax checking
-- read me v1.6.1
+- read me v1.6.2
 - fixed documentation
 - added pre-compile check for existing payload
-- minipad no longer closes on cancel build
 - argument supply for dll check
 - removed array handler for the script parser
 - fixed shell command being blank when changing modes
