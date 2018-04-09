@@ -7,9 +7,11 @@ md %rldr%
 
 echo Copying Files...
 copy masamangalternatibo\bin\Debug\IconLib.dll, %rldr%\IconLib.dll
-copy Aut2Exe\compiler.exe, %rldr%\compiler.exe
 copy upx\upx.exe, %rldr%\upx.exe
+copy Aut2Exe\compiler.exe, %rldr%\compiler.exe
 copy Aut2Exe\License.txt, %rldr%\_AutoIt_License.txt
+copy Aut2Exe\Au3Check.dat, %rldr%\Au3Check.dat
+copy Aut2Exe\Au3Check.exe, %rldr%\Au3Check.exe
 copy masamangalternatibo\bin\Debug\masamangalternatibo.exe, %rldr%\mA.exe
 copy license.txt, %rldr%\_mA_license.txt
 copy maPayloadScript\payloadTemplate.au3, %rldr%\payloadTemplate.txt

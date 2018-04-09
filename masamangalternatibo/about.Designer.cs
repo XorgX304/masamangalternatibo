@@ -253,7 +253,7 @@
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(271, 40);
             this.label4.TabIndex = 37;
-            this.label4.Text = "Script Compiler -\r\nJonathan Bennett and the AutoIt Team";
+            this.label4.Text = "AutoIt -\r\nJonathan Bennett and the AutoIt Team";
             // 
             // linkLabel5
             // 

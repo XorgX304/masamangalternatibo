@@ -10,7 +10,7 @@ namespace masamangalternatibo {
 
         public string script, drive;
         public int overflowCount, spoofMode;
-        public bool isicon;
+        public bool isicon, upx;
 
         public buildPayload() {
             InitializeComponent();
@@ -30,15 +30,37 @@ namespace masamangalternatibo {
                     _sw.WriteLine(script);
                     _sw.Close();
                 }
+
+                //Script Syntax Checking
+                ProcessStartInfo _sc = new ProcessStartInfo("Au3Check.exe", "$carrier.au3");
+                _sc.WindowStyle = ProcessWindowStyle.Hidden;
+                using (Process _spc = Process.Start(_sc)) {
+                    _spc.WaitForExit();
+                    switch (_spc.ExitCode) {
+                        case 0:
+                            break;
+                        case 1:
+                            if (MessageBox.Show("Script contains warning(s), would you like to continue compiling?", "Warning!", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.No) {
+                                return;
+                            }
+                            break;
+                        case 2:
+                        case 3:
+                            MessageBox.Show("Script contains error or Script check failed!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            return;
+                    }
+                }
+
+                //Compile the Script
                 using (Form1 _f1 = new Form1()) {
-                    ProcessStartInfo _compilepsi = new ProcessStartInfo("compiler.exe", @"/in ""$carrier.au3"" /out ""$carrier.exe"" /comp 4 " + (rb32bit.Checked ? "/x86 " : "/x64 ") + (_f1.excomp[1] ? @"/pack " : "/nopack") + (isicon ? @"/icon ""$tmp.ico""" : ""));
+                    ProcessStartInfo _compilepsi = new ProcessStartInfo("compiler.exe", @"/in ""$carrier.au3"" /out ""$carrier.exe"" /comp 4 " + (rb32bit.Checked ? "/x86 " : "/x64 ") + (upx ? @"/pack " : "/nopack ") + (isicon ? @"/icon ""$tmp.ico""" : ""));
                     _compilepsi.WindowStyle = ProcessWindowStyle.Hidden;
                     Process _cpsihndl = Process.Start(_compilepsi);
                     _cpsihndl.WaitForExit();
                     if (File.Exists("$carrier.exe")) {
                         File.Move("$carrier.exe", flnmexport);
                         if (MessageBox.Show("Payload Created!\n\nExport: " + flnmexport + "\n\nOpen payload directory?", "Build Finished", MessageBoxButtons.YesNo) == DialogResult.Yes) {
-                                Process.Start(drive);
+                            Process.Start(drive);
                         }
                         this.Close();
                     }

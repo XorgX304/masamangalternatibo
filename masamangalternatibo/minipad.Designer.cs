@@ -48,12 +48,12 @@
             this.btnCompileScript.AutoSize = true;
             this.btnCompileScript.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline;
             this.btnCompileScript.LinkColor = System.Drawing.Color.White;
-            this.btnCompileScript.Location = new System.Drawing.Point(413, 270);
+            this.btnCompileScript.Location = new System.Drawing.Point(387, 270);
             this.btnCompileScript.Name = "btnCompileScript";
-            this.btnCompileScript.Size = new System.Drawing.Size(91, 13);
+            this.btnCompileScript.Size = new System.Drawing.Size(118, 13);
             this.btnCompileScript.TabIndex = 1;
             this.btnCompileScript.TabStop = true;
-            this.btnCompileScript.Text = "[Continue Build]";
+            this.btnCompileScript.Text = "[Save Modified Script]";
             this.btnCompileScript.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.btnCompileScript_LinkClicked);
             // 
             // minipad

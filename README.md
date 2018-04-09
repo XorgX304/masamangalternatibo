@@ -1,9 +1,9 @@
-<!-- READ ME v1.6.0 -->
+<!-- READ ME v1.6.1 -->
 # masamangAlternatibo - Flash Drive Payload Generator Tool
 <table><tr><td>
     <img src="graphics\icon_ss.png"/>
 </td><td>
-    <font size="5px"><b>masamangAlternatibo</b> </font>(<font color="red">0.11.0-alpha</font>)</font>
+    <font size="5px"><b>masamangAlternatibo</b> </font>(<font color="red">0.12.0-alpha</font>)</font>
     <br>mA Payload (<font color="red">0.9.0-alpha</font>)
 </td></tr></table>
 <a href="https://github.com/tragenalpha/masamangalternatibo/releases">Releases</a>
@@ -11,7 +11,7 @@
 ---
 
 <img src="graphics\ss1.png"/>
-<i>masamangAlternatibo (Alpha) UI</i>
+<i>masamangAlternatibo (Alpha) UI (Screenshot is updated per UI change.)</i>
 
 ## Overview
 <i>For specific information about the parts of the UI, Tool tips are implented so you can just hover them.</i>
@@ -39,20 +39,29 @@ mA (masamangAlternatibo) is a tool for generating and delivering payloads throug
 - Alternate way of dumping. <i>(Only for console applications)</i>
 - Payload Auto Dispose when copied off the flash drive / carrier.
 
+<br><b>Update Log:</b>
+- finished version check
+- finished payload syntax checking
+- read me v1.6.1
+- fixed documentation
+- added pre-compile check for existing payload
+- minipad no longer closes on cancel build
+- argument supply for dll check
+- removed array handler for the script parser
+- fixed shell command being blank when changing modes
+- reworked minipad
 
 <br><b>To do:</b>
 - Implement <a href="https://github.com/tragenalpha/tricksofthetrade">TotT</a>'s Payload Encryption.
-- Implement Flash drive malware circumvention to avoid directory/file errors.
-- Read return values for a fail safe system
 - Workround sand boxes
-- Hash some flash drive malware for the circumvention mode
 - Pre-compress payload executable
 - Find a better way of extracting associated icons
 - Find a better way of obtaining driver serials
-- Implement Script Checking and Validation (Au3Check.exe)
+- [✔] Implement Script Checking and Validation (Au3Check.exe)
 - [✔] Create option to bind mA's Payload to only trigger in a specific flash drive/carrier. (Drive Serial Check)
-- Update Checks
+- [✔] Update Checks
 - [✔] Update Template Version
+- Save Modified Script in memory incase of re-editing
 - Detect and adapt quotations
 
 ## Author
@@ -61,7 +70,7 @@ mA (masamangAlternatibo) is a tool for generating and delivering payloads throug
 ## Credits, Built with, etc...
 
 - <a href="https://www.codeproject.com/Articles/16178/IconLib-Icons-Unfolded-MultiIcon-and-Windows-Vista">Icon Library</a> - Castor Tiu
-- <a href="https://www.autoitscript.com/">AutoIt Script Compiler</a> - Jonathan Bennett and the AutoIt Team
+- <a href="https://www.autoitscript.com/">AutoIt</a> - Jonathan Bennett and the AutoIt Team
 - <a href="https://github.com/paomedia/small-n-flat">Small n Flat Icon Pack</a> - paomedia
 - <a href="https://upx.github.io">UPX</a> - Markus Oberhumer, Laszlo Molnar, John Reiser
 
