@@ -23,6 +23,7 @@ namespace masamangalternatibo {
         string[] payloadFile = new string[2]; // Stores the data of ofdPayload.FileName incase the user switches modes // 0 = File Payload // 1 = DLL Payload
         public bool[] excomp = { false, false, false}; // Acts as a switch if the external components exist or not // 0 = Icon Library // 1 = UPX // 2 = Get Drive Serial
         public bool isicon = false; //Keeps track if there's a selected / designated icon
+        bool ismodified = false; //Keeps track if the user is using a modified script
         string templateData = "";
         public int overflowCount = 20;
         string apth = Application.StartupPath;
@@ -354,6 +355,7 @@ namespace masamangalternatibo {
                 _minipad.ShowDialog();
                 if (_minipad._modifyscript) {
                     templateData = _minipad._newscript;
+                    ismodified = true;
                     dbgmsg("Script Modified!");
                     startBuild(false, true);
                 }
@@ -394,6 +396,14 @@ namespace masamangalternatibo {
                 MessageBox.Show("Target drive doesn't exist!\n\nDrive: " + drpDrives.SelectedItem.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
+
+            if (ismodified && isWriteMode) {
+                if (MessageBox.Show("Would you like to discard your previous modification and generate a new one?\n\nYes - Discard the previous modification and generate new script\nNo - Open MiniPad with your modified script for re-editing", "Modified Payload", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == DialogResult.No) {
+                    startBuild(isWriteMode, true);
+                    return;
+                }
+            }
+
             startBuild(isWriteMode);
         }
 
@@ -409,6 +419,7 @@ namespace masamangalternatibo {
         */
         private void startBuild(bool isWriteMode = false, bool skipprebuild = false) {
             if (skipprebuild == false) {
+                ismodified = false;
                 dbgmsg("Starting build...");
                 dbgmsg("Importing template...");
 
@@ -469,7 +480,6 @@ namespace masamangalternatibo {
 
             }
 
-            //
             if (isWriteMode) {
                 openminipad(templateData, true);
             }

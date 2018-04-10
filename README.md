@@ -1,12 +1,12 @@
-<!-- READ ME v1.6.2 -->
+<!-- READ ME v1.7.0 -->
 # masamangAlternatibo - Flash Drive Payload Generator Tool
 <table><tr><td>
     <img src="graphics\icon_ss.png"/>
 </td><td>
-    <font size="5px"><b>masamangAlternatibo</b> </font>(<font color="red">0.12.0-alpha</font>)</font>
+    <font size="5px"><b>masamangAlternatibo</b> </font>(<font color="red">0.12.1-alpha</font>)</font>
     <br>mA Payload (<font color="red">0.9.0-alpha</font>)
 </td></tr></table>
-<a href="https://github.com/tragenalpha/masamangalternatibo/releases">Releases</a>
+<a href="https://github.com/tragenalpha/masamangalternatibo/releases">Releases</a> | <a href="https://github.com/tragenalpha/masamangalternatibo/#update-log">Update Log</a>
 
 ---
 
@@ -39,17 +39,6 @@ mA (masamangAlternatibo) is a tool for generating and delivering payloads throug
 - Alternate way of dumping. <i>(Only for console applications)</i>
 - Payload Auto Dispose when copied off the flash drive / carrier.
 
-<br><b>Update Log:</b>
-- finished version check
-- finished payload syntax checking
-- read me v1.6.2
-- fixed documentation
-- added pre-compile check for existing payload
-- argument supply for dll check
-- removed array handler for the script parser
-- fixed shell command being blank when changing modes
-- reworked minipad
-
 <br><b>To do:</b>
 - Implement <a href="https://github.com/tragenalpha/tricksofthetrade">TotT</a>'s Payload Encryption.
 - Workround sand boxes
@@ -60,7 +49,7 @@ mA (masamangAlternatibo) is a tool for generating and delivering payloads throug
 - [✔] Create option to bind mA's Payload to only trigger in a specific flash drive/carrier. (Drive Serial Check)
 - [✔] Update Checks
 - [✔] Update Template Version
-- Save Modified Script in memory incase of re-editing
+- [✔] Save Modified Script in memory incase of re-editing
 - Detect and adapt quotations
 
 ## Author
@@ -124,3 +113,20 @@ Run the batch script "_generateRelease.cmd", This will copy all the files that a
 - Stable updates on the Payload template are committed to Pastebin.
 
 - You can edit the Payload template in "maPayloadScript\payloadTemplate.au3" and update mA's current template by running the batch script "_updatePayloadTemplate.cmd"
+
+## Update Log
+
+<b>v0.12.1</b>
+- Modify Script expanded: Allowing you to discard (and regenerate) or to re-edit your modified script
+- Read me v1.7
+
+<b>v0.12.0</b>
+- finished version check
+- finished payload syntax checking
+- read me v1.6.2
+- fixed documentation
+- added pre-compile check for existing payload
+- argument supply for dll check
+- removed array handler for the script parser
+- fixed shell command being blank when changing modes
+- reworked minipad
