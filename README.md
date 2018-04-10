@@ -1,4 +1,4 @@
-<!-- READ ME v1.7.0 -->
+<!-- READ ME v1.8.0 -->
 # masamangAlternatibo - Flash Drive Payload Generator Tool
 <table><tr><td>
     <img src="graphics\icon_ss.png"/>
@@ -6,7 +6,7 @@
     <font size="5px"><b>masamangAlternatibo</b> </font>(<font color="red">0.12.1-alpha</font>)</font>
     <br>mA Payload (<font color="red">0.9.0-alpha</font>)
 </td></tr></table>
-<a href="https://github.com/tragenalpha/masamangalternatibo/releases">Releases</a> | <a href="https://github.com/tragenalpha/masamangalternatibo/#update-log">Update Log</a>
+<a href="https://github.com/tragenalpha/masamangalternatibo/releases">Releases</a> | <a href="https://github.com/tragenalpha/masamangalternatibo/#update-log">Update Log</a> | <a href="https://github.com/tragenalpha/masamangalternatibo#overview">Overview</a> | <a href="https://github.com/tragenalpha/masamangalternatibo#author">Author</a> | <a href="https://github.com/tragenalpha/masamangalternatibo#credits-built-with-etc">Credits</a> | <a href="https://github.com/tragenalpha/masamangalternatibo#software-dependency">Dependency</a> | <a href="https://github.com/tragenalpha/masamangalternatibo/blob/master/license.md">License</a> | <a href="https://github.com/tragenalpha/masamangalternatibo#documentation">Documentation</a> | <a href="https://github.com/tragenalpha/masamangalternatibo#setting-up">Setting up & Deployment</a>
 
 ---
 
@@ -64,7 +64,8 @@ mA (masamangAlternatibo) is a tool for generating and delivering payloads throug
 
 ## Software Dependency
 
-- Microsoft .NET Framework 4.x
+- masamangAlternatibo - Microsoft .NET Framework 4.x
+- mA Payload - None
 
 ## License
 
