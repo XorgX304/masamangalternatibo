@@ -117,6 +117,10 @@ Run the batch script "_generateRelease.cmd", This will copy all the files that a
 
 ## Update Log
 
+<b>v0.12.2</b>
+- Implemented a 10s Timeout handler for the compiler (WaitForExit) to terminateor wait for the compiler incase of unresponsiveness
+- "File name already used" error shows the complete file path of the used name
+
 <b>v0.12.1</b>
 - Modify Script expanded: Allowing you to discard (and regenerate) or to re-edit your modified script
 - Read me v1.7

