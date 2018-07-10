@@ -34,7 +34,6 @@ Global $drive = StringLeft(@ScriptDir, 3)
 Global $spoofarguments = "", $payloadtarget, $spooftarget
 
 ;Initialization
-
 If $Cmdline[0] > 0 Then
     for $i = 1 to $Cmdline[0]
         $spoofarguments &= " " & $Cmdline[$i]
