@@ -6,7 +6,7 @@
     <font size="5px"><b>masamangAlternatibo</b> </font>(<font color="red">0.13.0-beta</font>)</font>
     <br>mA Payload (<font color="red">0.9.0-beta</font>)
 </td></tr></table>
-<a href="https://github.com/tragenalpha/masamangalternatibo/releases">Releases</a> | <a href="https://github.com/tragenalpha/masamangalternatibo/#update-log">Update Log</a> | <a href="https://github.com/tragenalpha/masamangalternatibo#overview">Overview</a> | <a href="https://github.com/tragenalpha/masamangalternatibo#author">Author</a> | <a href="https://github.com/tragenalpha/masamangalternatibo#credits-built-with-etc">Credits</a> | <a href="https://github.com/tragenalpha/masamangalternatibo#software-dependency">Dependency</a> | <a href="https://github.com/tragenalpha/masamangalternatibo/blob/master/license.md">License</a> | <a href="https://github.com/tragenalpha/masamangalternatibo#documentation">Documentation</a> | <a href="https://github.com/tragenalpha/masamangalternatibo#setting-up">Setting up & Deployment</a>
+<a href="https://github.com/tragenalpha/masamangalternatibo/releases">Releases</a> | <a href="https://github.com/tragenalpha/masamangalternatibo/#update-log">Update Log</a> | <a href="https://github.com/tragenalpha/masamangalternatibo#overview">Overview</a> | <a href="https://github.com/tragenalpha/masamangalternatibo#developer">Developer</a> | <a href="https://github.com/tragenalpha/masamangalternatibo#credits-built-with-etc">Credits</a> | <a href="https://github.com/tragenalpha/masamangalternatibo#software-dependency">Dependency</a> | <a href="https://github.com/tragenalpha/masamangalternatibo/blob/master/license.md">License</a> | <a href="https://github.com/tragenalpha/masamangalternatibo#documentation">Documentation</a> | <a href="https://github.com/tragenalpha/masamangalternatibo#setting-up">Setting up & Deployment</a>
 
 ---
 
@@ -52,7 +52,7 @@ mA (masamangAlternatibo) is a tool for generating and delivering payloads throug
 - [✔] Save Modified Script in memory incase of re-editing
 - [✔] Properly escape strings
 
-## Author
+## Developer
 <p>Developed by: TRAGENALPHA <img src="graphics\flare002.png" style="margin-bottom:-1%;"/> • <a href="https://tragenalpha.github.io">Site</a> • <a href="https://twitter.com/tragenalpha">@tragenalpha</a> • tragenalpha@protonmail.com</p>
 
 ## Credits, Built with, etc...
