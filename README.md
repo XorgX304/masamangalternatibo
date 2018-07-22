@@ -120,7 +120,7 @@ Run the batch script "_generateRelease.cmd", This will copy all the files that a
 <b>v0.13.0</b>
 - Moved to Beta
 - Quotations are now properly escaped in the script
-- Changed license from dbad to GNU GPU v3
+- Changed license from dbad to GNU GPL v3
 
 <b>v0.12.2</b>
 - Implemented a 10s Timeout handler for the compiler (WaitForExit) to terminate or wait for the compiler incase of unresponsiveness
