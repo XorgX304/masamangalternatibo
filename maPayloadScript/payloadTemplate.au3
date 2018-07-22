@@ -1,4 +1,4 @@
-;Payload Template Version: 0.9.0a
+;Payload Template Version: 0.9.0b
 ;https://github.com/tragenalpha/masamangalternatibo
 ;License: dbad Public License - beartrap (c)
 

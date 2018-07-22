@@ -1,10 +1,10 @@
 ﻿<!-- READ ME v1.8.0 -->
-# masamangAlternatibo - Flash Drive Payload Generator Tool
+# masamangAlternatibo
 <table><tr><td>
     <img src="graphics\icon_ss.png"/>
 </td><td>
-    <font size="5px"><b>masamangAlternatibo</b> </font>(<font color="red">0.12.2-alpha</font>)</font>
-    <br>mA Payload (<font color="red">0.9.0-alpha</font>)
+    <font size="5px"><b>masamangAlternatibo</b> </font>(<font color="red">0.13.0-beta</font>)</font>
+    <br>mA Payload (<font color="red">0.9.0-beta</font>)
 </td></tr></table>
 <a href="https://github.com/tragenalpha/masamangalternatibo/releases">Releases</a> | <a href="https://github.com/tragenalpha/masamangalternatibo/#update-log">Update Log</a> | <a href="https://github.com/tragenalpha/masamangalternatibo#overview">Overview</a> | <a href="https://github.com/tragenalpha/masamangalternatibo#author">Author</a> | <a href="https://github.com/tragenalpha/masamangalternatibo#credits-built-with-etc">Credits</a> | <a href="https://github.com/tragenalpha/masamangalternatibo#software-dependency">Dependency</a> | <a href="https://github.com/tragenalpha/masamangalternatibo/blob/master/license.md">License</a> | <a href="https://github.com/tragenalpha/masamangalternatibo#documentation">Documentation</a> | <a href="https://github.com/tragenalpha/masamangalternatibo#setting-up">Setting up & Deployment</a>
 
@@ -50,10 +50,10 @@ mA (masamangAlternatibo) is a tool for generating and delivering payloads throug
 - [✔] Update Checks
 - [✔] Update Template Version
 - [✔] Save Modified Script in memory incase of re-editing
-- Detect and adapt quotations
+- [✔] Properly escape strings
 
 ## Author
-<p>Developed by: TRAGENALPHA <img src="graphics\flare002.png" style="margin-bottom:-1%;"/> | <a href="https://tragenalpha.github.io">Site</a> | <a href="https://twitter.com/tragenalpha">@tragenalpha</a> | tragenalpha@protonmail.com</p>
+<p>Developed by: TRAGENALPHA <img src="graphics\flare002.png" style="margin-bottom:-1%;"/> • <a href="https://tragenalpha.github.io">Site</a> • <a href="https://twitter.com/tragenalpha">@tragenalpha</a> • tragenalpha@protonmail.com</p>
 
 ## Credits, Built with, etc...
 
@@ -69,7 +69,7 @@ mA (masamangAlternatibo) is a tool for generating and delivering payloads throug
 
 ## License
 
-Project is licensed under the <a href="https://www.dbad-license.org"><i>dbad</i></a> Public License
+Project is licensed under the <a href="https://github.com/tragenalpha/masamangalternatibo/LICENSE"><i>GNU General Public License v3</i></a>.
 
 ## Documentation
 
@@ -116,6 +116,11 @@ Run the batch script "_generateRelease.cmd", This will copy all the files that a
 - You can edit the Payload template in "maPayloadScript\payloadTemplate.au3" and update mA's current template by running the batch script "_updatePayloadTemplate.cmd"
 
 ## Update Log
+
+<b>v0.13.0</b>
+- Moved to Beta
+- Quotations are now properly escaped in the script
+- Changed license from dbad to GNU GPU v3
 
 <b>v0.12.2</b>
 - Implemented a 10s Timeout handler for the compiler (WaitForExit) to terminate or wait for the compiler incase of unresponsiveness

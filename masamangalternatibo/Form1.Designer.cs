@@ -493,7 +493,7 @@
             this.groupBox6.Size = new System.Drawing.Size(310, 35);
             this.groupBox6.TabIndex = 20;
             this.groupBox6.TabStop = false;
-            this.groupBox6.Text = " ";
+            this.groupBox6.Text = " File Name Spoofing";
             // 
             // radRTLO
             // 

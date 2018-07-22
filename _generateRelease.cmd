@@ -13,7 +13,7 @@ copy Aut2Exe\License.txt, %rldr%\_AutoIt_License.txt
 copy Aut2Exe\Au3Check.dat, %rldr%\Au3Check.dat
 copy Aut2Exe\Au3Check.exe, %rldr%\Au3Check.exe
 copy masamangalternatibo\bin\Debug\masamangalternatibo.exe, %rldr%\mA.exe
-copy license.txt, %rldr%\_mA_license.txt
+copy LICENSE, %rldr%\_mA_license.txt
 copy maPayloadScript\payloadTemplate.au3, %rldr%\payloadTemplate.txt
 copy getDriveSerial\getDriveSerial.exe, %rldr%\getDriveSerial.exe
 pause

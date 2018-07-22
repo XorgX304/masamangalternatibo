@@ -26,7 +26,7 @@ namespace masamangalternatibo {
         }
 
         private void linkLabel2_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e) {
-            Process.Start("https://www.dbad-license.org/");
+            Process.Start("https://www.gnu.org/licenses/gpl-3.0.en.html");
         }
 
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e) {

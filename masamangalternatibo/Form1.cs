@@ -435,6 +435,11 @@ namespace masamangalternatibo {
                 if (File.Exists("$spooftmp")) File.Delete("$spooftmp");
                 File.Copy(ofdSpoof.FileName, "$spooftmp");
 
+                //Properly escape the strings at write (Implemented in v0.13.0a)
+                if (chkArguments.Checked && chkArguments.Text != "") {
+                    chkArguments.Text.Replace("\"", "\"\"");
+                }
+
                 /*
                  * scriptData Array String Variable - Stores the temporary data to be written in the script through String.Format
                  * ---------------------------------------------------------------------------------------------------------------

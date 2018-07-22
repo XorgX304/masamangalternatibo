@@ -326,10 +326,10 @@
             this.linkLabel2.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(2)))), ((int)(((byte)(187)))), ((int)(((byte)(255)))));
             this.linkLabel2.Location = new System.Drawing.Point(12, 251);
             this.linkLabel2.Name = "linkLabel2";
-            this.linkLabel2.Size = new System.Drawing.Size(190, 17);
+            this.linkLabel2.Size = new System.Drawing.Size(279, 17);
             this.linkLabel2.TabIndex = 25;
             this.linkLabel2.TabStop = true;
-            this.linkLabel2.Text = "https://www.dbad-license.org/";
+            this.linkLabel2.Text = "https://www.gnu.org/licenses/gpl-3.0.en.html";
             this.linkLabel2.VisitedLinkColor = System.Drawing.Color.White;
             this.linkLabel2.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel2_LinkClicked);
             // 
@@ -363,10 +363,10 @@
             this.label3.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.Location = new System.Drawing.Point(11, 171);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(380, 120);
+            this.label3.Size = new System.Drawing.Size(329, 120);
             this.label3.TabIndex = 23;
             this.label3.Text = "Developed by: TRAGENALPHA\r\ntragenalpha@protonmail.com//@tragenalpha\r\n\r\nThis softw" +
-    "are is licensed under the dbad Public License\r\n\r\nGithub Sauce: ";
+    "are is licensed under the GNU GPL v3\r\n\r\nGithub Sauce: ";
             // 
             // label6
             // 
